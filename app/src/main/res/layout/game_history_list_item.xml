@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/gameHistoryId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="1dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/inria_serif_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10dp"
+            android:text="time"
+            android:textAllCaps="true"
+            android:textColor="@color/black" />
+
+        <!--<TextView
+            android:id="@+id/gameHistoryTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="1dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/inria_serif_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10dp"
+            android:text="trade id"
+            android:textAllCaps="true"
+            android:textColor="@color/black" />-->
+
+        <TextView
+            android:id="@+id/betGameHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="1dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/inria_serif_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10dp"
+            android:text="bet"
+            android:textAllCaps="true"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/winGameHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="1dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/inria_serif_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10dp"
+            android:text="win"
+            android:textAllCaps="true"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/resultGameHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="1dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/inria_serif_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10dp"
+            android:text="result"
+            android:textAllCaps="true"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                tools:visibility="gone"
+                android:id="@+id/resultImgCont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/selectedGameHistory"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/resultNumTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inria_serif_bold"
+                android:gravity="center"
+                tools:text="1"
+                android:textSize="@dimen/_16sp"
+                android:layout_gravity="center"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey_tp" />
+</LinearLayout>

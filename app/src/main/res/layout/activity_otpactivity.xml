@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/otpParent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:background="@drawable/white_rect"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:visibility="visible">
+
+    <TextView
+        android:id="@+id/otpHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="Enter OTP code"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="We have sent you a 6 digit otp code on"
+        android:textColor="#989494"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/phone2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <com.chaos.view.PinView
+        android:id="@+id/otp"
+        style="@style/PinWidget.PinView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#FFFFFF"
+        android:cursorVisible="true"
+        android:hint="------"
+        android:inputType="number"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:cursorColor="#FFFFFF"
+        app:cursorWidth="2dp"
+        app:hideLineWhenFilled="false"
+        app:itemCount="6"
+        app:itemHeight="48dp"
+        app:itemRadius="4dp"
+        app:itemSpacing="1dp"
+        app:itemWidth="48dp"
+        app:lineColor="@color/purple_200"
+        app:lineWidth="2dp"
+        app:viewType="rectangle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:id="@+id/resendVG"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/resendOTPTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do not receive OTP? "
+            android:textStyle="italic"
+            android:visibility="gone"
+            android:layout_marginEnd="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resendOtp"
+            android:visibility="gone"
+            android:textColor="@color/purple_700"
+            android:textSize="16sp"
+            android:text="Resend OTP."/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/otpTimer"
+            android:visibility="gone"
+            tools:text="30"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="login" />
+
+</LinearLayout>

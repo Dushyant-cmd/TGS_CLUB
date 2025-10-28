@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="abc@UPI"
+        android:id="@+id/tv_upi"
+        android:fontFamily="@font/montserrat_regular"
+        android:padding="8dp"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:layout_centerVertical="true"
+        android:contentDescription="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/copy"
+        android:id="@+id/copy_ic"/>
+</RelativeLayout>

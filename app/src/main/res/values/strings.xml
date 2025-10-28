@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">TGS club</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Rs">\u20B9</string>
+    <string name="tagline">Trade Smart, Withdraw Fast — Your Colors, Your Cash</string>
+    <string name="model_image_desc">Model holding money</string>
+    <string name="logo_image_desc">WZ circular logo</string>
+
+    <string name="my_wallet">My Wallet :</string>lk
+    <string name="wallet_balance_default">₹10,00,000</string>
+    <string name="wallet_name_label">Name : Guest_sharma</string>
+    <string name="wallet_id_label">ID : 1</string>
+    <string name="add_money">ADD MONEY</string>
+    <string name="game_rule">Game Rule</string>
+    <string name="win_go_3min">Win GO&#10;3min</string>  <!-- &#10; means newline -->
+    <string name="win_go_1min">Win GO&#10;1min</string>
+    <string name="winzgo">TGS club</string>
+    <string name="content_desc_coin">Coin icon</string>
+    <string name="content_desc_logo">WinzGO logo</string>
+    <string name="i_agree_to_the_terms_conditions">I agree the <font color="#F80F19">Terms &amp; Conditions</font></string>
+    <string name="game_rules">Game Rules</string>
+    <string name="i_understand_that_my_bank_details_are_encrypted_and_stored_securely_i_authorize_color_trading_to_process_transactions_from_this_account">I understand that my bank details are encrypted and stored <font color="#009F1D">securely</font>. I authorize Color Trading to process transactions from this account.</string>
+</resources>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "428226130682",
+    "project_id": "winzgo",
+    "storage_bucket": "winzgo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428226130682:android:eecd7cf91e35f164edcf43",
+        "android_client_info": {
+          "package_name": "com.example.winzgo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiYRcnrfXFs7UY2w9dGBlRIwp1hnYao6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428226130682:android:2b4ac4e6bfac8b7eedcf43",
+        "android_client_info": {
+          "package_name": "com.example.winzgoadmin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiYRcnrfXFs7UY2w9dGBlRIwp1hnYao6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

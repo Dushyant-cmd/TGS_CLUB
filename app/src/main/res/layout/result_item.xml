@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tradeId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/inria_serif_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10dp"
+            android:text="Trade ID"
+            android:textAllCaps="true"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/numberResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="1dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/inria_serif_bold"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_10dp"
+            android:text="Number"
+            android:textAllCaps="true"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/resultGreen"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/green" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_marginStart="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/halfWin"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/blue" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/view"
+        android:background="@color/light_grey"/>
+</LinearLayout>

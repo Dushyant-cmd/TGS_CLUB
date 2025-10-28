@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="logoColor1">#008037</color>
+    <color name="logoColor2">#E6CC61</color>
+    <color name="resultHeadingColor">#FCEDF3FD</color>
+    <color name="diamondColor">#71CFEC</color>
+    <color name="goldColor">#FF9800</color>
+    <color name="bitcoinColor">#989898</color>
+    <color name="ripple_color">#CCA4FF</color>
+    <color name="blue_color">#00B1FF</color>
+    <color name="actionBarColor">#009ADF</color>
+    <color name="listItemColor">#DF8500</color>
+    <color name="light_violet">#975FDC</color>
+    <color name="pastel_yellow">#F3CE61</color>
+    <color name="pastel_blue">#61C2ED</color>
+    <color name="red">#FF0000</color>
+    <color name="light_grey">#D9D9D9</color>
+    <color name="light_grey_tp">#A6D9D9D9</color>
+    <color name="dark_grey">#737373</color>
+    <color name="light_tint">#08CFD2</color>
+    <color name="dark_blue">#644AF6</color>
+    <color name="blue_new">#516FF7</color>
+    <color name="dark_tint">#38BABC</color>
+    <color name="dark_violet">#7138D3</color>
+    <color name="green">#009F1D</color>
+    <color name="red_num">#F92A2D</color>
+    <color name="light_red">#F47070</color>
+    <color name="light_green">#72E699</color>
+    <color name="grey_txt_color">#D9D9D9</color>
+
+<!--    for text shadow-->
+    <color name="light_font">#FBFBFB</color>
+    <color name="grey_font">#ff9e9e9e</color>
+    <color name="text_shadow">#7F000000</color>
+    <color name="text_shadow_white">#FFFFFF</color>
+</resources>

@@ -1,0 +1,34 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Drop Shadow (outer shadow, soft) -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/black" />
+            <corners android:radius="23dp"/>
+        </shape>
+    </item>
+    <!-- Outer shadow using inset to mimic shadow outside -->
+    <item
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp">
+        <shape>
+            <solid android:color="@android:color/transparent"/>
+            <corners android:radius="20dp"/>
+            <stroke android:width="2dp" android:color="#E0E0E0"/>
+        </shape>
+    </item>
+    <!-- Main Gradient Fill -->
+    <item android:left="0dp" android:top="0dp" android:right="0dp" android:bottom="0dp">
+        <shape>
+            <gradient
+                android:type="linear"
+                android:angle="315"
+                android:startColor="#7FFFD4"
+                android:centerColor="#38BABC"
+                android:endColor="#38BABC" />
+            <corners android:radius="11dp"/>
+        </shape>
+    </item>
+</layer-list>
+

@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="16dp"
+            android:elevation="2dp">
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:tint="@color/black"
+                android:contentDescription="Back" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Settings"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000" />
+
+            <ImageButton
+                android:id="@+id/btn_home"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/home_ic"
+                android:contentDescription="Home" />
+        </RelativeLayout>
+
+        <!-- User Profile Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:background="#FFFFFF"
+            android:gravity="center_vertical"
+            android:layout_marginTop="2dp">
+
+            <!-- Profile Image with Circle Background -->
+            <FrameLayout
+                android:layout_width="56dp"
+                android:background="@drawable/circle_bg"
+                android:layout_height="56dp">
+
+                <View
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/trade_x_pro_gradient" />
+
+                <TextView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:text="JD"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+            </FrameLayout>
+
+            <!-- User Info -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="16dp">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="John Doe"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID - 91284"
+                    android:textSize="13sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="2dp" />
+
+                <TextView
+                    android:id="@+id/tvMobileNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile no - 6587687696"
+                    android:textSize="13sp"
+                    android:textColor="#666666"
+                    android:layout_marginTop="1dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ACCOUNT Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACCOUNT"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp"
+            android:letterSpacing="0.05" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+            <!-- Wallet -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/wallet_ic_two"
+                    android:contentDescription="Wallet"
+                    app:tint="#666666" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Wallet"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:layout_marginStart="16dp" />
+
+                <TextView
+                    android:id="@+id/tvWalletAmt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹12,450"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#10B981" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F0F0F0"
+                android:layout_marginStart="60dp" />
+
+            <!-- My refers -->
+            <LinearLayout
+                android:id="@+id/lyRefer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/refer_ic_two"
+                    android:contentDescription="My refers"
+                    app:tint="#666666" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="My refers"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F0F0F0"
+                android:layout_marginStart="60dp" />
+
+            <!-- Team Bonus -->
+            <LinearLayout
+                android:id="@+id/lyTeamBonus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/groups_ic_two"
+                    android:contentDescription="Team Bonus"
+                    app:tint="#666666" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Team Bonus"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- PREFERENCES Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PREFERENCES"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp"
+            android:letterSpacing="0.05" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+            <!-- Dark Mode -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/dark_mode"
+                    android:contentDescription="Dark Mode"
+                    app:tint="#666666" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dark Mode"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:layout_marginStart="16dp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_dark_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:theme="@style/PurpleSwitchTheme" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F0F0F0"
+                android:layout_marginStart="60dp" />
+
+            <!-- Notifications -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/notifications_ic"
+                    android:contentDescription="Notifications"
+                    app:tint="#666666" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Notifications"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:layout_marginStart="16dp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_notifications"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:theme="@style/PurpleSwitchTheme" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F0F0F0"
+                android:layout_marginStart="60dp" />
+
+            <!-- Language -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/language_ic"
+                    android:contentDescription="Language"
+                    app:tint="#666666" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Language"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:layout_marginStart="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="English"
+                    android:textSize="14sp"
+                    android:textColor="#666666" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- SUPPORT Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SUPPORT"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp"
+            android:letterSpacing="0.05" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+            <!-- Customer Support -->
+            <LinearLayout
+                android:id="@+id/lySupport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:gravity="center_vertical"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/support_two_ic"
+                    android:contentDescription="Customer Support"
+                    app:tint="#666666" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Customer Support"
+                        android:textSize="15sp"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chat with us 24/7"
+                        android:textSize="12sp"
+                        android:textColor="#999999"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/green_dot" />
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#F0F0F0"
+                android:layout_marginStart="60dp" />
+        </LinearLayout>
+
+        <!-- Logout Button -->
+        <LinearLayout
+            android:id="@+id/lyLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:gravity="center_vertical"
+            android:background="#FFFFFF"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/logout_ic"
+                android:contentDescription="Logout"
+                app:tint="#DC2626" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Logout"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#DC2626"
+                android:layout_marginStart="16dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

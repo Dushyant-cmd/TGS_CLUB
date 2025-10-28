@@ -1,0 +1,22 @@
+<!-- res/drawable/recycler_bg_combined.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Grey base background -->
+    <item>
+        <bitmap
+            android:src="@drawable/column_gradient"
+            android:gravity="fill" />
+    </item>
+
+    <!-- Repeating horizontal line (divider) -->
+    <item>
+        <bitmap
+            android:src="@drawable/line_gradient"
+            android:tileMode="repeat"
+            android:gravity="fill" />
+    </item>
+</layer-list>
+
+
+
+
+

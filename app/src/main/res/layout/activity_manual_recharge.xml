@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context=".activities.ManualRechargeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/do_rec_ly"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:id="@+id/qr_iv"
+                    android:layout_height="300dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="centerInside"
+                    tools:src="@drawable/upiqr"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/g_pay_fm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/grey_circle_border"
+                            android:contentDescription="Google Pay"
+                            android:padding="4dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/google_pay_icon" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/phone_pe_fm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/grey_circle_border"
+                            android:contentDescription="Phone Pe"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="4dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/phone_pe_icon" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/paytm_fm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/grey_circle_border"
+                            android:contentDescription="Paytm"
+                            android:padding="4dp"
+                            android:paddingHorizontal="8dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/paytm_ic" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/display_rec_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/grey_background_and_stroke"
+                    android:backgroundTint="@color/actionBarColor"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:text="Add Recharge"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/add_recharge_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/utr_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter UTR(Transaction Id)"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/amount_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Amount"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/add_recharge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/grey_background_and_stroke"
+                android:backgroundTint="@color/actionBarColor"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Add Recharge"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/headOfDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-6dp"
+            android:background="@drawable/linear_gradient_stroke"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="Terms Of Conditions"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="1. User’s I’d should be activated with original account." />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="2. You need to recharge at least 1000 Rs for play." />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="3. User can not withdraw demo amount." />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="4. Wrong withdraw have to be cancelled before new withdrawal." />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="5. User play this game on their own risk." />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="6. For the cancellation of withdraw recharge amount be same." />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="7. Game entity is not responsible for the amount consequences" />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="8. Withdrawal timing - Mon to Fri 10:00AM to 5:00PM" />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="9. To withdraw you will have to complete your ID Activation." />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="10. Which will be the current activation offer running in the group." />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="11. If you claim any recharge bonus then you will have
+to bet 3X of that amount." />
+
+        <TextView
+            style="@style/TextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="12. ID activation and wallet activation are different. You
+can withdraw through ID activation and you can play
+after the wallet is activated." />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="20dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+            <TextView
+                android:id="@+id/closeDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="4dp"
+                android:text="Okay"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Checked state -->
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#7E57C2"/> <!-- Purple fill color -->
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+    <!-- Unchecked state -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF"/> <!-- White background -->
+            <stroke
+                android:width="2dp"
+                android:color="#7E57C2"/> <!-- Purple border -->
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+
+</selector>

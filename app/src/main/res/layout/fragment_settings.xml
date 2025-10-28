@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragments.SettingsFragment">
+
+    <RelativeLayout
+        android:id="@+id/headerLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_round_linear_gradient">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_15dp"
+            android:fontFamily="@font/inria_serif_bold"
+            android:text="Settings &amp; Tools"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/editSettings"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:elevation="8dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:padding="4dp"
+                android:src="@drawable/edit" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@id/headerLy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/_15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/purple_corners_shape"
+            android:elevation="@dimen/_5dp"
+            android:backgroundTint="@color/dark_tint"
+            android:orientation="horizontal"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="@dimen/_8dp">
+
+            <FrameLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/white_circle_shape">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_person" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:paddingStart="@dimen/_15dp"
+                    android:paddingEnd="@dimen/_45dp"
+                    android:text="NAME"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tvId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:paddingStart="@dimen/_15dp"
+                    android:paddingEnd="@dimen/_45dp"
+                    android:text="user id"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tvMobileNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/white"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:paddingStart="@dimen/_15dp"
+                    android:paddingEnd="@dimen/_45dp"
+                    android:text="mobile number"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_15dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingVertical="@dimen/_8dp">
+
+                <TextView
+                    android:id="@+id/referSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/light_grey"
+                    android:elevation="@dimen/_5dp"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_4dp"
+                    android:paddingVertical="@dimen/_8dp"
+                    android:text="My refer"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:id="@+id/termsSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/light_grey"
+                    android:elevation="@dimen/_5dp"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_4dp"
+                    android:paddingVertical="@dimen/_8dp"
+                    android:text="T &amp; C Guidelines"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:id="@+id/logoutSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/light_grey"
+                    android:elevation="@dimen/_5dp"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_4dp"
+                    android:paddingVertical="@dimen/_8dp"
+                    android:text="Logout"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:id="@+id/teamSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/light_grey"
+                    android:elevation="@dimen/_5dp"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_4dp"
+                    android:paddingVertical="@dimen/_8dp"
+                    android:text="Team bonus"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:id="@+id/whatsappSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/light_grey"
+                    android:elevation="@dimen/_5dp"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_4dp"
+                    android:paddingVertical="@dimen/_8dp"
+                    android:text="Join Whatsapp Group"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:id="@+id/tvWinzgoAgentLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/light_grey"
+                    android:elevation="@dimen/_5dp"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_4dp"
+                    android:paddingVertical="@dimen/_8dp"
+                    android:text="TGS club Agent Link"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:id="@+id/tvTeleLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/light_grey"
+                    android:elevation="@dimen/_5dp"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_4dp"
+                    android:paddingVertical="@dimen/_8dp"
+                    android:text="Join Telegram Channel"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:id="@+id/tvVipBetSubs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_4dp"
+                    android:background="@drawable/purple_corners_shape"
+                    android:backgroundTint="@color/light_grey"
+                    android:elevation="@dimen/_5dp"
+                    android:fontFamily="@font/inria_serif_bold"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/_4dp"
+                    android:paddingVertical="@dimen/_8dp"
+                    android:text="VIP Bet Subscription"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_marginStart="@dimen/_15dp"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/_4dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/supportLy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/contact_support" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_4dp"
+                        android:fontFamily="@font/inria_serif_bold"
+                        android:text="Contact &amp; Support"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/telegramLy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_45dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/telegrams" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_4dp"
+                        android:fontFamily="@font/inria_serif_bold"
+                        android:text="Telegram"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inria_serif_bold"
+        android:paddingStart="@dimen/_15dp"
+        android:paddingEnd="@dimen/_45dp"
+        tools:text="version 1.0"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_15dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sp" />
+</RelativeLayout>
