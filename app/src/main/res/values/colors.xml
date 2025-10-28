@@ -40,4 +40,5 @@
     <color name="grey_font">#ff9e9e9e</color>
     <color name="text_shadow">#7F000000</color>
     <color name="text_shadow_white">#FFFFFF</color>
+    <color name="little_dark_violet">#6366F1</color>
 </resources>
