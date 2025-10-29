@@ -31,7 +31,7 @@ public class DashboardFragment extends Fragment {
         activity = (MainActivity) requireActivity();
 
         requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.white));
-        ((MainActivity) requireActivity()).findViewById(R.id.bottomNav).setVisibility(View.GONE);
+        requireActivity().findViewById(R.id.bottomNav).setVisibility(View.GONE);
         setListeners();
         return binding.getRoot();
     }
@@ -39,6 +39,10 @@ public class DashboardFragment extends Fragment {
     private void setListeners() {
         binding.lyWinGo.setOnClickListener(v -> {
             activity.loadFragment(new HomeFragment(), true);
+        });
+
+        binding.lyCoinPd.setOnClickListener(v -> {
+            activity.loadFragment(new CoinPredictionFragment(), true);
         });
     }
 

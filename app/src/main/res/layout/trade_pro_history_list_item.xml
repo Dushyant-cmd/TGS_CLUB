@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_15dp"
+    android:layout_marginTop="@dimen/_15dp"
+    android:paddingHorizontal="@dimen/_15dp"
+    android:background="@drawable/light_silver_bg"
+    android:paddingVertical="@dimen/_12dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/upperLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0.1dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@null"
+                android:src="@drawable/graph_down_ic"
+                app:tint="@color/red" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:fontFamily="@font/inria_regular"
+                android:text="\u20b9200"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sp" />
+
+            <TextView
+                android:id="@+id/tvDownStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:background="@drawable/light_silver_bg"
+                android:backgroundTint="@color/red"
+                android:fontFamily="@font/inria_regular"
+                android:paddingHorizontal="@dimen/_12dp"
+                android:paddingVertical="@dimen/_4dp"
+                android:text="Down"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sp" />
+
+            <TextView
+                android:id="@+id/tvUpStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8dp"
+                android:background="@drawable/light_silver_bg"
+                android:backgroundTint="@color/green"
+                android:fontFamily="@font/inria_regular"
+                android:paddingHorizontal="@dimen/_12dp"
+                android:paddingVertical="@dimen/_4dp"
+                android:text="UP"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inria_regular"
+        android:layout_below="@id/upperLy"
+        android:layout_marginTop="@dimen/_8dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sp"
+        android:text="Entry: $1785.62-> Exit: $1797.63 | 14:28:52" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/inria_regular"
+        android:textColor="@color/red"
+        android:textSize="@dimen/_14sp"
+        android:text="-\u20b9250.00" />
+</RelativeLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_15dp"
+    android:background="@drawable/light_silver_bg"
+    android:backgroundTint="@color/green"
+    android:layout_marginTop="@dimen/_15dp"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_15dp"
+        android:paddingVertical="@dimen/_4dp"
+        android:layout_margin="1dp"
+        android:background="@drawable/light_silver_bg"
+        android:backgroundTint="@color/too_light_grey">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inria_regular"
+                android:layout_below="@id/upperLy"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sp"
+                android:text="Last Round Result" />
+
+            <LinearLayout
+                android:id="@+id/upperLy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/graph_up_ic"
+                        app:tint="@color/green" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8dp"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="You Won!"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/_16sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvUpStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="Winner: ETH"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sp"
+                android:text="Your Bet" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sp"
+                android:layout_marginTop="@dimen/_4dp"
+                android:text="+\u20b910 on ETH" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/green"
+                android:layout_marginTop="@dimen/_4dp"
+                android:textSize="@dimen/_14sp"
+                android:text="+\u20b925.00" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

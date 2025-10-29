@@ -22,6 +22,7 @@
     <color name="pastel_blue">#61C2ED</color>
     <color name="red">#FF0000</color>
     <color name="light_grey">#D9D9D9</color>
+    <color name="too_light_grey">#F3F3F3</color>
     <color name="light_grey_tp">#A6D9D9D9</color>
     <color name="dark_grey">#737373</color>
     <color name="light_tint">#08CFD2</color>
@@ -41,4 +42,5 @@
     <color name="text_shadow">#7F000000</color>
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="little_dark_violet">#6366F1</color>
+    <color name="light_yellow">#F8FAD6</color>
 </resources>

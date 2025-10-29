@@ -35,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Coin prediction"
+                android:fontFamily="@font/montserrat_bold"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#000000" />
@@ -283,11 +284,21 @@
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:textSize="9sp" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_grey" />
+
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/chart_bitcoin"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="8dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_grey" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -357,11 +368,22 @@
                         android:textColor="#666666"
                         android:textSize="9sp" />
 
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_grey" />
+
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/chart_ethereum"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="8dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_grey" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -401,7 +423,6 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:paddingHorizontal="8dp"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -443,11 +464,21 @@
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:textSize="9sp" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_grey"/>
+
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/chart_solana"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="8dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dark_grey"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -579,7 +610,7 @@
                     <TextView
                         android:id="@+id/btn_bet_5"
                         android:layout_width="0dp"
-                        android:layout_height="36dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
                         android:text="$5"
                         android:textSize="14sp"
@@ -593,53 +624,53 @@
                     <TextView
                         android:id="@+id/btn_bet_10"
                         android:layout_width="0dp"
-                        android:layout_height="36dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
                         android:text="$10"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#666666"
                         android:gravity="center"
-                        android:background="@drawable/grey_rectangle"
+                        android:background="@drawable/white_border_rectangle"
                         android:layout_marginEnd="8dp" />
 
                     <TextView
                         android:id="@+id/btn_bet_50"
                         android:layout_width="0dp"
-                        android:layout_height="36dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
                         android:text="$50"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#666666"
                         android:gravity="center"
-                        android:background="@drawable/grey_rectangle"
+                        android:background="@drawable/white_border_rectangle"
                         android:layout_marginEnd="8dp" />
 
                     <TextView
                         android:id="@+id/btn_bet_100"
                         android:layout_width="0dp"
-                        android:layout_height="36dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
                         android:text="$100"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#666666"
                         android:gravity="center"
-                        android:background="@drawable/grey_rectangle"
+                        android:background="@drawable/white_border_rectangle"
                         android:layout_marginEnd="8dp" />
 
                     <TextView
                         android:id="@+id/btn_bet_200"
                         android:layout_width="0dp"
-                        android:layout_height="36dp"
+                        android:layout_height="30dp"
                         android:layout_weight="1"
                         android:text="$200"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#666666"
                         android:gravity="center"
-                        android:background="@drawable/grey_rectangle"
+                        android:background="@drawable/white_border_rectangle"
                         android:layout_marginEnd="8dp" />
 
                     <LinearLayout
@@ -651,26 +682,27 @@
 
                         <ImageButton
                             android:id="@+id/iBtnUp"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:minWidth="0dp"
                             android:background="@drawable/baseline_arrow_drop_up_24" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/grey_rectangle"
+                            android:background="@drawable/light_silver_bg"
                             android:backgroundTint="@color/light_tint"
                             android:gravity="center"
                             android:paddingHorizontal="@dimen/_8dp"
                             android:paddingVertical="@dimen/_8dp"
-                            android:text="$10"
+                            android:text="x10"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
                         <ImageButton
                             android:id="@+id/iBtnDown"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:background="@drawable/baseline_arrow_drop_up_24"
                             android:rotation="180" />
                     </LinearLayout>
@@ -679,14 +711,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/grey_rectangle"
-                    android:backgroundTint="#F8FAD6"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/light_yellow_rectangle"
                     android:fontFamily="@font/montserrat_regular"
                     android:paddingVertical="@dimen/_4dp"
                     android:paddingStart="24dp"
                     android:text="Potential Win: ₹25.00 (5.0x)"
-                    android:textSize="12sp"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
             </LinearLayout>
         </FrameLayout>
 
@@ -696,9 +728,11 @@
             android:layout_height="wrap_content"
             android:text="Select Coin :"
             android:textSize="14sp"
+            android:layout_marginTop="@dimen/_8dp"
             android:textStyle="bold"
             android:textColor="#000000"
             android:layout_marginStart="16dp"
+            android:fontFamily="@font/montserrat_bold"
             android:layout_marginBottom="12dp" />
 
         <!-- Coin Selection -->
@@ -720,7 +754,7 @@
                 android:layout_marginEnd="8dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                android:backgroundTint="@color/little_dark_violet">
+                app:cardBackgroundColor="@color/little_dark_violet">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -850,10 +884,15 @@
             android:text="Confirm Bet"
             android:textSize="20sp"
             android:fontFamily="@font/montserrat_bold"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:background="@drawable/purple_corners_shape"
             android:backgroundTint="@color/blue_new"
             android:gravity="center"
             android:elevation="4dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

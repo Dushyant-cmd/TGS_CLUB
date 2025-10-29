@@ -6,10 +6,10 @@
         android:radius="10dp"/>
 
     <solid
-        android:color="@color/little_dark_violet"/>
+        android:color="@color/white"/>
 
     <stroke
-        android:color="@color/dark_grey"
+        android:color="#AAAAAA"
         android:width="1dp"/>
 
 </shape>
