@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,8 +15,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:padding="16dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="@dimen/_8dp"
             android:elevation="2dp">
 
             <ImageButton
@@ -35,47 +36,62 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Coin prediction"
-                android:fontFamily="@font/montserrat_bold"
+                android:fontFamily="@font/montserrat_regular"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="#000000" />
+                android:textColor="@color/black"/>
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/dark_grey"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:orientation="horizontal"
-                android:background="@drawable/silver_bg_sk"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:gravity="center_vertical">
+                app:cardCornerRadius="15dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/wallet_ic"
-                    android:contentDescription="Wallet" />
-
-                <TextView
-                    android:id="@+id/tv_balance"
+                <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$9,815"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#10B981"
-                    android:layout_marginStart="6dp" />
-            </LinearLayout>
+                    android:layout_height="36dp"
+                    android:layout_margin="1dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:cardBackgroundColor="@color/too_light_grey"
+                    app:cardCornerRadius="15dp">
+
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="36dp"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="Wallet"
+                            android:src="@drawable/wallet_ic" />
+
+                        <TextView
+                            android:id="@+id/tv_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:fontFamily="@font/inria_serif_bold"
+                            android:text="$9,815"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
         <!-- Round Timer Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginHorizontal="16dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
@@ -84,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/wingo_gradient"
-                android:padding="8dp"
+                android:paddingVertical="4dp"
                 android:gravity="center">
 
                 <TextView
@@ -112,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:text="How to play"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="9sp"
                         android:layout_marginStart="6dp" />
                 </LinearLayout>
 
@@ -122,22 +138,21 @@
                     android:layout_marginTop="4dp"
                     android:text="Time Left"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="9sp" />
 
                 <!-- Timer -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
                     android:gravity="center">
 
                     <TextView
                         android:id="@+id/tv_timer_min1"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:text="0"
-                        android:background="@drawable/grey_rectangle"
+                        android:background="@drawable/light_yellow_rectangle"
                         android:textSize="20sp"
                         android:backgroundTint="@color/white"
                         android:gravity="center"
@@ -146,10 +161,10 @@
 
                     <TextView
                         android:id="@+id/tv_timer_min2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:text="1"
-                        android:background="@drawable/grey_rectangle"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/light_yellow_rectangle"
+                        android:text="0"
                         android:backgroundTint="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -170,9 +185,9 @@
 
                     <TextView
                         android:id="@+id/tv_timer_sec1"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/grey_rectangle"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/light_yellow_rectangle"
                         android:backgroundTint="@color/white"
                         android:fontFamily="@font/inria_serif_bold"
                         android:textSize="20sp"
@@ -183,9 +198,9 @@
 
                     <TextView
                         android:id="@+id/tv_timer_sec2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/grey_rectangle"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/light_yellow_rectangle"
                         android:backgroundTint="@color/white"
                         android:fontFamily="@font/inria_serif_bold"
                         android:textSize="20sp"
@@ -201,7 +216,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_10dp"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal"
                     android:padding="@dimen/_4dp">
@@ -211,11 +225,11 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/white_circle_grey_stroke"
                         android:backgroundTint="@color/black"
-                        android:padding="@dimen/_5dp">
+                        android:padding="2dp">
 
                         <ImageView
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginBottom="3dp"
                             android:scaleType="centerCrop"
@@ -230,12 +244,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:paddingStart="16dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/silver_bg_sk"
             android:elevation="@dimen/_8dp"
             android:orientation="vertical"
-            android:paddingVertical="16dp"
-            android:paddingEnd="16dp"
+            android:paddingHorizontal="8dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
             android:weightSum="3">
 
             <LinearLayout
@@ -256,7 +271,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
+                        android:fontFamily="@font/istok_web_bold"
                         android:text="₿ BITCOIN"
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:textColor="#000000"
@@ -268,7 +283,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:layout_marginHorizontal="@dimen/_8dp"
-                        android:fontFamily="@font/montserrat_regular"
+                        android:fontFamily="@font/istok_web_regular"
                         android:text="₹45,234.50"
                         android:textColor="#000000"
                         android:textSize="11sp"
@@ -278,32 +293,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
-                        android:fontFamily="@font/montserrat_regular"
+                        android:fontFamily="@font/istok_web_regular"
                         android:text="Last 24h: +2.34%"
-                        android:textColor="#666666"
+                        android:textColor="@color/black"
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:textSize="9sp" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/dark_grey" />
+                        android:background="@color/light_grey" />
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/chart_bitcoin"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_marginTop="8dp" />
+                        android:background="@color/white" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/dark_grey" />
+                        android:background="@color/light_grey" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
@@ -311,19 +326,18 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_regular"
+                            android:fontFamily="@font/istok_web_regular"
                             android:text="Momentum :"
-                            android:textColor="#666666"
+                            android:textColor="@color/black"
                             android:textSize="9sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_regular"
+                            android:fontFamily="@font/istok_web_regular"
                             android:text=" 86%"
-                            android:textColor="#10B981"
-                            android:textSize="9sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/green"
+                            android:textSize="9sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -340,7 +354,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
+                        android:fontFamily="@font/istok_web_bold"
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:text="Ξ ETHEREUM"
                         android:textColor="#000000"
@@ -351,7 +365,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:fontFamily="@font/montserrat_regular"
+                        android:fontFamily="@font/istok_web_regular"
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:text="₹2,890.20"
                         android:textColor="#000000"
@@ -363,32 +377,31 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:layout_marginHorizontal="@dimen/_8dp"
-                        android:fontFamily="@font/montserrat_regular"
+                        android:fontFamily="@font/istok_web_regular"
                         android:text="Last 24h: -1.23%"
-                        android:textColor="#666666"
+                        android:textColor="@color/black"
                         android:textSize="9sp" />
-
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/dark_grey" />
+                        android:background="@color/light_grey" />
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/chart_ethereum"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_marginTop="8dp" />
+                        android:background="@color/white" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/dark_grey" />
+                        android:background="@color/light_grey" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:gravity="center_vertical"
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:orientation="horizontal">
@@ -396,19 +409,18 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_regular"
+                            android:fontFamily="@font/istok_web_regular"
                             android:text="Momentum :"
-                            android:textColor="#666666"
+                            android:textColor="@color/black"
                             android:textSize="9sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_regular"
+                            android:fontFamily="@font/istok_web_regular"
                             android:text=" 52%"
-                            android:textColor="#EF4444"
-                            android:textSize="9sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/green"
+                            android:textSize="9sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -423,22 +435,24 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
+                        android:layout_marginStart="@dimen/_8dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="10dp"
-                            android:layout_height="20dp"
-                            android:text="◎"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/double_circle" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_4dp"
                             android:text="SOL"
-                            android:fontFamily="@font/montserrat_bold"
+                            android:fontFamily="@font/istok_web_bold"
+                            android:gravity="center"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -447,7 +461,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:fontFamily="@font/montserrat_regular"
+                        android:fontFamily="@font/istok_web_regular"
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:text="₹98.45"
                         android:textColor="#000000"
@@ -458,32 +472,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
-                        android:fontFamily="@font/montserrat_regular"
+                        android:fontFamily="@font/istok_web_regular"
                         android:text="Last 24h: +0.89%"
-                        android:textColor="#666666"
+                        android:textColor="@color/black"
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:textSize="9sp" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/dark_grey"/>
+                        android:background="@color/light_grey" />
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/chart_solana"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_marginTop="8dp" />
+                        android:background="@color/white" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/dark_grey"/>
+                        android:background="@color/light_grey" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:gravity="center_vertical"
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:orientation="horizontal">
@@ -491,19 +505,18 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_regular"
+                            android:fontFamily="@font/istok_web_regular"
                             android:text="Momentum :"
-                            android:textColor="#666666"
+                            android:textColor="@color/black"
                             android:textSize="9sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_regular"
+                            android:fontFamily="@font/istok_web_regular"
                             android:text=" 90%"
-                            android:textColor="#10B981"
-                            android:textSize="9sp"
-                            android:textStyle="bold" />
+                            android:textColor="@color/green"
+                            android:textSize="9sp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -512,13 +525,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -526,7 +540,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/montserrat_regular"
+                        android:fontFamily="@font/istok_web_regular"
                         android:text="Your bet is on"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
@@ -537,7 +551,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/_8dp"
-                        android:fontFamily="@font/montserrat_bold"
+                        android:fontFamily="@font/istok_web_bold"
                         android:text="Ethereum"
                         android:textAllCaps="true"
                         android:textColor="@color/dark_tint"
@@ -555,7 +569,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_regular"
+                        android:fontFamily="@font/istok_web_regular"
                         android:text="Last result: "
                         android:textColor="@color/pastel_yellow"
                         android:textSize="12sp"
@@ -565,7 +579,7 @@
                         android:id="@+id/tvLastResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
+                        android:fontFamily="@font/istok_web_bold"
                         android:text="Ethereum"
                         android:textAllCaps="true"
                         android:textColor="@color/pastel_yellow"
@@ -588,137 +602,143 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_margin="1dp"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="4dp">
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bet Amount :"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#000000" />
-
-                <!-- Bet Amount Options -->
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/btn_bet_5"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:text="$5"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:background="@drawable/little_dark_violet_rect"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_marginEnd="8dp" />
-
-                    <TextView
-                        android:id="@+id/btn_bet_10"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:text="$10"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#666666"
-                        android:gravity="center"
-                        android:background="@drawable/white_border_rectangle"
-                        android:layout_marginEnd="8dp" />
-
-                    <TextView
-                        android:id="@+id/btn_bet_50"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:text="$50"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#666666"
-                        android:gravity="center"
-                        android:background="@drawable/white_border_rectangle"
-                        android:layout_marginEnd="8dp" />
-
-                    <TextView
-                        android:id="@+id/btn_bet_100"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:text="$100"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#666666"
-                        android:gravity="center"
-                        android:background="@drawable/white_border_rectangle"
-                        android:layout_marginEnd="8dp" />
-
-                    <TextView
-                        android:id="@+id/btn_bet_200"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_weight="1"
-                        android:text="$200"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#666666"
-                        android:gravity="center"
-                        android:background="@drawable/white_border_rectangle"
-                        android:layout_marginEnd="8dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:fontFamily="@font/istok_web_regular"
+                        android:text="Bet Amount :"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
-                        <ImageButton
-                            android:id="@+id/iBtnUp"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:minWidth="0dp"
-                            android:background="@drawable/baseline_arrow_drop_up_24" />
+                    <!-- Bet Amount Options -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/light_silver_bg"
-                            android:backgroundTint="@color/light_tint"
+                            android:id="@+id/btn_bet_5"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/little_dark_violet_rect"
+                            android:fontFamily="@font/istok_web_regular"
                             android:gravity="center"
-                            android:paddingHorizontal="@dimen/_8dp"
-                            android:paddingVertical="@dimen/_8dp"
-                            android:text="x10"
+                            android:text="$5"
+                            android:textColor="@color/black"
                             android:textSize="14sp"
                             android:textStyle="bold" />
 
-                        <ImageButton
-                            android:id="@+id/iBtnDown"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="@drawable/baseline_arrow_drop_up_24"
-                            android:rotation="180" />
-                    </LinearLayout>
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/btn_bet_10"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_border_rectangle"
+                            android:gravity="center"
+                            android:text="$10"
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                <TextView
+                        <TextView
+                            android:id="@+id/btn_bet_50"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_border_rectangle"
+                            android:gravity="center"
+                            android:text="$50"
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/btn_bet_100"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_border_rectangle"
+                            android:gravity="center"
+                            android:text="$100"
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/btn_bet_200"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_border_rectangle"
+                            android:gravity="center"
+                            android:text="$200"
+                            android:textColor="#666666"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageButton
+                                android:id="@+id/iBtnUp"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/baseline_arrow_drop_up_24"
+                                android:minWidth="0dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/light_silver_bg"
+                                android:backgroundTint="@color/light_tint"
+                                android:gravity="center"
+                                android:paddingHorizontal="@dimen/_8dp"
+                                android:paddingVertical="@dimen/_8dp"
+                                android:text="x10"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <ImageButton
+                                android:id="@+id/iBtnDown"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/baseline_arrow_drop_up_24"
+                                android:rotation="180" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <!--<TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
                     android:background="@drawable/light_yellow_rectangle"
-                    android:fontFamily="@font/montserrat_regular"
+                    android:fontFamily="@font/istok_web_regular"
                     android:paddingVertical="@dimen/_4dp"
                     android:paddingStart="24dp"
                     android:text="Potential Win: ₹25.00 (5.0x)"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="12sp" />-->
             </LinearLayout>
         </FrameLayout>
 
@@ -728,17 +748,16 @@
             android:layout_height="wrap_content"
             android:text="Select Coin :"
             android:textSize="14sp"
-            android:layout_marginTop="@dimen/_8dp"
-            android:textStyle="bold"
-            android:textColor="#000000"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/istok_web_regular"
             android:layout_marginStart="16dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:layout_marginBottom="12dp" />
+            android:textColor="@color/black" />
 
         <!-- Coin Selection -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4dp"
             android:orientation="horizontal"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -754,6 +773,8 @@
                 android:layout_marginEnd="8dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
                 app:cardBackgroundColor="@color/little_dark_violet">
 
                 <LinearLayout
@@ -797,7 +818,8 @@
                 android:layout_marginEnd="8dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                android:backgroundTint="#FFFFFF">
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -839,7 +861,8 @@
                 android:layout_weight="1"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                android:backgroundTint="#FFFFFF">
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -883,7 +906,7 @@
             android:paddingVertical="8dp"
             android:text="Confirm Bet"
             android:textSize="20sp"
-            android:fontFamily="@font/montserrat_bold"
+            android:fontFamily="@font/istok_web_bold"
             android:textColor="@color/white"
             android:background="@drawable/purple_corners_shape"
             android:backgroundTint="@color/blue_new"
@@ -893,6 +916,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
+            android:nestedScrollingEnabled="false"
+            android:paddingBottom="@dimen/_8dp"
+            tools:itemCount="3"
+            tools:listitem="@layout/coin_prediction_history_list_item"
             android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

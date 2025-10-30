@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8dp"
-                        android:fontFamily="@font/montserrat_bold"
+                        android:fontFamily="@font/istok_web_bold"
                         android:text="You Won!"
                         android:textColor="@color/green"
                         android:textSize="@dimen/_16sp" />
@@ -68,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:fontFamily="@font/montserrat_regular"
+                    android:fontFamily="@font/istok_web_regular"
                     android:text="Winner: ETH"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sp" />
@@ -86,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
+                android:fontFamily="@font/istok_web_regular"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sp"
                 android:text="Your Bet" />
@@ -94,7 +94,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
+                android:fontFamily="@font/istok_web_regular"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_16sp"
                 android:layout_marginTop="@dimen/_4dp"
@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_bold"
+                android:fontFamily="@font/istok_web_bold"
                 android:textColor="@color/green"
                 android:layout_marginTop="@dimen/_4dp"
                 android:textSize="@dimen/_14sp"
