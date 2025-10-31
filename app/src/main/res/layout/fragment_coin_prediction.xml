@@ -42,6 +42,7 @@
                 android:textColor="@color/black"/>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardWallet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/dark_grey"
@@ -594,7 +595,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/silver_bg_sk">
 
             <LinearLayout
