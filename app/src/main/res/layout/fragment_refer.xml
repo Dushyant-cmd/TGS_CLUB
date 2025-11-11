@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.ReferFragment">
+    tools:context=".fragments.wingo.ReferFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.winzgo.fragments;
+package com.example.winzgo.fragments.wingo;
 
 import android.os.Bundle;
 

@@ -1,7 +1,6 @@
-package com.example.winzgo.fragments;
+package com.example.winzgo.fragments.settings;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +18,7 @@ import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
 import com.example.winzgo.activities.SignUpAndSignIn;
 import com.example.winzgo.databinding.FragmentSettingsCoinAndTradeXBinding;
+import com.example.winzgo.fragments.wingo.ReferFragment;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;

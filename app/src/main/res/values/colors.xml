@@ -37,6 +37,7 @@
     <color name="pastel_green">#B5F4C1</color>
     <color name="pastel_red">#F9A6A7</color>
     <color name="grey_txt_color">#D9D9D9</color>
+    <color name="light_brown">#F6ECD4</color>
 
 <!--    for text shadow-->
     <color name="light_font">#FBFBFB</color>

@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/tv_upi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="abc@UPI"
-        android:id="@+id/tv_upi"
-        android:fontFamily="@font/montserrat_regular"
+        android:fontFamily="@font/istok_web_regular"
         android:padding="8dp"
-        android:textSize="16sp"/>
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        tools:text="zupeeMall@UPI" />
 
     <ImageView
+        android:id="@+id/copy_ic"
         android:layout_width="30dp"
         android:layout_height="20dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
         android:contentDescription="@null"
         android:scaleType="centerInside"
-        android:src="@drawable/copy"
-        android:id="@+id/copy_ic"/>
+        android:src="@drawable/copy_tgs_ic" />
 </RelativeLayout>

@@ -33,6 +33,7 @@ public class Constants {
     public static final String DARK_MODE = "darkMode";
     public static final String IS_INR_USD = "isInrUsd";
     // sp key end
+    public static final String RUPEE_ICON = "\u20b9";
 
 
     // Interface start

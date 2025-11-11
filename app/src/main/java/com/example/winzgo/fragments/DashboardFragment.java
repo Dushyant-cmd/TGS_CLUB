@@ -14,6 +14,8 @@ import com.example.winzgo.BuildConfig;
 import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
 import com.example.winzgo.databinding.FragmentDashboardBinding;
+import com.example.winzgo.fragments.coin.CoinPredictionFragment;
+import com.example.winzgo.fragments.wingo.HomeFragment;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
 import com.example.winzgo.utils.UtilsInterfaces;
@@ -32,17 +34,19 @@ public class DashboardFragment extends Fragment {
 
         requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.white));
         requireActivity().findViewById(R.id.bottomNav).setVisibility(View.GONE);
+        requireActivity().findViewById(R.id.headerLy).setVisibility(View.VISIBLE);
+
         setListeners();
         return binding.getRoot();
     }
 
     private void setListeners() {
         binding.lyWinGo.setOnClickListener(v -> {
-            activity.loadFragment(new HomeFragment(), true);
+            activity.loadFragment(new HomeFragment(), true, "Win-Go");
         });
 
         binding.lyCoinPd.setOnClickListener(v -> {
-            activity.loadFragment(new CoinPredictionFragment(), true);
+            activity.loadFragment(new CoinPredictionFragment(), true, "Coin Prediction");
         });
     }
 

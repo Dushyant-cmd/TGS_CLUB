@@ -1,27 +1,21 @@
-package com.example.winzgo.fragments;
+package com.example.winzgo.fragments.recharge;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.winzgo.MainActivity;
-import com.example.winzgo.R;
 import com.example.winzgo.activities.ManualRechargeActivity;
-import com.example.winzgo.activities.RechargeActivity;
 import com.example.winzgo.activities.VideoActivity;
-import com.example.winzgo.databinding.FragmentMoneyBinding;
 import com.example.winzgo.databinding.FragmentRechargeBinding;
-import com.example.winzgo.databinding.RechargeBottomSheetBinding;
+import com.example.winzgo.fragments.wingo.HomeFragment;
 import com.example.winzgo.sharedpref.SessionSharedPref;
+import com.example.winzgo.utils.Constants;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RechargeFragment extends Fragment {
@@ -37,7 +31,7 @@ public class RechargeFragment extends Fragment {
         sharedPreferences = new SessionSharedPref(requireContext());
         hostAct = (MainActivity) requireActivity();
 
-        binding.balance.setText(HomeFragment.Utils.getCurrencySymbol("INR") + sharedPreferences.getBalance());
+        binding.balance.setText(Constants.RUPEE_ICON + sharedPreferences.getBalance());
         setListeners();
 
         return binding.getRoot();

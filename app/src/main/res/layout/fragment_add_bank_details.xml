@@ -8,25 +8,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-6dp"
-            android:background="@drawable/bottom_round_linear_gradient"
-            android:paddingHorizontal="@dimen/_15dp"
-            android:paddingVertical="@dimen/_25dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:fontFamily="@font/inria_serif_bold"
-                android:text="Add Bank Details"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-        </FrameLayout>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -43,7 +24,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="25dp"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:fontFamily="@font/istok_web_regular"
                     android:text="Account Number : "
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -53,12 +34,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4dp"
-                    android:background="@drawable/grey_rectangle"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:background="@drawable/light_silver_bg"
+                    android:fontFamily="@font/istok_web_regular"
                     android:hint="Enter Account Number"
                     android:inputType="number"
                     android:paddingVertical="@dimen/_15dp"
-                    android:paddingStart="@dimen/_8dp"
+                    android:paddingStart="24dp"
                     android:paddingEnd="@dimen/_4dp"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -68,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="25dp"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:fontFamily="@font/istok_web_regular"
                     android:text="Bank holder Name : "
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -78,12 +59,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4dp"
-                    android:background="@drawable/grey_rectangle"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:background="@drawable/light_silver_bg"
+                    android:fontFamily="@font/istok_web_regular"
                     android:hint="Enter Your Name"
                     android:inputType="textPersonName"
                     android:paddingVertical="@dimen/_15dp"
-                    android:paddingStart="@dimen/_8dp"
+                    android:paddingStart="24dp"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -92,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="25dp"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:fontFamily="@font/istok_web_regular"
                     android:text="Bank Name : "
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -102,12 +83,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4dp"
-                    android:background="@drawable/grey_rectangle"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:background="@drawable/light_silver_bg"
+                    android:fontFamily="@font/istok_web_regular"
                     android:hint="Enter Bank name"
                     android:inputType="textPersonName"
                     android:paddingVertical="@dimen/_15dp"
-                    android:paddingStart="@dimen/_8dp"
+                    android:paddingStart="24dp"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -116,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="25dp"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:fontFamily="@font/istok_web_regular"
                     android:text="IFSC Code : "
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -126,22 +107,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4dp"
-                    android:background="@drawable/grey_rectangle"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:background="@drawable/light_silver_bg"
+                    android:fontFamily="@font/istok_web_regular"
                     android:hint="Enter IFSC Code"
                     android:inputType="text"
                     android:paddingVertical="@dimen/_15dp"
-                    android:paddingStart="@dimen/_8dp"
+                    android:paddingStart="24dp"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
-
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
                     android:layout_marginTop="25dp"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:fontFamily="@font/istok_web_regular"
                     android:text="UPI ID : "
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -151,12 +131,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4dp"
-                    android:background="@drawable/grey_rectangle"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:background="@drawable/light_silver_bg"
+                    android:fontFamily="@font/istok_web_regular"
                     android:hint="Enter UPI Id"
                     android:inputType="text"
                     android:paddingVertical="@dimen/_15dp"
-                    android:paddingStart="@dimen/_8dp"
+                    android:paddingStart="24dp"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -168,7 +148,7 @@
                     android:layout_marginTop="15dp"
                     android:buttonTint="#602DB6"
                     android:checked="true"
-                    android:fontFamily="@font/inria_serif_bold"
+                    android:fontFamily="@font/istok_web_regular"
                     android:paddingStart="4dp"
                     android:text="@string/i_understand_that_my_bank_details_are_encrypted_and_stored_securely_i_authorize_color_trading_to_process_transactions_from_this_account"
                     android:textSize="@dimen/_12sp" />
@@ -186,7 +166,7 @@
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
                         android:background="@drawable/grey_rectangle"
-                        android:fontFamily="@font/inria_serif_bold"
+                        android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
                         android:paddingVertical="@dimen/_10dp"
                         android:text="Cancel"
@@ -199,8 +179,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="4dp"
                         android:layout_weight="1"
-                        android:background="@drawable/linear_gradient"
-                        android:fontFamily="@font/inria_serif_bold"
+                        android:background="@drawable/wingo_gradient"
+                        android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
                         android:paddingVertical="@dimen/_10dp"
                         android:text="Confirm"

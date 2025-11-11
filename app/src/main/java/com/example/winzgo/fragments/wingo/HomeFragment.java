@@ -1,4 +1,4 @@
-package com.example.winzgo.fragments;
+package com.example.winzgo.fragments.wingo;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -37,6 +37,8 @@ import com.example.winzgo.R;
 import com.example.winzgo.adapter.GameResultsAdapter;
 import com.example.winzgo.databinding.BetBottomSheetBinding;
 import com.example.winzgo.databinding.FragmentHomeBinding;
+import com.example.winzgo.fragments.recharge.RechargeFragment;
+import com.example.winzgo.fragments.withdrawal.WithdrawFragment;
 import com.example.winzgo.models.GameResult;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
@@ -117,6 +119,7 @@ public class HomeFragment extends Fragment {
         MainActivity.i = 101;
         requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.light_tint));
         requireActivity().findViewById(R.id.bottomNav).setVisibility(View.VISIBLE);
+        requireActivity().findViewById(R.id.headerLy).setVisibility(View.GONE);
 
         setListener();
         if (isNetworkConnected()) {

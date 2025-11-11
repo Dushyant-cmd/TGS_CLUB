@@ -10,43 +10,37 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.example.winzgo.databinding.ActivityMainBinding;
+import com.example.winzgo.fragments.CoinAndTradeWalletFragment;
 import com.example.winzgo.fragments.DashboardFragment;
-import com.example.winzgo.fragments.HomeFragment;
-import com.example.winzgo.fragments.MoneyFragment;
-import com.example.winzgo.R;
-import com.example.winzgo.fragments.SettingsFragment;
-import com.example.winzgo.models.UserDocumentModel;
+import com.example.winzgo.fragments.settings.SettingsCoinAndTradeXFragment;
+import com.example.winzgo.fragments.wingo.HomeFragment;
+import com.example.winzgo.fragments.wingo.MoneyFragment;
+import com.example.winzgo.fragments.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-
 public class MainActivity extends AppCompatActivity {
-    BottomNavigationView bNView;
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore mFirestore;
-    private String TAG, mPhone;
-    ProgressDialog dialog;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        bNView = findViewById(R.id.bottomNav);
-        bNView.setSelectedItemId(R.id.homeItem);
-        TAG = "MainActivity.java";
-        mPhone = getIntent().getStringExtra("phone");
-        mAuth = FirebaseAuth.getInstance();
-        mFirestore = FirebaseFirestore.getInstance();
-        dialog = new ProgressDialog(this);
-        dialog.setTitle("Fetching Data");
-        dialog.setMessage("Please wait...");
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.bottomNav.setSelectedItemId(R.id.homeItem);
         getSupportFragmentManager().beginTransaction().add(R.id.container, new DashboardFragment()).commit();
 
-        bNView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        setListeners();
+    }
+
+    private void setListeners() {
+        binding.bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 //item id that was selected or clicked
@@ -61,13 +55,47 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        binding.cardWallet.setOnClickListener(v -> {
+            loadFragment(new CoinAndTradeWalletFragment(), true, "Wallet");
+        });
+
+        binding.btnSettings.setOnClickListener(v -> {
+            loadFragment(new SettingsCoinAndTradeXFragment(), true, "Settings");
+        });
+
+        binding.btnHome.setOnClickListener(v -> {
+            loadFragment(new DashboardFragment(), true, "Home");
+        });
+
+        binding.btnBack.setOnClickListener(v -> {
+            super.onBackPressed();
+        });
     }
 
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
     }
 
-    public void loadFragment(Fragment fragment, boolean isAddToBackstack) {
+    public void loadFragment(Fragment fragment, boolean isAddToBackstack, String title) {
+        binding.tvTitle.setText(title);
+        if(title.equalsIgnoreCase("home")) {
+            binding.cardWallet.setVisibility(View.GONE);
+            binding.btnHome.setVisibility(View.GONE);
+            binding.btnDarkMode.setVisibility(View.VISIBLE);
+            binding.btnSettings.setVisibility(View.VISIBLE);
+        } else if(title.equalsIgnoreCase("coin prediction") || title.equalsIgnoreCase("crypto streak")) {
+            binding.cardWallet.setVisibility(View.VISIBLE);
+            binding.btnHome.setVisibility(View.GONE);
+            binding.btnDarkMode.setVisibility(View.GONE);
+            binding.btnSettings.setVisibility(View.GONE);
+        } else {
+            binding.cardWallet.setVisibility(View.GONE);
+            binding.btnHome.setVisibility(View.VISIBLE);
+            binding.btnDarkMode.setVisibility(View.GONE);
+            binding.btnSettings.setVisibility(View.GONE);
+        }
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.container, fragment);
         if(isAddToBackstack)

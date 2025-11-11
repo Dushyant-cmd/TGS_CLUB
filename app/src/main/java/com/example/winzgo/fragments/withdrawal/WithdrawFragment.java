@@ -1,4 +1,4 @@
-package com.example.winzgo.fragments;
+package com.example.winzgo.fragments.withdrawal;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;

@@ -1,4 +1,4 @@
-package com.example.winzgo.fragments;
+package com.example.winzgo.fragments.wingo;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -9,7 +9,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;

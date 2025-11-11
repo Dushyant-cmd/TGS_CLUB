@@ -1,4 +1,4 @@
-package com.example.winzgo.fragments;
+package com.example.winzgo.fragments.withdrawal;
 
 import android.os.Bundle;
 
@@ -13,28 +13,31 @@ import android.view.ViewGroup;
 import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
 import com.example.winzgo.databinding.FragmentCoinPredictionBinding;
+import com.example.winzgo.databinding.FragmentCoinTradeWithdrawalBinding;
+import com.example.winzgo.fragments.AddBankDetailsFragment;
 
-public class CoinPredictionFragment extends Fragment {
-    private FragmentCoinPredictionBinding binding;
+public class CoinTradeWithdrawalFragment extends Fragment {
+    private FragmentCoinTradeWithdrawalBinding binding;
     private MainActivity hostAct;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_coin_prediction, container, false);
+        return inflater.inflate(R.layout.fragment_coin_trade_withdrawal, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding = FragmentCoinPredictionBinding.bind(view);
+        binding = FragmentCoinTradeWithdrawalBinding.bind(view);
         hostAct = (MainActivity) requireActivity();
 
         setListeners();
     }
 
     private void setListeners() {
-        binding.cardWallet.setOnClickListener(v -> {
-            hostAct.loadFragment(new CoinAndTradeWalletFragment(), true);
+        binding.btnBankDetails.setOnClickListener(v -> {
+            hostAct.loadFragment(new AddBankDetailsFragment(), true, "Bank Details");
         });
     }
 }
