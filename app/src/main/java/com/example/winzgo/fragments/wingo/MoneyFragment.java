@@ -62,7 +62,6 @@ public class MoneyFragment extends Fragment {
         FragmentManager fm = getFragmentManager();
         firestore = FirebaseFirestore.getInstance();
         sharedPreferences = new SessionSharedPref(getActivity());
-        MainActivity.i = 0;
         dialog = new ProgressDialog(getActivity());
         gameHistoryAdapter = new GameHistoryAdapter(new ArrayList<>());
 

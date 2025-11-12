@@ -32,10 +32,12 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         activity = (MainActivity) requireActivity();
 
+        MainActivity.i = 0;
         requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.white));
         requireActivity().findViewById(R.id.bottomNav).setVisibility(View.GONE);
-        requireActivity().findViewById(R.id.headerLy).setVisibility(View.VISIBLE);
+        requireActivity().findViewById(R.id.mainHeaderLy).setVisibility(View.VISIBLE);
 
+        activity.setupHeader("home");
         setListeners();
         return binding.getRoot();
     }
@@ -53,7 +55,9 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getIsUpdate();
+        if(!BuildConfig.DEBUG) {
+            getIsUpdate();
+        }
     }
 
     private void getIsUpdate() {
@@ -78,5 +82,11 @@ public class DashboardFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainActivity.i = -1;
     }
 }

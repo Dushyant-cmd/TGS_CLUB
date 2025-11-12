@@ -30,6 +30,7 @@ public class CoinPredictionFragment extends Fragment {
         binding = FragmentCoinPredictionBinding.bind(view);
         hostAct = (MainActivity) requireActivity();
 
+        hostAct.setupHeader("Coin Prediction");
         setListeners();
     }
 

@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
+    private String oldTitle = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +34,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.bottomNav.setSelectedItemId(R.id.homeItem);
-        getSupportFragmentManager().beginTransaction().add(R.id.container, new DashboardFragment()).commit();
-
+        loadFragment(new DashboardFragment(), false, "Home");
         setListeners();
     }
 
@@ -46,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
                 //item id that was selected or clicked
                 int id = item.getItemId();
                 if (id == R.id.homeItem) {
-                    loadFragment(new HomeFragment());
+                    loadFragment(new HomeFragment(), true, "Win-Go");
                 } else if (id == R.id.moneyItem) {
-                    loadFragment(new MoneyFragment());
+                    loadFragment(new MoneyFragment(), true, "Money");
                 } else if (id == R.id.settingsItem) {
-                    loadFragment(new SettingsFragment());
+                    loadFragment(new SettingsFragment(), true, "Settings");
                 }
                 return true;
             }
@@ -73,12 +72,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+    public void loadFragment(Fragment fragment, boolean isAddToBackstack, String title) {
+        setupHeader(title);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.container, fragment);
+        if(isAddToBackstack)
+            ft.addToBackStack(null);
+
+        ft.commit();
     }
 
-    public void loadFragment(Fragment fragment, boolean isAddToBackstack, String title) {
+    public void setupHeader(String title) {
+        oldTitle = binding.tvTitle.getText().toString();
         binding.tvTitle.setText(title);
+
         if(title.equalsIgnoreCase("home")) {
             binding.cardWallet.setVisibility(View.GONE);
             binding.btnHome.setVisibility(View.GONE);
@@ -95,48 +102,28 @@ public class MainActivity extends AppCompatActivity {
             binding.btnDarkMode.setVisibility(View.GONE);
             binding.btnSettings.setVisibility(View.GONE);
         }
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.container, fragment);
-        if(isAddToBackstack)
-            ft.addToBackStack(null);
-
-        ft.commit();
     }
 
-    public static int i = 0;
+    public static int i = -1;
 
     //onBackPressed() method invoked everytime when user click on system navigation pattern back button.
     @Override
     public void onBackPressed() {
-        if (i != 101) {
-            i++;
+        if (i == 0) {
             if (i == 1) {
-                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
-            } else {
-                i = 0;
                 //It clear current backstack of fragment( which is in resumed state ).
                 getSupportFragmentManager().popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 super.onBackPressed();
+            } else {
+                Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
             }
-        } else {
-        }
+
+            i++;
+        } else super.onBackPressed();
     }
 
     public void popCurrent() {
         if (!isFinishing())
             getSupportFragmentManager().popBackStackImmediate();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.v("MainActivity.java", "paused");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.v("MainActivity.java", "stopped");
     }
 }

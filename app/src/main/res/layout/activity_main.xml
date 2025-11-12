@@ -8,6 +8,7 @@
 
     <!-- Header -->
     <RelativeLayout
+        android:id="@+id/mainHeaderLy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
@@ -117,6 +118,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/mainHeaderLy"
         android:layout_above="@id/bottomNav"
         android:orientation="vertical" />
 

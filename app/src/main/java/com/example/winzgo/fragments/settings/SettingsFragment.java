@@ -59,7 +59,6 @@ public class SettingsFragment extends Fragment {
         TAG = "SettingsFragment.java";
         binding.tvVersion.setText("Version: " + BuildConfig.VERSION_NAME);
 
-        MainActivity.i = 0;
         setupViews();
         setListeners();
         return binding.getRoot();

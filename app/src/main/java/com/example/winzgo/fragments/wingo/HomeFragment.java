@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         bar = binding.progressBar1;
-        //default values of bet variables
+
         selectedNum = -1;
         selectedBetAmt = 10;
         betInto = 1;
@@ -116,10 +116,9 @@ public class HomeFragment extends Fragment {
         dialog = new ProgressDialog(getActivity());
         dialog.setMessage("Fetching all results");
         list = new ArrayList<>();
-        MainActivity.i = 101;
         requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.light_tint));
         requireActivity().findViewById(R.id.bottomNav).setVisibility(View.VISIBLE);
-        requireActivity().findViewById(R.id.headerLy).setVisibility(View.GONE);
+        requireActivity().findViewById(R.id.mainHeaderLy).setVisibility(View.GONE);
 
         setListener();
         if (isNetworkConnected()) {

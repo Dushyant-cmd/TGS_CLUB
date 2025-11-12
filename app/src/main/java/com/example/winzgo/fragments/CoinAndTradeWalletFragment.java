@@ -31,6 +31,7 @@ public class CoinAndTradeWalletFragment extends Fragment {
         binding = FragmentCoinAndTradeWalletBinding.bind(view);
         hostActivity = (MainActivity) requireActivity();
 
+        hostActivity.setupHeader("Wallet");
         setListeners();
     }
 

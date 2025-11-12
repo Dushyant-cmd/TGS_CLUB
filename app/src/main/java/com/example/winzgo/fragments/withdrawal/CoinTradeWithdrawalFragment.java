@@ -32,6 +32,7 @@ public class CoinTradeWithdrawalFragment extends Fragment {
         binding = FragmentCoinTradeWithdrawalBinding.bind(view);
         hostAct = (MainActivity) requireActivity();
 
+        hostAct.setupHeader("Withdrawal");
         setListeners();
     }
 

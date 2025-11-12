@@ -38,6 +38,7 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
         binding = FragmentSettingsCoinAndTradeXBinding.bind(view);
         hostAct = (MainActivity) requireActivity();
 
+        hostAct.setupHeader("Settings");
         setListeners();
     }
 
@@ -54,7 +55,7 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
         });
 
         binding.lyRefer.setOnClickListener(v -> {
-            hostAct.loadFragment(new ReferFragment(), true);
+            hostAct.loadFragment(new ReferFragment(), true, "refer");
         });
 
         binding.lySupport.setOnClickListener(v -> {
