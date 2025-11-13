@@ -1,0 +1,574 @@
+package com.example.winzgo.fragments.tradePro;
+
+import static com.example.loottrade.utils.Constants.isNetworkConnected;
+
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.loottrade.MyApplication;
+import com.example.loottrade.R;
+import com.example.loottrade.activities.MainActivity;
+import com.example.loottrade.activities.ManualRechargeActivity;
+import com.example.loottrade.adapter.TradeHistoryAdapter;
+import com.example.loottrade.databinding.FragmentTradeProBinding;
+import com.example.loottrade.fragments.settings.ProfileFragment;
+import com.example.loottrade.models.TradeHistoryModel;
+import com.example.loottrade.sharedpref.SessionSharedPref;
+import com.example.loottrade.utils.Constants;
+import com.github.mikephil.charting.charts.CandleStickChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.CandleData;
+import com.github.mikephil.charting.data.CandleDataSet;
+import com.github.mikephil.charting.data.CandleEntry;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class TradeProFragment extends Fragment {
+    private FragmentTradeProBinding binding;
+    private FirebaseFirestore firestore;
+    private long betAmt = 100, currentGameId, oneMinCounter;
+    private CountDownTimer countDownTimer;
+    private List<CandleEntry> entries = new ArrayList<>();
+    private long currLastEntry = 0L;
+    private DocumentSnapshot lastDoc;
+    private List<TradeHistoryModel> tradeList = new ArrayList<>();
+    private boolean isTradePageLoad = true;
+    private TradeHistoryAdapter tradeHistoryAdapter;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getSecondsAndStartCountDown();
+        getTradeGraph();
+        getTradeHistory(true);
+        getUserData();
+
+        requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        ((MainActivity) requireActivity()).binding.bottomAppBar.setVisibility(View.GONE);
+        ((MainActivity) requireActivity()).binding.homeFAB.setVisibility(View.GONE);
+        Log.d("TradePro.java", "onResume: ");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.light_tint));
+        ((MainActivity) requireActivity()).binding.bottomAppBar.setVisibility(View.VISIBLE);
+        ((MainActivity) requireActivity()).binding.homeFAB.setVisibility(View.VISIBLE);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentTradeProBinding.inflate(getLayoutInflater());
+        firestore = FirebaseFirestore.getInstance();
+        MainActivity.i = 101;
+
+        setupViews();
+        setListeners();
+        return binding.getRoot();
+    }
+
+    private void setupViews() {
+        tradeHistoryAdapter = new TradeHistoryAdapter();
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.recyclerView.setAdapter(tradeHistoryAdapter);
+
+        binding.nestedScroll.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                Log.v("TradePro.java", "game list scroll till bottom");
+                if (isNetworkConnected(requireActivity()) && isTradePageLoad) {
+                    binding.tradePB.setVisibility(View.VISIBLE);
+                    isTradePageLoad = false;
+                    getTradeHistory(false);
+                } else if (!isNetworkConnected(requireActivity())) {
+                    Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", () -> {
+                        // Ignore
+                    });
+                }
+            }
+        });
+    }
+
+    private void setListeners() {
+        binding.refreshBtn.setOnClickListener(v -> {
+            getSecondsAndStartCountDown();
+            getTradeGraph();
+            getTradeHistory(true);
+            getUserData();
+        });
+
+        binding.upBtn.setOnClickListener(v -> {
+            checkAndPutBet(true);
+        });
+
+        binding.downBtn.setOnClickListener(v -> {
+            checkAndPutBet(false);
+        });
+
+        binding.tvWallet.setOnClickListener(v -> {
+            loadFragment(new ProfileFragment(), false);
+        });
+
+        binding.tvProfile.setOnClickListener(v -> {
+            loadFragment(new ProfileFragment(), false);
+        });
+
+        binding.hundredBtn.setOnClickListener(v -> {
+            betAmt = 100;
+            binding.hundredBtn.setBackgroundResource(R.drawable.blue_rectange);
+
+            binding.fiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.thousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.fiveThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.tenThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+        });
+
+        binding.fiveHundredBtn.setOnClickListener(v -> {
+            betAmt = 500;
+            binding.fiveHundredBtn.setBackgroundResource(R.drawable.blue_rectange);
+
+            binding.hundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.thousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.fiveThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.tenThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+        });
+
+        binding.thousandBtn.setOnClickListener(v -> {
+            betAmt = 1000;
+            binding.thousandBtn.setBackgroundResource(R.drawable.blue_rectange);
+
+            binding.hundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.fiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.fiveThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.tenThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+        });
+
+        binding.twentyFiveHundredBtn.setOnClickListener(v -> {
+            betAmt = 2500;
+            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.blue_rectange);
+
+            binding.hundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.fiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.thousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.fiveThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.tenThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+        });
+
+        binding.fiveThousandBtn.setOnClickListener(v -> {
+            betAmt = 5000;
+            binding.fiveThousandBtn.setBackgroundResource(R.drawable.blue_rectange);
+
+            binding.hundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.fiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.thousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.tenThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+        });
+
+        binding.tenThousandBtn.setOnClickListener(v -> {
+            betAmt = 10000;
+            binding.tenThousandBtn.setBackgroundResource(R.drawable.blue_rectange);
+
+            binding.hundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.fiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.thousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            binding.fiveThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+        });
+    }
+
+    private void checkAndPutBet(boolean isUp) {
+        if (isNetworkConnected(requireActivity())) {
+            long balance = SessionSharedPref.getLong(requireContext(), SessionSharedPref.BALANCE_KEY, 0L);
+            if (balance >= betAmt) {
+                Dialog dialog = Constants.showProgressDialog(requireContext());
+                firestore.collection("tradeBets").whereEqualTo("id", currentGameId)
+                        .limit(1).get().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().getDocuments().isEmpty()) {
+                                    Map<String, Object> map = new HashMap<>();
+                                    map.put("bet_amount", betAmt);
+                                    map.put("isUp", isUp);
+                                    map.put("selected", currLastEntry);
+                                    map.put("user_id", SessionSharedPref.getLong(requireContext(), SessionSharedPref.USER_ID_KEY, 0L));
+                                    map.put("timestamp", System.currentTimeMillis());
+                                    map.put("dateAndTime", ((MyApplication) requireActivity().getApplication()).getCurrDateAndTime());
+                                    map.put("name", SessionSharedPref.getStr(requireContext(), SessionSharedPref.NAME_KEY, ""));
+                                    map.put("result", 0);
+                                    map.put("id", currentGameId);
+                                    map.put("isWinner", false);
+                                    map.put("win_amount", 0);
+                                    firestore.collection("tradeBets").add(map)
+                                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                    dialog.dismiss();
+                                                    if (task.isSuccessful()) {
+                                                        binding.betDetailsLy.setVisibility(View.VISIBLE);
+                                                        binding.betAmt.setText(Constants.RUPEE_ICON + betAmt);
+                                                        binding.betEntryAmt.setText("Entry: " + Constants.RUPEE_ICON + currLastEntry);
+                                                        if (isUp) {
+                                                            binding.ivBetPredictionType.setImageResource(R.drawable.graph_up_ic);
+                                                            binding.ivBetPredictionType.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.green)));
+                                                        } else {
+                                                            binding.ivBetPredictionType.setImageResource(R.drawable.graph_down_ic);
+                                                            binding.ivBetPredictionType.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                                                        }
+
+                                                        Constants.updateBalance(requireActivity(), betAmt, false, () -> {
+                                                            getUserData();
+                                                        });
+                                                    } else {
+                                                        Constants.showSnackBar(binding.getRoot(), task.getException().getMessage());
+                                                    }
+                                                }
+                                            });
+                                } else {
+                                    dialog.dismiss();
+                                    Constants.showAlertDialog(requireContext(), "Only one prediction submission is authorized within the contract timeframe.", "Okay", () -> {
+                                    });
+                                }
+                            } else {
+                                dialog.dismiss();
+                                Constants.showSnackBar(binding.getRoot(), "Something went wrong");
+                            }
+                        });
+            } else {
+                Constants.showSnackBarAction(binding.getRoot(), "Low balance", "Do Recharge", () -> {
+                    requireActivity().startActivity(new Intent(requireActivity(), ManualRechargeActivity.class));
+                });
+            }
+        } else {
+            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", () -> {checkAndPutBet(isUp);});
+        }
+    }
+
+    private void setupGraph(List<CandleEntry> entries) {
+        try {
+            CandleStickChart candleStickChart = binding.candleStick;
+
+            candleStickChart.getDescription().setText("LootTrade");
+
+            binding.candleStick.getDescription().setText("");
+
+            CandleDataSet dataSet = new CandleDataSet(entries, "Trade");
+            binding.candleStick.setHighlightPerDragEnabled(false);
+            binding.candleStick.setDrawBorders(false);
+            YAxis yAxis = binding.candleStick.getAxisLeft();
+            YAxis rightAxis = binding.candleStick.getAxisRight();
+            yAxis.setDrawGridLines(false);
+            rightAxis.setDrawGridLines(false);
+            binding.candleStick.requestDisallowInterceptTouchEvent(true);
+            XAxis xAxis = binding.candleStick.getXAxis();
+
+            xAxis.setDrawGridLines(false); // disable x axis grid lines
+            xAxis.setDrawLabels(false);
+            rightAxis.setTextColor(Color.WHITE);
+            yAxis.setDrawLabels(false);
+            xAxis.setGranularity(1f);
+            xAxis.setGranularityEnabled(false);
+            xAxis.setAxisLineColor(R.color.too_light_grey);
+            xAxis.setAvoidFirstLastClipping(false);
+
+            binding.candleStick.setGridBackgroundColor(128);
+            binding.candleStick.setBorderColor(255);
+            binding.candleStick.getAxisRight().setEnabled(false);
+            YAxis leftAxis = binding.candleStick.getAxisLeft();
+            leftAxis.setEnabled(false);
+            binding.candleStick.setDrawGridBackground(true);
+            binding.candleStick.setPinchZoom(false);
+            binding.candleStick.setDoubleTapToZoomEnabled(false);
+            binding.candleStick.getXAxis().setEnabled(true);
+            binding.candleStick.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            dataSet.setDrawIcons(false);
+            dataSet.setIncreasingColor(getResources().getColor(R.color.dark_green)); // Color for up (green) candlesticks
+            dataSet.setIncreasingPaintStyle(Paint.Style.FILL); // Set the paint style to Fill for green candlesticks
+            dataSet.setDecreasingColor(getResources().getColor(R.color.dark_red)); // Color for down (red) candlesticks
+            dataSet.setShadowColorSameAsCandle(true); // Using the same color for shadows as the candlesticks
+            dataSet.setDrawValues(false); // Hiding the values on the chart if not needed
+            dataSet.setShadowWidth(1f); // control width of candle stack and its shadow.
+
+
+            // Created a CandleData object from the CandleDataSet
+            CandleData data = new CandleData(dataSet);
+
+            binding.candleStick.setData(data);
+            binding.candleStick.invalidate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getTradeGraph() {
+        if (isNetworkConnected(getActivity())) {
+            new Handler().post(() -> {
+                firestore.collection("ids").document("tradeProId").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> taskOne) {
+                        if (taskOne.isSuccessful()) {
+                            currentGameId = taskOne.getResult().getLong("id");
+                            firestore.collection("tradeProHistory").document(String.valueOf(currentGameId)).get().addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot doc = task.getResult();
+                                    entries = new ArrayList<>();
+                                    List<Long> tradeGraphValues = (List<Long>) doc.get("tradeGraphValues");
+                                    if (tradeGraphValues != null) {
+                                        long prevEntry = 0L;
+                                        int i = 0;
+                                        while (i < tradeGraphValues.size()) {
+                                            long newCurrEntry = tradeGraphValues.get(i);
+                                            float high = tradeGraphValues.get(tradeGraphValues.indexOf(Collections.max(tradeGraphValues)));
+                                            float low = tradeGraphValues.get(tradeGraphValues.indexOf(Collections.min(tradeGraphValues)));
+
+                                            if (i > 0) {
+                                                high = entries.get(entries.size() - 1).getClose();
+                                                low = entries.get(entries.size() - 1).getOpen();
+                                            }
+                                            entries.add(new CandleEntry(i, high, low, prevEntry, newCurrEntry));
+                                            // previous candle.
+                                            prevEntry = newCurrEntry;
+                                            i++;
+                                        }
+
+                                        float growPercentage = 0f;
+                                        long newCurrLastEntry = (long) entries.get(entries.size() - 1).getClose();
+                                        if (currLastEntry > 0) {
+                                            growPercentage = ((float) (newCurrLastEntry - currLastEntry) / currLastEntry) * 100;
+                                        }
+
+                                        currLastEntry = newCurrLastEntry;
+
+                                        binding.tvCurrCloseCandle.setText(Constants.RUPEE_ICON + currLastEntry + ".00");
+                                        String formattedGrowPercentage = String.format("%.2f", growPercentage);
+                                        if (growPercentage > 0) {
+                                            binding.tvGraphClosing.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
+                                        } else if (growPercentage < 0) {
+                                            binding.tvGraphClosing.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
+                                        } else {
+                                            binding.tvGraphClosing.setText(Constants.RUPEE_ICON + currLastEntry + "(0.0%)");
+                                        }
+
+                                        setupGraph(entries);
+                                    }
+                                } else {
+                                    Constants.showSnackBar(binding.getRoot(), "Something went wrong");
+                                }
+                            });
+                        } else {
+                            Constants.showSnackBar(binding.getRoot(), "Something went wrong");
+                        }
+                    }
+                });
+            });
+        } else {
+            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getTradeGraph);
+        }
+    }
+
+    private void getSecondsAndStartCountDown() {
+        if (isNetworkConnected(getActivity())) {
+            Dialog dialog = Constants.showProgressDialog(getActivity());
+            firestore.collection("timer").document("tradeProTimer").get().addOnCompleteListener(task -> {
+                dialog.dismiss();
+                if (task.isSuccessful()) {
+                    try {
+                        long dbTimestamp = task.getResult().getLong("sec");//it returns timestamp
+                        long currentTimestamp = (System.currentTimeMillis() / 1000);
+                        long timerSecGone = (currentTimestamp - dbTimestamp);//sec gone
+                        long timerSecLeft = (60 - timerSecGone);//sec left
+                        binding.minTv.setText("0");
+                        long timerSecsInMillis = (timerSecLeft * 1000);
+                        Log.v("Trade.java", "seconds: " + timerSecLeft);
+
+                        startCountDownOneMin(timerSecGone, timerSecLeft, timerSecsInMillis);
+                    } catch (Exception e) {
+                        Constants.showSnackBar(binding.getRoot(), "Something went wrong");
+                    }
+                } else {
+                    Constants.showSnackBar(binding.getRoot(), "Something went wrong");
+                }
+            });
+        } else {
+            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getSecondsAndStartCountDown);
+        }
+    }
+
+    private void startCountDownOneMin(long timerSecGone, long timerSecLeft, long timerSecInMillis) {
+        timerSecInMillis += 5000;
+        oneMinCounter = timerSecLeft;
+        try {
+            if (countDownTimer != null) {
+                countDownTimer.cancel();
+            }
+
+            if (oneMinCounter > -6) {
+                countDownTimer = new CountDownTimer(timerSecInMillis, 1000) {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onTick(long l) {
+                        oneMinCounter--;
+                        if (oneMinCounter < 10) {
+                            binding.secTv1.setText("0");
+                            binding.secTv2.setText(String.valueOf(oneMinCounter));
+                        } else {
+                            String str = String.valueOf(oneMinCounter);
+                            binding.secTv1.setText(str.charAt(0) + "");
+                            binding.secTv2.setText(str.charAt(1) + "");
+                        }
+
+                        if (oneMinCounter < 0) {
+                            binding.secTv1.setText("0");
+                            binding.secTv2.setText("0");
+                        } else if (oneMinCounter % 5 == 0 || oneMinCounter == 2) {
+                            Log.d("TradePro.java", "onTick: " + oneMinCounter);
+                            getTradeGraph();
+                        }
+
+                        if(getActivity() == null) {
+                            // because of thread safe program
+                            countDownTimer.cancel();
+                        }
+                    }
+
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onFinish() {
+                        getSecondsAndStartCountDown();
+                        getTradeGraph();
+                        binding.betDetailsLy.setVisibility(View.INVISIBLE);
+                        getUserData();
+                        getTradeHistory(true);
+                    }
+                }.start();
+            } else {
+                Constants.showSnackBarAction(binding.getRoot(), "Something went wrong", "try again", this::getSecondsAndStartCountDown);
+            }
+        } catch (Exception e) {
+            Constants.showSnackBarAction(binding.getRoot(), "Something went wrong", "try again", this::getSecondsAndStartCountDown);
+        }
+    }
+
+    private void getTradeHistory(boolean isFirstLoad) {
+        if (isNetworkConnected(requireActivity())) {
+            if(isFirstLoad) {
+                lastDoc = null;
+                tradeList.clear();
+            }
+
+            long userId = SessionSharedPref.getLong(getContext(), SessionSharedPref.USER_ID_KEY, 0L);
+            Query query = firestore.collection("tradeBets").whereLessThan("id", currentGameId).whereEqualTo("user_id", userId).orderBy("timestamp", Query.Direction.DESCENDING).limit(10);
+            if (lastDoc != null) {
+                query = firestore.collection("tradeBets").whereLessThan("id", currentGameId).whereEqualTo("user_id", userId).orderBy("timestamp", Query.Direction.DESCENDING).startAfter(lastDoc).limit(10);
+            }
+
+            query.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                    //Query returns documents in result inside Task class instance of DocumentSnapshot class object
+                    List<DocumentSnapshot> snapshotList = task.getResult().getDocuments();
+                    for (int i = 0; i < snapshotList.size(); i++) {
+                        DocumentSnapshot document = snapshotList.get(i);
+                        if (i == snapshotList.size() - 1) {
+                            lastDoc = document;
+                        }
+
+                        TradeHistoryModel item = document.toObject(TradeHistoryModel.class);
+                        boolean isUp = document.getBoolean("isUp");
+                        boolean isWinner = document.getBoolean("isWinner");
+                        item.setUp(isUp);
+                        item.setWinner(isWinner);
+                        tradeList.add(item);
+                    }
+
+                    tradeHistoryAdapter.submitList(tradeList);
+                    tradeHistoryAdapter.notifyDataSetChanged();
+                }
+
+                binding.tradePB.setVisibility(View.GONE);
+                isTradePageLoad = true;
+            });
+        } else {
+            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", () -> {
+                getTradeHistory(true);
+            });
+        }
+    }
+
+    private void getUserData() {
+        if (isNetworkConnected(requireActivity())) {
+            long userId = SessionSharedPref.getLong(requireContext(), SessionSharedPref.USER_ID_KEY, 0L);
+            if (userId != 0L) {
+                ProgressDialog dialog1 = new ProgressDialog(requireActivity());
+                dialog1.setMessage("Please wait...");
+                dialog1.show();
+                firestore.collection("users").document(String.valueOf(userId))
+                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                dialog1.dismiss();
+                                long balance = task.getResult().getLong("balance");
+                                String userStatus = task.getResult().getString("status");
+                                SessionSharedPref.setStr(requireContext(), SessionSharedPref.USER_STATUS, userStatus);
+                                SessionSharedPref.setLong(requireContext(), SessionSharedPref.BALANCE_KEY, balance);
+
+                                binding.tvWallet.setText(Constants.RUPEE_ICON + balance);
+                                if (!userStatus.equalsIgnoreCase("active")) {
+                                    binding.tvWallet.setText(userStatus);
+                                }
+                            }
+                        });
+            }
+        } else {
+            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
+        }
+    }
+
+    private void loadFragment(Fragment fragment, boolean isAdd) {
+        if (!requireActivity().isFinishing()) {
+            FragmentTransaction ft = requireActivity().getSupportFragmentManager()
+                    .beginTransaction();
+
+            if (isAdd) {
+                ft.add(R.id.container, fragment);
+            } else {
+                ft.replace(R.id.container, fragment);
+            }
+
+            ft.addToBackStack(null).commit();
+        }
+    }
+}

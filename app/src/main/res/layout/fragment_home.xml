@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nestedScroll"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -47,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:fontFamily="@font/inria_serif_bold"
-                        android:text="@string/wallet_balance_default"
+                        tools:text="@string/wallet_balance_default"
                         android:textColor="#000"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -58,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:fontFamily="sans-serif"
-                        android:text="@string/wallet_name_label"
+                        tools:text="@string/wallet_name_label"
                         android:textColor="#222"
                         android:textSize="14sp" />
 
@@ -67,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="@string/wallet_id_label"
+                        tools:text="@string/wallet_id_label"
                         android:textColor="#222"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -353,7 +354,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4dp"
                             android:fontFamily="@font/inria_serif_bold"
-                            android:text="3237286647245"
+                            tools:text="3237286647245"
                             android:textColor="#000000"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -392,7 +393,7 @@
                             android:background="@drawable/time_box"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center"
-                            android:text="0"
+                            tools:text="0"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 
@@ -404,7 +405,7 @@
                             android:background="@drawable/time_box"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center"
-                            android:text="2"
+                            tools:text="2"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 
@@ -429,7 +430,7 @@
                             android:background="@drawable/time_box"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center"
-                            android:text="5"
+                            tools:text="5"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
 
@@ -442,7 +443,7 @@
                             android:background="@drawable/time_box"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center"
-                            android:text="9"
+                            tools:text="9"
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>

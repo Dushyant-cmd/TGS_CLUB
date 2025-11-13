@@ -18,6 +18,7 @@ import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
 import com.example.winzgo.activities.SignUpAndSignIn;
 import com.example.winzgo.databinding.FragmentSettingsCoinAndTradeXBinding;
+import com.example.winzgo.fragments.utils.CurrencyChangeDialog;
 import com.example.winzgo.fragments.wingo.ReferFragment;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
@@ -65,6 +66,11 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
 
         binding.lyTeamBonus.setOnClickListener(v -> {
             showTeamBonusAlertDialog();
+        });
+
+        binding.lyCurrChange.setOnClickListener(v -> {
+            CurrencyChangeDialog dialog = new CurrencyChangeDialog();
+            dialog.show(getChildFragmentManager(), "");
         });
     }
 

@@ -46,4 +46,6 @@
     <color name="text_shadow_white">#FFFFFF</color>
     <color name="little_dark_violet">#6366F1</color>
     <color name="light_yellow">#F8FAD6</color>
+    <color name="sky_blue">#00BCD4</color>
+    <color name="orange">#E68D40</color>
 </resources>

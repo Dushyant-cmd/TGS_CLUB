@@ -121,15 +121,6 @@ public class HomeFragment extends Fragment {
         requireActivity().findViewById(R.id.mainHeaderLy).setVisibility(View.GONE);
 
         setListener();
-        if (isNetworkConnected()) {
-            getUserData();
-            getGameResult();
-            getSecondsAndStartCountDown();
-            Log.v("HomeFragment.java", "net connected");
-        } else {
-            Log.v("HomeFragment.java", "net not connected");
-            openAlertDialog();//show AlertDialog(a layout displayed on some part of screen)
-        }
         return binding.getRoot();
     }
 
@@ -624,9 +615,10 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getIsUpdate();
-        if (isNetworkConnected() && isComeFromStop) {
-            getSecondsAndStartCountDown();
+        if (isNetworkConnected()) {
+            getUserData();
             getGameResult();
+            getSecondsAndStartCountDown();
 
             binding.greenCont.setBackgroundResource(R.drawable.btn_number_green);
             binding.redCont.setBackgroundResource(R.drawable.btn_number_red);

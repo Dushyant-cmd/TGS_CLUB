@@ -6,17 +6,10 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import androidx.fragment.app.FragmentManager;
-
-import com.airbnb.lottie.utils.Utils;
-import com.example.winzgo.activities.SignUpAndSignIn;
 import com.example.winzgo.databinding.ProfileEditDialogBinding;
 
 public class Constants {
@@ -31,7 +24,7 @@ public class Constants {
     public static final String APP_DOWNLOAD_LINK = "appDownloadLink";
     public static final String NOTIFICATION_PERMISSION = "notificationPermission";
     public static final String DARK_MODE = "darkMode";
-    public static final String IS_INR_USD = "isInrUsd";
+    public static final String IS_INR = "isInr";
     // sp key end
     public static final String RUPEE_ICON = "\u20b9";
 
@@ -101,25 +94,14 @@ public class Constants {
 
     public static void showLogoutAlertDialog(Context context, UtilsInterfaces.Refresh listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Log-out?");
+        builder.setTitle("Log-out?");//it is title in dialog
         builder.setMessage("Are you sure you want to Log-out?");
-        AlertDialog alertDialog = builder.create();
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                alertDialog.dismiss();
-                listener.refresh();
-            }
+
+        builder.setPositiveButton("Yes", (dialogInterface, i) -> listener.refresh());
+        builder.setNegativeButton("No", (dialog, i) -> {
         });
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int i) {
-                //close dialog
-                alertDialog.dismiss();
-            }
-        });
-
+        Dialog alertDialog = builder.create();
         alertDialog.show();
     }
 }

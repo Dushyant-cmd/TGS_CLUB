@@ -118,6 +118,18 @@ public class SessionSharedPref {
         return sharedPreferences.getString(key, defaultValue);
     }
 
+    public static void setBoolean(Context context, String key, boolean value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putBoolean(key, value);
+        edit.apply();//apply changes in background
+    }
+
+    public static boolean getBoolean(Context context, String key, boolean defaultValue) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(key, defaultValue);
+    }
+
     public static void clearFile(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().apply();

@@ -1,32 +1,32 @@
 package com.example.winzgo;
 
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
 import com.example.winzgo.databinding.ActivityMainBinding;
 import com.example.winzgo.fragments.CoinAndTradeWalletFragment;
 import com.example.winzgo.fragments.DashboardFragment;
 import com.example.winzgo.fragments.settings.SettingsCoinAndTradeXFragment;
+import com.example.winzgo.fragments.settings.SettingsFragment;
 import com.example.winzgo.fragments.wingo.HomeFragment;
 import com.example.winzgo.fragments.wingo.MoneyFragment;
-import com.example.winzgo.fragments.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private String oldTitle = "";
+
+    public int i = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,18 +104,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static int i = -1;
-
-    //onBackPressed() method invoked everytime when user click on system navigation pattern back button.
     @Override
     public void onBackPressed() {
-        if (i == 0) {
+        Fragment currFragment = getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() -1);
+
+        if (currFragment.toString().contains("DashboardFragment")) {
             if (i == 1) {
-                //It clear current backstack of fragment( which is in resumed state ).
                 getSupportFragmentManager().popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                super.onBackPressed();
+                finish();
             } else {
                 Toast.makeText(this, "Press again to exit", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(() -> {
+                    i = 0;
+                }, 2000);
             }
 
             i++;
