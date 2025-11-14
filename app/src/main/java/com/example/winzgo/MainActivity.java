@@ -23,7 +23,7 @@ import com.example.winzgo.fragments.wingo.MoneyFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
+    public static ActivityMainBinding binding;
     private String oldTitle = "";
 
     public int i = 0;

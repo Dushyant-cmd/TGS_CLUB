@@ -15,6 +15,7 @@ import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
 import com.example.winzgo.databinding.FragmentDashboardBinding;
 import com.example.winzgo.fragments.coin.CoinPredictionFragment;
+import com.example.winzgo.fragments.tradePro.TradeProFragment;
 import com.example.winzgo.fragments.wingo.HomeFragment;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
@@ -48,6 +49,10 @@ public class DashboardFragment extends Fragment {
 
         binding.lyCoinPd.setOnClickListener(v -> {
             activity.loadFragment(new CoinPredictionFragment(), true, "Coin Prediction");
+        });
+
+        binding.lyTradeX.setOnClickListener(v -> {
+            activity.loadFragment(new TradeProFragment(), true, "Trade Pro");
         });
     }
 

@@ -1,6 +1,6 @@
 package com.example.winzgo.fragments.tradePro;
 
-import static com.example.loottrade.utils.Constants.isNetworkConnected;
+import static com.example.winzgo.utils.Constants.isNetworkConnected;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,16 +25,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.loottrade.MyApplication;
-import com.example.loottrade.R;
-import com.example.loottrade.activities.MainActivity;
-import com.example.loottrade.activities.ManualRechargeActivity;
-import com.example.loottrade.adapter.TradeHistoryAdapter;
-import com.example.loottrade.databinding.FragmentTradeProBinding;
-import com.example.loottrade.fragments.settings.ProfileFragment;
-import com.example.loottrade.models.TradeHistoryModel;
-import com.example.loottrade.sharedpref.SessionSharedPref;
-import com.example.loottrade.utils.Constants;
+import com.example.winzgo.BuildConfig;
+import com.example.winzgo.MainActivity;
+import com.example.winzgo.MyApplication;
+import com.example.winzgo.R;
+import com.example.winzgo.activities.ManualRechargeActivity;
+import com.example.winzgo.adapter.TradeHistoryAdapter;
+import com.example.winzgo.databinding.FragmentTradeProBinding;
+import com.example.winzgo.models.TradeHistoryModel;
+import com.example.winzgo.sharedpref.SessionSharedPref;
+import com.example.winzgo.utils.Constants;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -68,24 +69,12 @@ public class TradeProFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getSecondsAndStartCountDown();
-        getTradeGraph();
-        getTradeHistory(true);
-        getUserData();
-
-        requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.white));
-        ((MainActivity) requireActivity()).binding.bottomAppBar.setVisibility(View.GONE);
-        ((MainActivity) requireActivity()).binding.homeFAB.setVisibility(View.GONE);
-        Log.d("TradePro.java", "onResume: ");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.light_tint));
-        ((MainActivity) requireActivity()).binding.bottomAppBar.setVisibility(View.VISIBLE);
-        ((MainActivity) requireActivity()).binding.homeFAB.setVisibility(View.VISIBLE);
+        if(!BuildConfig.DEBUG) {
+            getSecondsAndStartCountDown();
+            getTradeGraph();
+            getTradeHistory(true);
+            getUserData();
+        }
     }
 
     @Nullable
@@ -93,7 +82,6 @@ public class TradeProFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentTradeProBinding.inflate(getLayoutInflater());
         firestore = FirebaseFirestore.getInstance();
-        MainActivity.i = 101;
 
         setupViews();
         setListeners();
@@ -122,7 +110,7 @@ public class TradeProFragment extends Fragment {
     }
 
     private void setListeners() {
-        binding.refreshBtn.setOnClickListener(v -> {
+        binding.swipeRefLy.setOnRefreshListener(() -> {
             getSecondsAndStartCountDown();
             getTradeGraph();
             getTradeHistory(true);
@@ -137,87 +125,55 @@ public class TradeProFragment extends Fragment {
             checkAndPutBet(false);
         });
 
-        binding.tvWallet.setOnClickListener(v -> {
-            loadFragment(new ProfileFragment(), false);
+        binding.btnBet50.setOnClickListener(v -> {
+            betAmt = 50;
+            highlightBetAmtLayout(betAmt);
         });
 
-        binding.tvProfile.setOnClickListener(v -> {
-            loadFragment(new ProfileFragment(), false);
-        });
-
-        binding.hundredBtn.setOnClickListener(v -> {
+        binding.btnBet100.setOnClickListener(v -> {
             betAmt = 100;
-            binding.hundredBtn.setBackgroundResource(R.drawable.blue_rectange);
-
-            binding.fiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.thousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.fiveThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.tenThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            highlightBetAmtLayout(betAmt);
         });
 
-        binding.fiveHundredBtn.setOnClickListener(v -> {
+        binding.btnBet500.setOnClickListener(v -> {
             betAmt = 500;
-            binding.fiveHundredBtn.setBackgroundResource(R.drawable.blue_rectange);
-
-            binding.hundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.thousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.fiveThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.tenThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            highlightBetAmtLayout(betAmt);
         });
 
-        binding.thousandBtn.setOnClickListener(v -> {
+        binding.btnBet1000.setOnClickListener(v -> {
             betAmt = 1000;
-            binding.thousandBtn.setBackgroundResource(R.drawable.blue_rectange);
-
-            binding.hundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.fiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.fiveThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.tenThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            highlightBetAmtLayout(betAmt);
         });
 
-        binding.twentyFiveHundredBtn.setOnClickListener(v -> {
-            betAmt = 2500;
-            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.blue_rectange);
-
-            binding.hundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.fiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.thousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.fiveThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.tenThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-        });
-
-        binding.fiveThousandBtn.setOnClickListener(v -> {
+        binding.btnBet5000.setOnClickListener(v -> {
             betAmt = 5000;
-            binding.fiveThousandBtn.setBackgroundResource(R.drawable.blue_rectange);
-
-            binding.hundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.fiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.thousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.tenThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
+            highlightBetAmtLayout(betAmt);
         });
+    }
 
-        binding.tenThousandBtn.setOnClickListener(v -> {
-            betAmt = 10000;
-            binding.tenThousandBtn.setBackgroundResource(R.drawable.blue_rectange);
-
-            binding.hundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.fiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.thousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.twentyFiveHundredBtn.setBackgroundResource(R.drawable.light_grey_bg);
-            binding.fiveThousandBtn.setBackgroundResource(R.drawable.light_grey_bg);
-        });
+    private void highlightBetAmtLayout(long amount) {
+        int count = binding.betAmtLy.getChildCount();
+        for(int i=0; i<count; i++) {
+            View item = binding.betAmtLy.getChildAt(i);
+            if(item instanceof TextView) {
+             TextView tv = (TextView) item;
+                long tvAmt = Long.parseLong(tv.getText().toString().substring(1));
+                if(tvAmt == amount) {
+                    tv.setBackgroundResource(R.drawable.little_dark_violet_rect);
+                } else {
+                    tv.setBackgroundResource(R.drawable.white_border_rectangle);
+                }
+            }
+        }
     }
 
     private void checkAndPutBet(boolean isUp) {
         if (isNetworkConnected(requireActivity())) {
-            long balance = SessionSharedPref.getLong(requireContext(), SessionSharedPref.BALANCE_KEY, 0L);
+            long balance = SessionSharedPref.getLong(requireContext(), Constants.TRADE_PRO_BALANCE_KEY, 0L);
+            long userId = SessionSharedPref.getLong(requireContext(), Constants.USER_ID_KEY, 0L);
             if (balance >= betAmt) {
                 Dialog dialog = Constants.showProgressDialog(requireContext());
-                firestore.collection("tradeBets").whereEqualTo("id", currentGameId)
+                firestore.collection("tradeBets").whereEqualTo("id", currentGameId).whereEqualTo("user_id", userId)
                         .limit(1).get().addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 if (task.getResult().getDocuments().isEmpty()) {
@@ -225,10 +181,10 @@ public class TradeProFragment extends Fragment {
                                     map.put("bet_amount", betAmt);
                                     map.put("isUp", isUp);
                                     map.put("selected", currLastEntry);
-                                    map.put("user_id", SessionSharedPref.getLong(requireContext(), SessionSharedPref.USER_ID_KEY, 0L));
+                                    map.put("user_id", userId);
                                     map.put("timestamp", System.currentTimeMillis());
                                     map.put("dateAndTime", ((MyApplication) requireActivity().getApplication()).getCurrDateAndTime());
-                                    map.put("name", SessionSharedPref.getStr(requireContext(), SessionSharedPref.NAME_KEY, ""));
+                                    map.put("name", SessionSharedPref.getStr(requireContext(), Constants.NAME_KEY, ""));
                                     map.put("result", 0);
                                     map.put("id", currentGameId);
                                     map.put("isWinner", false);
@@ -239,18 +195,11 @@ public class TradeProFragment extends Fragment {
                                                 public void onComplete(@NonNull Task<DocumentReference> task) {
                                                     dialog.dismiss();
                                                     if (task.isSuccessful()) {
-                                                        binding.betDetailsLy.setVisibility(View.VISIBLE);
+                                                        binding.betDetailsCard.setVisibility(View.VISIBLE);
                                                         binding.betAmt.setText(Constants.RUPEE_ICON + betAmt);
                                                         binding.betEntryAmt.setText("Entry: " + Constants.RUPEE_ICON + currLastEntry);
-                                                        if (isUp) {
-                                                            binding.ivBetPredictionType.setImageResource(R.drawable.graph_up_ic);
-                                                            binding.ivBetPredictionType.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.green)));
-                                                        } else {
-                                                            binding.ivBetPredictionType.setImageResource(R.drawable.graph_down_ic);
-                                                            binding.ivBetPredictionType.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
-                                                        }
 
-                                                        Constants.updateBalance(requireActivity(), betAmt, false, () -> {
+                                                        Constants.updateBalance(requireActivity(), betAmt, false, Constants.TRADE_PRO_BALANCE_KEY, () -> {
                                                             getUserData();
                                                         });
                                                     } else {
@@ -260,7 +209,7 @@ public class TradeProFragment extends Fragment {
                                             });
                                 } else {
                                     dialog.dismiss();
-                                    Constants.showAlertDialog(requireContext(), "Only one prediction submission is authorized within the contract timeframe.", "Okay", () -> {
+                                    Constants.showAlerDialog(requireContext(), "Only one prediction submission is authorized within the contract timeframe.", "Okay", () -> {
                                     });
                                 }
                             } else {
@@ -373,14 +322,14 @@ public class TradeProFragment extends Fragment {
 
                                         currLastEntry = newCurrLastEntry;
 
-                                        binding.tvCurrCloseCandle.setText(Constants.RUPEE_ICON + currLastEntry + ".00");
+                                        binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + ".00");
                                         String formattedGrowPercentage = String.format("%.2f", growPercentage);
                                         if (growPercentage > 0) {
-                                            binding.tvGraphClosing.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
+                                            binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
                                         } else if (growPercentage < 0) {
-                                            binding.tvGraphClosing.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
+                                            binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
                                         } else {
-                                            binding.tvGraphClosing.setText(Constants.RUPEE_ICON + currLastEntry + "(0.0%)");
+                                            binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + "(0.0%)");
                                         }
 
                                         setupGraph(entries);
@@ -470,7 +419,7 @@ public class TradeProFragment extends Fragment {
                     public void onFinish() {
                         getSecondsAndStartCountDown();
                         getTradeGraph();
-                        binding.betDetailsLy.setVisibility(View.INVISIBLE);
+                        binding.betDetailsCard.setVisibility(View.INVISIBLE);
                         getUserData();
                         getTradeHistory(true);
                     }
@@ -490,7 +439,7 @@ public class TradeProFragment extends Fragment {
                 tradeList.clear();
             }
 
-            long userId = SessionSharedPref.getLong(getContext(), SessionSharedPref.USER_ID_KEY, 0L);
+            long userId = SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L);
             Query query = firestore.collection("tradeBets").whereLessThan("id", currentGameId).whereEqualTo("user_id", userId).orderBy("timestamp", Query.Direction.DESCENDING).limit(10);
             if (lastDoc != null) {
                 query = firestore.collection("tradeBets").whereLessThan("id", currentGameId).whereEqualTo("user_id", userId).orderBy("timestamp", Query.Direction.DESCENDING).startAfter(lastDoc).limit(10);
@@ -530,7 +479,7 @@ public class TradeProFragment extends Fragment {
 
     private void getUserData() {
         if (isNetworkConnected(requireActivity())) {
-            long userId = SessionSharedPref.getLong(requireContext(), SessionSharedPref.USER_ID_KEY, 0L);
+            long userId = SessionSharedPref.getLong(requireContext(), Constants.USER_ID_KEY, 0L);
             if (userId != 0L) {
                 ProgressDialog dialog1 = new ProgressDialog(requireActivity());
                 dialog1.setMessage("Please wait...");
@@ -540,15 +489,10 @@ public class TradeProFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 dialog1.dismiss();
-                                long balance = task.getResult().getLong("balance");
-                                String userStatus = task.getResult().getString("status");
-                                SessionSharedPref.setStr(requireContext(), SessionSharedPref.USER_STATUS, userStatus);
-                                SessionSharedPref.setLong(requireContext(), SessionSharedPref.BALANCE_KEY, balance);
+                                long balance = task.getResult().getLong(Constants.TRADE_PRO_BALANCE_KEY);
+                                SessionSharedPref.setLong(requireContext(), Constants.TRADE_PRO_BALANCE_KEY, balance);
 
-                                binding.tvWallet.setText(Constants.RUPEE_ICON + balance);
-                                if (!userStatus.equalsIgnoreCase("active")) {
-                                    binding.tvWallet.setText(userStatus);
-                                }
+                                MainActivity.binding.tvBalance.setText(Constants.RUPEE_ICON + balance);
                             }
                         });
             }

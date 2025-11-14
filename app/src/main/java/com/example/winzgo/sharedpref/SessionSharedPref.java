@@ -130,6 +130,18 @@ public class SessionSharedPref {
         return sharedPreferences.getBoolean(key, defaultValue);
     }
 
+    public static void setLong(Context context, String key, long value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putLong(key, value);
+        edit.apply();//apply changes in background
+    }
+
+    public static long getLong(Context context, String key, long defaultValue) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        return sharedPreferences.getLong(key, defaultValue);
+    }
+
     public static void clearFile(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().apply();

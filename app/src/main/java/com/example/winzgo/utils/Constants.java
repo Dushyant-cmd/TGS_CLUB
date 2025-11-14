@@ -8,9 +8,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Handler;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.winzgo.databinding.ProfileEditDialogBinding;
+import com.example.winzgo.sharedpref.SessionSharedPref;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Constants {
     public static final String RED = "red";
@@ -25,6 +36,12 @@ public class Constants {
     public static final String NOTIFICATION_PERMISSION = "notificationPermission";
     public static final String DARK_MODE = "darkMode";
     public static final String IS_INR = "isInr";
+    public static final String USER_ID_KEY = "userId";
+    public static final String NAME_KEY = "name";
+    // WalletType 0(win go), 1(coin), 2(trade x)
+    public static final String WIN_GO_BALANCE_KEY = "coinWallet";
+    public static final String COIN_BALANCE_KEY = "coinWallet";
+    public static final String TRADE_PRO_BALANCE_KEY = "tradeProWallet";
     // sp key end
     public static final String RUPEE_ICON = "\u20b9";
 
@@ -103,5 +120,68 @@ public class Constants {
 
         Dialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    //check mobile device is connected to network or not.
+    public static boolean isNetworkConnected(Activity activity) {
+        if (activity != null) {
+            if (!activity.isFinishing()) {
+                ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                return (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+            }
+        }
+
+        return true;
+    }
+
+    public static void showSnackBarAction(View root, String message, String actionName, UtilsInterfaces.Refresh listener) {
+        Snackbar bar = Snackbar.make(root, message, Snackbar.LENGTH_INDEFINITE);
+        bar.setAction(actionName, view -> {
+            bar.dismiss();
+            listener.refresh();
+        });
+
+        bar.show();
+    }
+
+    public static void showSnackBar(View root, String message) {
+        Snackbar bar = Snackbar.make(root, message, Snackbar.LENGTH_SHORT);
+        bar.show();
+    }
+
+    public static void updateBalance(Activity activity, long amount, boolean isAdd, String walletType, UtilsInterfaces.Refresh listener) {
+        try {
+            if (isNetworkConnected(activity)) {
+                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+                new Handler().post(() -> {
+                    long currentBal = SessionSharedPref.getLong(activity, walletType, 0L);
+                    long userId = SessionSharedPref.getLong(activity, Constants.USER_ID_KEY, 0L);
+                    long amt = 0;
+                    if (isAdd) {
+                        amt = (currentBal + amount);
+                    } else {
+                        amt = (currentBal - amount);
+                    }
+
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(walletType, amt);
+
+                    long finalAmt = amt;
+                    firestore.collection("users").document(String.valueOf(userId))
+                            .update(map).addOnSuccessListener(unused -> {
+                                SessionSharedPref.setLong(activity, Constants.TRADE_PRO_BALANCE_KEY, finalAmt);
+                                listener.refresh();
+                            }).addOnFailureListener(e -> {
+                            });
+                });
+            } else {
+                showSnackBar(activity.getWindow().getDecorView().getRootView(), "No internet");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(activity, "something went wrong", Toast.LENGTH_SHORT).show();
+        }
     }
 }

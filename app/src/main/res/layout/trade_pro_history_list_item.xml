@@ -24,6 +24,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/ivBetGraph"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="@null"
@@ -31,11 +32,12 @@
                 app:tint="@color/red" />
 
             <TextView
+                android:id="@+id/tvBetAmt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8dp"
-                android:fontFamily="@font/inria_regular"
-                android:text="\u20b9200"
+                android:fontFamily="@font/istok_web_bold"
+                tools:text="\u20b9200"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sp" />
 
@@ -46,7 +48,7 @@
                 android:layout_marginStart="@dimen/_8dp"
                 android:background="@drawable/light_silver_bg"
                 android:backgroundTint="@color/red"
-                android:fontFamily="@font/inria_regular"
+                android:fontFamily="@font/istok_web_regular"
                 android:paddingHorizontal="@dimen/_12dp"
                 android:paddingVertical="@dimen/_4dp"
                 android:text="Down"
@@ -71,9 +73,10 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tvTradeDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inria_regular"
+        android:fontFamily="@font/istok_web_regular"
         android:layout_below="@id/upperLy"
         android:layout_marginTop="@dimen/_8dp"
         android:textColor="@color/black"
@@ -81,11 +84,12 @@
         android:text="Entry: $1785.62-> Exit: $1797.63 | 14:28:52" />
 
     <TextView
+        android:id="@+id/tvBetResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:fontFamily="@font/inria_regular"
+        android:fontFamily="@font/istok_web_bold"
         android:textColor="@color/red"
         android:textSize="@dimen/_14sp"
         android:text="-\u20b9250.00" />
