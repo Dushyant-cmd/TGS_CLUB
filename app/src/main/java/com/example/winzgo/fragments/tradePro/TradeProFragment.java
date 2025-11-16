@@ -56,7 +56,7 @@ import java.util.Map;
 public class TradeProFragment extends Fragment {
     private FragmentTradeProBinding binding;
     private FirebaseFirestore firestore;
-    private long betAmt = 50, currentGameId, oneMinCounter;
+    private long betAmt = 50, betIntoAmt = 50, currentGameId, oneMinCounter;
     private CountDownTimer countDownTimer;
     private List<CandleEntry> entries = new ArrayList<>();
     private long currLastEntry = 0L;
@@ -134,38 +134,47 @@ public class TradeProFragment extends Fragment {
 
         binding.btnBet50.setOnClickListener(v -> {
             betAmt = 50;
+            betIntoAmt = 50;
             highlightBetAmtLayout(betAmt);
         });
 
         binding.btnBet100.setOnClickListener(v -> {
             betAmt = 100;
+            betIntoAmt = 100;
             highlightBetAmtLayout(betAmt);
         });
 
         binding.btnBet500.setOnClickListener(v -> {
             betAmt = 500;
+            betIntoAmt = 500;
             highlightBetAmtLayout(betAmt);
         });
 
         binding.btnBet1000.setOnClickListener(v -> {
             betAmt = 1000;
+            betIntoAmt = 1000;
             highlightBetAmtLayout(betAmt);
         });
 
         binding.btnBet5000.setOnClickListener(v -> {
             betAmt = 5000;
+            betIntoAmt = 5000;
             highlightBetAmtLayout(betAmt);
         });
 
         binding.iXBtnUp.setOnClickListener(v -> {
-            betAmt = betAmt * betInto;
             betInto = betInto + 1;
+            betAmt = betIntoAmt * betInto;
+            binding.tvBetIntoNum.setText("x" + betInto);
+            binding.tvInvestAmt.setText(Constants.RUPEE_ICON + betAmt);
         });
 
         binding.iXBtnDown.setOnClickListener(v -> {
             if (betInto > 10) {
-                betAmt = betAmt * betInto;
                 betInto = betInto - 1;
+                betAmt = betIntoAmt * betInto;
+                binding.tvBetIntoNum.setText("x" + betInto);
+                binding.tvInvestAmt.setText(Constants.RUPEE_ICON + betAmt);
             }
         });
     }
@@ -178,9 +187,10 @@ public class TradeProFragment extends Fragment {
                 TextView tv = (TextView) item;
                 long tvAmt = Long.parseLong(tv.getText().toString().substring(1));
                 if (tvAmt == amount) {
+                    binding.tvInvestAmt.setText(Constants.RUPEE_ICON + amount);
                     tv.setBackgroundResource(R.drawable.little_dark_violet_rect);
                 } else {
-                    tv.setBackgroundResource(R.drawable.white_border_rectangle);
+                    tv.setBackgroundResource(R.drawable.light_silver_bg);
                 }
             }
         }
@@ -541,21 +551,6 @@ public class TradeProFragment extends Fragment {
             }
         } else {
             Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
-        }
-    }
-
-    private void loadFragment(Fragment fragment, boolean isAdd) {
-        if (!requireActivity().isFinishing()) {
-            FragmentTransaction ft = requireActivity().getSupportFragmentManager()
-                    .beginTransaction();
-
-            if (isAdd) {
-                ft.add(R.id.container, fragment);
-            } else {
-                ft.replace(R.id.container, fragment);
-            }
-
-            ft.addToBackStack(null).commit();
         }
     }
 }

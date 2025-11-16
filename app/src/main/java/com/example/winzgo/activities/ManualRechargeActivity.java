@@ -177,6 +177,7 @@ public class ManualRechargeActivity extends AppCompatActivity {
                 map.put("timestamp", System.currentTimeMillis());
                 map.put("user_id", application.sharedPref.getId());
                 map.put("utr", id);
+                map.put("gameType", 2);
                 application.firestore.collection("transactions").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

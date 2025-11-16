@@ -22,14 +22,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="@dimen/_8dp">
+                android:paddingTop="@dimen/_4dp"
+                android:paddingBottom="@dimen/_8dp">
 
-                <!-- Enter Amount Section -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
-                    android:layout_marginBottom="8dp"
                     android:fontFamily="@font/istok_web_regular"
                     android:text="Enter Amount :"
                     android:textColor="@color/black"
@@ -53,7 +52,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
                     android:background="@drawable/silver_bg_sk"
                     android:backgroundTint="@color/light_brown"
                     android:gravity="center_vertical"
@@ -83,13 +81,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginBottom="12dp"
                     android:fontFamily="@font/istok_web_regular"
                     android:text="Quick Select Amount"
                     android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:textSize="14sp" />
 
                 <LinearLayout
+                    android:id="@+id/betAmtLy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
@@ -103,13 +102,12 @@
                         android:layout_height="35dp"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="1"
-                        android:background="@drawable/little_dark_violet_rect"
+                        android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
-                        android:text="$50"
+                        android:text="\u20b950"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/btn_bet_100"
@@ -117,13 +115,12 @@
                         android:layout_height="35dp"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_border_rectangle"
+                        android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
-                        android:text="$100"
+                        android:text="\u20b9100"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/btn_bet_500"
@@ -131,13 +128,12 @@
                         android:layout_height="35dp"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_border_rectangle"
+                        android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
-                        android:text="$500"
+                        android:text="\u20b9500"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/btn_bet_1000"
@@ -145,13 +141,12 @@
                         android:layout_height="35dp"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_border_rectangle"
+                        android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
-                        android:text="$1000"
+                        android:text="\u20b91000"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <!-- QR Code Placeholder -->
@@ -160,7 +155,6 @@
                     android:layout_height="220dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_8dp"
-                    android:layout_marginBottom="16dp"
                     android:background="@drawable/silver_bg_sk">
 
                     <ImageView
@@ -180,6 +174,7 @@
                     android:background="@drawable/silver_bg_sk"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:paddingHorizontal="16dp">
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -193,7 +188,6 @@
 
                 <!-- Transaction ID -->
                 <RelativeLayout
-                    android:id="@+id/tvWalletAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
@@ -203,6 +197,7 @@
                     android:paddingHorizontal="16dp">
 
                     <TextView
+                        android:id="@+id/tvWalletAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/istok_web_regular"
@@ -212,6 +207,7 @@
                         tools:text="zupeeMall@UPI" />
 
                     <ImageView
+                        android:id="@+id/ivCopyWalletAdd"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
                         android:layout_alignParentEnd="true"
@@ -227,7 +223,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/istok_web_regular"
                     android:text="Enter wallet address :"
                     android:textColor="@color/black"
@@ -263,7 +259,6 @@
                     android:id="@+id/etUtr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
                     android:background="@drawable/light_silver_bg"
                     android:fontFamily="@font/istok_web_regular"
                     android:hint="Enter UTR Code"
@@ -277,6 +272,7 @@
                     android:id="@+id/btnAddRecharge"
                     android:layout_width="260dp"
                     android:layout_height="56dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:layout_gravity="center"
                     android:background="@drawable/wingo_gradient"
                     android:fontFamily="@font/istok_web_regular"

@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.winzgo.databinding.ActivityMainBinding;
 import com.example.winzgo.fragments.CoinAndTradeWalletFragment;
 import com.example.winzgo.fragments.DashboardFragment;
+import com.example.winzgo.fragments.recharge.CoinTradeDepositFragment;
 import com.example.winzgo.fragments.settings.SettingsCoinAndTradeXFragment;
 import com.example.winzgo.fragments.settings.SettingsFragment;
 import com.example.winzgo.fragments.wingo.HomeFragment;
@@ -56,7 +57,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.cardWallet.setOnClickListener(v -> {
-            loadFragment(new CoinAndTradeWalletFragment(), true, "Wallet");
+            Fragment currFragment = getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() -1);
+            int type = 0;// 0 trade, 1 coin, 2 win-go
+            if(currFragment.toString().contains("CoinPredictionFragment")) {
+                type = 1;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", type);
+            CoinAndTradeWalletFragment fragment = new CoinAndTradeWalletFragment();
+            fragment.setArguments(bundle);
+            loadFragment(fragment, true, "Wallet");
         });
 
         binding.btnSettings.setOnClickListener(v -> {

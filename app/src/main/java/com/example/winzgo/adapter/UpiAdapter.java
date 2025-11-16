@@ -55,7 +55,7 @@ public class UpiAdapter extends RecyclerView.Adapter<UpiAdapter.ViewHolder> {
             if(data.isCopied()) {
                 binding.copyIc.setImageResource(R.drawable.checked);
             } else
-                binding.copyIc.setImageResource(R.drawable.copy);
+                binding.copyIc.setImageResource(R.drawable.copy_tgs_ic);
 
             binding.copyIc.setOnClickListener(v -> {
                 binding.copyIc.setImageResource(R.drawable.checked);

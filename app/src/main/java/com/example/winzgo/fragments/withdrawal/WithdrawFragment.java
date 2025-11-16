@@ -129,6 +129,7 @@ public class WithdrawFragment extends Fragment {
                         map.put("type", "withdraw");
                         map.put("timestamp", System.currentTimeMillis());
                         map.put("user_id", sharedPreferences.getId());
+                        map.put("gameType", 2);
                         firestore.collection("transactions").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
