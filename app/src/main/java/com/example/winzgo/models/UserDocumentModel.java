@@ -3,9 +3,9 @@ package com.example.winzgo.models;
 import com.example.winzgo.models.BankAccountModel;
 
 public class UserDocumentModel {
-    long balance, id, coinWallet, tradeXWallet;
+    long balance, id, coinBalance, tradeProBalance;
     BankAccountModel bankDetails;
-    String mobile, name, refer;
+    String mobile, name, refer, fcmToken;
 
     public long getBalance() {
         return balance;

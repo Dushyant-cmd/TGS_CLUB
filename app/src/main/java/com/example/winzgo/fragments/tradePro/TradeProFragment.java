@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +24,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.winzgo.BuildConfig;
 import com.example.winzgo.MainActivity;
 import com.example.winzgo.MyApplication;
 import com.example.winzgo.R;
 import com.example.winzgo.activities.ManualRechargeActivity;
 import com.example.winzgo.adapter.TradeHistoryAdapter;
 import com.example.winzgo.databinding.FragmentTradeProBinding;
+import com.example.winzgo.fragments.recharge.CoinTradeDepositFragment;
 import com.example.winzgo.models.TradeHistoryModel;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
@@ -57,7 +56,7 @@ import java.util.Map;
 public class TradeProFragment extends Fragment {
     private FragmentTradeProBinding binding;
     private FirebaseFirestore firestore;
-    private long betAmt = 100, currentGameId, oneMinCounter;
+    private long betAmt = 50, currentGameId, oneMinCounter;
     private CountDownTimer countDownTimer;
     private List<CandleEntry> entries = new ArrayList<>();
     private long currLastEntry = 0L;
@@ -65,16 +64,17 @@ public class TradeProFragment extends Fragment {
     private List<TradeHistoryModel> tradeList = new ArrayList<>();
     private boolean isTradePageLoad = true;
     private TradeHistoryAdapter tradeHistoryAdapter;
+    private int isUpOrDown = 1; //0(up), 1(down), 2 means nothing selected
+    private boolean isUp = true;
+    private int betInto = 10;
+    private MainActivity hostAct;
 
     @Override
     public void onResume() {
         super.onResume();
-        if(!BuildConfig.DEBUG) {
-            getSecondsAndStartCountDown();
-            getTradeGraph();
-            getTradeHistory(true);
-            getUserData();
-        }
+        getSecondsAndStartCountDown();
+        getTradeGraph();
+        getUserData();
     }
 
     @Nullable
@@ -89,6 +89,9 @@ public class TradeProFragment extends Fragment {
     }
 
     private void setupViews() {
+        hostAct = (MainActivity) getActivity();
+        hostAct.setupHeader("Coin Prediction");
+
         tradeHistoryAdapter = new TradeHistoryAdapter();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.recyclerView.setAdapter(tradeHistoryAdapter);
@@ -118,11 +121,15 @@ public class TradeProFragment extends Fragment {
         });
 
         binding.upBtn.setOnClickListener(v -> {
-            checkAndPutBet(true);
+            isUpOrDown = 0;
         });
 
         binding.downBtn.setOnClickListener(v -> {
-            checkAndPutBet(false);
+            isUpOrDown = 1;
+        });
+
+        binding.btnConfirmBet.setOnClickListener(v -> {
+            checkAndPutBet();
         });
 
         binding.btnBet50.setOnClickListener(v -> {
@@ -149,16 +156,28 @@ public class TradeProFragment extends Fragment {
             betAmt = 5000;
             highlightBetAmtLayout(betAmt);
         });
+
+        binding.iXBtnUp.setOnClickListener(v -> {
+            betAmt = betAmt * betInto;
+            betInto = betInto + 1;
+        });
+
+        binding.iXBtnDown.setOnClickListener(v -> {
+            if (betInto > 10) {
+                betAmt = betAmt * betInto;
+                betInto = betInto - 1;
+            }
+        });
     }
 
     private void highlightBetAmtLayout(long amount) {
         int count = binding.betAmtLy.getChildCount();
-        for(int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             View item = binding.betAmtLy.getChildAt(i);
-            if(item instanceof TextView) {
-             TextView tv = (TextView) item;
+            if (item instanceof TextView) {
+                TextView tv = (TextView) item;
                 long tvAmt = Long.parseLong(tv.getText().toString().substring(1));
-                if(tvAmt == amount) {
+                if (tvAmt == amount) {
                     tv.setBackgroundResource(R.drawable.little_dark_violet_rect);
                 } else {
                     tv.setBackgroundResource(R.drawable.white_border_rectangle);
@@ -167,64 +186,87 @@ public class TradeProFragment extends Fragment {
         }
     }
 
-    private void checkAndPutBet(boolean isUp) {
-        if (isNetworkConnected(requireActivity())) {
-            long balance = SessionSharedPref.getLong(requireContext(), Constants.TRADE_PRO_BALANCE_KEY, 0L);
-            long userId = SessionSharedPref.getLong(requireContext(), Constants.USER_ID_KEY, 0L);
-            if (balance >= betAmt) {
-                Dialog dialog = Constants.showProgressDialog(requireContext());
-                firestore.collection("tradeBets").whereEqualTo("id", currentGameId).whereEqualTo("user_id", userId)
-                        .limit(1).get().addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                if (task.getResult().getDocuments().isEmpty()) {
-                                    Map<String, Object> map = new HashMap<>();
-                                    map.put("bet_amount", betAmt);
-                                    map.put("isUp", isUp);
-                                    map.put("selected", currLastEntry);
-                                    map.put("user_id", userId);
-                                    map.put("timestamp", System.currentTimeMillis());
-                                    map.put("dateAndTime", ((MyApplication) requireActivity().getApplication()).getCurrDateAndTime());
-                                    map.put("name", SessionSharedPref.getStr(requireContext(), Constants.NAME_KEY, ""));
-                                    map.put("result", 0);
-                                    map.put("id", currentGameId);
-                                    map.put("isWinner", false);
-                                    map.put("win_amount", 0);
-                                    firestore.collection("tradeBets").add(map)
-                                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DocumentReference> task) {
-                                                    dialog.dismiss();
-                                                    if (task.isSuccessful()) {
-                                                        binding.betDetailsCard.setVisibility(View.VISIBLE);
-                                                        binding.betAmt.setText(Constants.RUPEE_ICON + betAmt);
-                                                        binding.betEntryAmt.setText("Entry: " + Constants.RUPEE_ICON + currLastEntry);
+    private void checkAndPutBet() {
+        if (oneMinCounter > 10) {
+            String message;
+            if (isUpOrDown == 0) {
+                isUp = true;
+            } else if (isUpOrDown == 1) {
+                isUp = false;
+            } else {
+                message = "No prediction selected yet!";
+                Constants.showSnackBar(binding.getRoot(), message);
+                return;
+            }
 
-                                                        Constants.updateBalance(requireActivity(), betAmt, false, Constants.TRADE_PRO_BALANCE_KEY, () -> {
-                                                            getUserData();
-                                                        });
-                                                    } else {
-                                                        Constants.showSnackBar(binding.getRoot(), task.getException().getMessage());
+            if (isNetworkConnected(requireActivity())) {
+                long balance = SessionSharedPref.getLong(requireContext(), Constants.TRADE_PRO_BALANCE_KEY, 0L);
+                long userId = SessionSharedPref.getLong(requireContext(), Constants.USER_ID_KEY, 0L);
+                if (balance >= betAmt) {
+                    Dialog dialog = Constants.showProgressDialog(requireContext());
+                    firestore.collection("tradeBets").whereEqualTo("id", currentGameId).whereEqualTo("user_id", userId)
+                            .limit(1).get().addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    if (task.getResult().getDocuments().isEmpty()) {
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("bet_amount", betAmt);
+                                        map.put("isUp", isUp);
+                                        map.put("selected", currLastEntry);
+                                        map.put("user_id", userId);
+                                        map.put("timestamp", System.currentTimeMillis());
+                                        map.put("dateAndTime", ((MyApplication) requireActivity().getApplication()).getCurrDateAndTime());
+                                        map.put("name", SessionSharedPref.getStr(requireContext(), Constants.NAME_KEY, ""));
+                                        map.put("result", 0);
+                                        map.put("id", currentGameId);
+                                        map.put("isWinner", false);
+                                        map.put("win_amount", 0);
+                                        firestore.collection("tradeBets").add(map)
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                        dialog.dismiss();
+                                                        if (task.isSuccessful()) {
+                                                            binding.betDetailsCard.setVisibility(View.VISIBLE);
+                                                            binding.betAmt.setText(Constants.RUPEE_ICON + betAmt);
+                                                            binding.betEntryAmt.setText("Entry: " + Constants.RUPEE_ICON + currLastEntry);
+                                                            if (isUp) {
+                                                                binding.ivBetPredictionType.setImageResource(R.drawable.graph_up_ic);
+                                                                binding.ivBetPredictionType.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.green)));
+                                                            } else {
+                                                                binding.ivBetPredictionType.setImageResource(R.drawable.graph_down_ic);
+                                                                binding.ivBetPredictionType.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                                                            }
+                                                            Constants.updateBalance(requireActivity(), betAmt, false, Constants.TRADE_PRO_BALANCE_KEY, () -> {
+                                                                getUserData();
+                                                            });
+                                                        } else {
+                                                            Constants.showSnackBar(binding.getRoot(), task.getException().getMessage());
+                                                        }
                                                     }
-                                                }
-                                            });
+                                                });
+                                    } else {
+                                        dialog.dismiss();
+                                        Constants.showAlerDialog(requireContext(), "Only one prediction submission is authorized within the contract timeframe.", "Okay", () -> {
+                                        });
+                                    }
                                 } else {
                                     dialog.dismiss();
-                                    Constants.showAlerDialog(requireContext(), "Only one prediction submission is authorized within the contract timeframe.", "Okay", () -> {
-                                    });
+                                    Constants.showSnackBar(binding.getRoot(), "Something went wrong");
                                 }
-                            } else {
-                                dialog.dismiss();
-                                Constants.showSnackBar(binding.getRoot(), "Something went wrong");
-                            }
-                        });
+                            });
+                } else {
+                    Constants.showSnackBarAction(binding.getRoot(), "Low balance", "Do Recharge", () -> {
+                        hostAct.loadFragment(new CoinTradeDepositFragment(), true, "Deposit");
+                    });
+                }
             } else {
-                Constants.showSnackBarAction(binding.getRoot(), "Low balance", "Do Recharge", () -> {
-                    requireActivity().startActivity(new Intent(requireActivity(), ManualRechargeActivity.class));
-                });
+                Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::checkAndPutBet);
             }
         } else {
-            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", () -> {checkAndPutBet(isUp);});
+            Constants.showSnackBar(binding.getRoot(), "Wait for the next round");
         }
+
+        isUpOrDown = 2; // reset game.
     }
 
     private void setupGraph(List<CandleEntry> entries) {
@@ -285,64 +327,65 @@ public class TradeProFragment extends Fragment {
 
     private void getTradeGraph() {
         if (isNetworkConnected(getActivity())) {
-            new Handler().post(() -> {
-                firestore.collection("ids").document("tradeProId").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> taskOne) {
-                        if (taskOne.isSuccessful()) {
-                            currentGameId = taskOne.getResult().getLong("id");
-                            firestore.collection("tradeProHistory").document(String.valueOf(currentGameId)).get().addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot doc = task.getResult();
-                                    entries = new ArrayList<>();
-                                    List<Long> tradeGraphValues = (List<Long>) doc.get("tradeGraphValues");
-                                    if (tradeGraphValues != null) {
-                                        long prevEntry = 0L;
-                                        int i = 0;
-                                        while (i < tradeGraphValues.size()) {
-                                            long newCurrEntry = tradeGraphValues.get(i);
-                                            float high = tradeGraphValues.get(tradeGraphValues.indexOf(Collections.max(tradeGraphValues)));
-                                            float low = tradeGraphValues.get(tradeGraphValues.indexOf(Collections.min(tradeGraphValues)));
+            firestore.collection("ids").document("tradeProId").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> taskOne) {
+                    binding.swipeRefLy.setRefreshing(false);
+                    if (taskOne.isSuccessful()) {
+                        currentGameId = taskOne.getResult().getLong("id");
+                        firestore.collection("tradeProHistory").document(String.valueOf(currentGameId)).get().addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot doc = task.getResult();
+                                entries = new ArrayList<>();
+                                List<Long> tradeGraphValues = (List<Long>) doc.get("tradeGraphValues");
+                                if (tradeGraphValues != null) {
+                                    long prevEntry = 0L;
+                                    int i = 0;
+                                    while (i < tradeGraphValues.size()) {
+                                        long newCurrEntry = tradeGraphValues.get(i);
+                                        float high = tradeGraphValues.get(tradeGraphValues.indexOf(Collections.max(tradeGraphValues)));
+                                        float low = tradeGraphValues.get(tradeGraphValues.indexOf(Collections.min(tradeGraphValues)));
 
-                                            if (i > 0) {
-                                                high = entries.get(entries.size() - 1).getClose();
-                                                low = entries.get(entries.size() - 1).getOpen();
-                                            }
-                                            entries.add(new CandleEntry(i, high, low, prevEntry, newCurrEntry));
-                                            // previous candle.
-                                            prevEntry = newCurrEntry;
-                                            i++;
+                                        if (i > 0) {
+                                            high = entries.get(entries.size() - 1).getClose();
+                                            low = entries.get(entries.size() - 1).getOpen();
                                         }
-
-                                        float growPercentage = 0f;
-                                        long newCurrLastEntry = (long) entries.get(entries.size() - 1).getClose();
-                                        if (currLastEntry > 0) {
-                                            growPercentage = ((float) (newCurrLastEntry - currLastEntry) / currLastEntry) * 100;
-                                        }
-
-                                        currLastEntry = newCurrLastEntry;
-
-                                        binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + ".00");
-                                        String formattedGrowPercentage = String.format("%.2f", growPercentage);
-                                        if (growPercentage > 0) {
-                                            binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
-                                        } else if (growPercentage < 0) {
-                                            binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
-                                        } else {
-                                            binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + "(0.0%)");
-                                        }
-
-                                        setupGraph(entries);
+                                        entries.add(new CandleEntry(i, high, low, prevEntry, newCurrEntry));
+                                        // previous candle.
+                                        prevEntry = newCurrEntry;
+                                        i++;
                                     }
-                                } else {
-                                    Constants.showSnackBar(binding.getRoot(), "Something went wrong");
+
+                                    float growPercentage = 0f;
+                                    long newCurrLastEntry = (long) entries.get(entries.size() - 1).getClose();
+                                    if (currLastEntry > 0) {
+                                        growPercentage = ((float) (newCurrLastEntry - currLastEntry) / currLastEntry) * 100;
+                                    }
+
+                                    currLastEntry = newCurrLastEntry;
+                                    String formattedGrowPercentage = String.format("%.2f", growPercentage);
+
+                                    binding.tvBtcAmt.setText(Constants.RUPEE_ICON + currLastEntry + ".00");
+                                    binding.tvBtcPt.setText("(" + formattedGrowPercentage + "%)");
+                                    binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
+                                    binding.tvBtcPt.setTextColor(getResources().getColor(R.color.green));
+                                    if (growPercentage < 0) {
+                                        binding.tvBtcPt.setTextColor(getResources().getColor(R.color.dark_red));
+                                    }
+
+                                    binding.tvRoundNum.setText("Round #" + currentGameId);
+                                    setupGraph(entries);
                                 }
-                            });
-                        } else {
-                            Constants.showSnackBar(binding.getRoot(), "Something went wrong");
-                        }
+                            } else {
+                                Constants.showSnackBar(binding.getRoot(), "Something went wrong");
+                            }
+                        });
+
+                        getTradeHistory(true);
+                    } else {
+                        Constants.showSnackBar(binding.getRoot(), "Something went wrong");
                     }
-                });
+                }
             });
         } else {
             Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getTradeGraph);
@@ -403,12 +446,12 @@ public class TradeProFragment extends Fragment {
                         if (oneMinCounter < 0) {
                             binding.secTv1.setText("0");
                             binding.secTv2.setText("0");
-                        } else if (oneMinCounter % 5 == 0 || oneMinCounter == 2) {
+                        } else if (oneMinCounter % 5 == 0) {
                             Log.d("TradePro.java", "onTick: " + oneMinCounter);
                             getTradeGraph();
                         }
 
-                        if(getActivity() == null) {
+                        if (getActivity() == null) {
                             // because of thread safe program
                             countDownTimer.cancel();
                         }
@@ -419,7 +462,7 @@ public class TradeProFragment extends Fragment {
                     public void onFinish() {
                         getSecondsAndStartCountDown();
                         getTradeGraph();
-                        binding.betDetailsCard.setVisibility(View.INVISIBLE);
+                        binding.betDetailsCard.setVisibility(View.GONE);
                         getUserData();
                         getTradeHistory(true);
                     }
@@ -434,7 +477,7 @@ public class TradeProFragment extends Fragment {
 
     private void getTradeHistory(boolean isFirstLoad) {
         if (isNetworkConnected(requireActivity())) {
-            if(isFirstLoad) {
+            if (isFirstLoad) {
                 lastDoc = null;
                 tradeList.clear();
             }

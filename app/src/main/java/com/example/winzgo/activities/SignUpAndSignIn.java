@@ -1,11 +1,14 @@
 package com.example.winzgo.activities;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,13 +16,17 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.winzgo.MainActivity;
 import com.example.winzgo.databinding.ActivitySignUpAndSignInBinding;
 import com.example.winzgo.models.UserDocumentModel;
 import com.example.winzgo.sharedpref.SessionSharedPref;
+import com.example.winzgo.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,6 +43,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -52,6 +60,7 @@ public class SignUpAndSignIn extends AppCompatActivity {
     private SessionSharedPref sharedPreferences;
     private long balance, id;
     private ActivitySignUpAndSignInBinding binding;
+    private String fcmToken = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +73,7 @@ public class SignUpAndSignIn extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Sending OTP");
 
+        askNotificationPermission();
         setupAndSetListeners();
     }
 
@@ -129,6 +139,19 @@ public class SignUpAndSignIn extends AppCompatActivity {
                 sendOtp(phone);
             }
         });
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        fcmToken = task.getResult();
+                    }
+                });
     }
 
     //resendCount() method is start a timer and when the timer is up do certain operation
@@ -328,14 +351,39 @@ public class SignUpAndSignIn extends AppCompatActivity {
                     sharedPreferences.setMobile(userDoc.getMobile());
                     sharedPreferences.setName(userDoc.getName());
                     sharedPreferences.setRefer(userDoc.getRefer());
+
                     if (!referCode.isEmpty())
                         Toast.makeText(SignUpAndSignIn.this, "Old users can't redeem referral code!", Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(SignUpAndSignIn.this, MainActivity.class);
-                    i.putExtra("phone", phone);//with +91 code in phone variable.
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(i);
-                    finish();
                     dialog.dismiss();
+                    boolean isOldUser = !doc.contains("coinBalance");
+                    if (isOldUser) {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("coinBalance", 0);
+                        map.put("tradeProBalance", 0);
+                        map.put("fcmToken", fcmToken);
+
+                        mFirestore.collection("users").document(userDoc.getId() + "")
+                                .update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Intent i = new Intent(SignUpAndSignIn.this, MainActivity.class);
+                                            i.putExtra("phone", phone);//with +91 code in phone variable.
+                                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(i);
+                                            finish();
+                                        } else {
+                                            Constants.showSnackBar(binding.getRoot(), "Something went wrong");
+                                        }
+                                    }
+                                });
+                    } else {
+                        Intent i = new Intent(SignUpAndSignIn.this, MainActivity.class);
+                        i.putExtra("phone", phone);//with +91 code in phone variable.
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        finish();
+                    }
                 } else if (task.isSuccessful()) {
                     try {
                         mFirestore.collection("constants").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -381,8 +429,9 @@ public class SignUpAndSignIn extends AppCompatActivity {
                                                                     map.put("mobile", mobile);
                                                                     map.put("name", name);
                                                                     map.put("refer", refer);
-                                                                    map.put("coinWallet", 0);
-                                                                    map.put("tradeXWallet", 0);
+                                                                    map.put("coinBalance", 0);
+                                                                    map.put("tradeProBalance", 0);
+                                                                    map.put("fcmToken", fcmToken);
                                                                     mFirestore.collection("users").document(String.valueOf(id)).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void unused) {
@@ -508,4 +557,30 @@ public class SignUpAndSignIn extends AppCompatActivity {
         boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
         return connected;
     }
+
+    private boolean askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                Constants.showAlerDialog(this, "Permission is required for better user experience", "Okay", () -> {
+                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                });
+            } else {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (!isGranted) {
+                    Constants.showAlerDialog(this, "Permission is required for better user experience", "Okay", this::askNotificationPermission);
+                }
+            });
 }

@@ -5,6 +5,7 @@
     android:id="@+id/swipeRefLy"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/_8dp"
     android:fillViewport="true">
 
     <androidx.core.widget.NestedScrollView
@@ -132,7 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_15dp"
-                android:layout_marginTop="@dimen/_15dp"
+                android:layout_marginTop="@dimen/_8dp"
                 android:background="@drawable/silver_bg_sk"
                 android:orientation="horizontal">
 
@@ -146,8 +147,9 @@
                         android:id="@+id/candleStick"
                         android:layout_width="match_parent"
                         android:layout_height="180dp"
+                        android:layout_marginTop="1dp"
                         android:layout_marginHorizontal="1dp"
-                        android:backgroundTint="@color/white" />
+                        android:background="@drawable/top_round_shape" />
 
                     <View
                         android:layout_width="match_parent"
@@ -164,7 +166,7 @@
                             android:id="@+id/tvRoundNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/istok_web_regular"
+                            android:fontFamily="@font/istok_web_bold"
                             android:text="Round #1"
                             android:textColor="@color/black"
                             android:textSize="14sp" />
@@ -207,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:background="@drawable/silver_bg_sk"
-                        android:fontFamily="@font/istok_web_regular"
+                        android:fontFamily="@font/istok_web_bold"
                         android:gravity="center"
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="2dp"
@@ -272,56 +274,6 @@
 
             </RelativeLayout>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/betDetailsCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_15dp"
-                android:layout_marginTop="@dimen/_15dp"
-                app:cardBackgroundColor="@color/orange"
-                tools:visibility="visible"
-                android:visibility="gone"
-                app:cardCornerRadius="12dp">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    android:orientation="horizontal"
-                    android:paddingEnd="0dp"
-                    app:cardBackgroundColor="@color/light_yellow"
-                    app:cardCornerRadius="12dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_15dp"
-                        android:orientation="horizontal"
-                        android:paddingVertical="@dimen/_8dp">
-
-                        <TextView
-                            android:id="@+id/betAmt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/istok_web_regular"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_18sp"
-                            android:textStyle="bold"
-                            tools:text="\u20b9200" />
-
-                        <TextView
-                            android:id="@+id/betEntryAmt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_8dp"
-                            android:fontFamily="@font/istok_web_regular"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_14sp"
-                            tools:text="Entry: \u20b91812.49" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </androidx.cardview.widget.CardView>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -335,8 +287,7 @@
                     android:fontFamily="@font/istok_web_regular"
                     android:text="Investment Amount :"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
 
                 <!-- Bet Amount Options -->
                 <LinearLayout
@@ -358,8 +309,7 @@
                         android:gravity="center"
                         android:text="\u20b950"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/btn_bet_100"
@@ -367,13 +317,12 @@
                         android:layout_height="35dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_border_rectangle"
+                        android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
                         android:text="\u20b9100"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/btn_bet_500"
@@ -381,13 +330,12 @@
                         android:layout_height="35dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_border_rectangle"
+                        android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
                         android:text="\u20b9500"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/btn_bet_1000"
@@ -395,13 +343,12 @@
                         android:layout_height="35dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_border_rectangle"
+                        android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
                         android:text="\u20b91000"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/btn_bet_5000"
@@ -409,13 +356,12 @@
                         android:layout_height="35dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_border_rectangle"
+                        android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
                         android:text="\u20b95000"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -425,11 +371,12 @@
                         android:orientation="vertical">
 
                         <ImageButton
-                            android:id="@+id/iBtnUp"
+                            android:id="@+id/iXBtnUp"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:background="@drawable/baseline_arrow_drop_up_24"
-                            android:foreground="?attr/selectableItemBackgroundBorderless"
+                            android:background="@drawable/grey_rectangle"
+                            android:backgroundTint="@color/too_light_grey"
+                            android:src="@drawable/baseline_arrow_drop_up_24"                            android:foreground="?attr/selectableItemBackgroundBorderless"
                             android:minWidth="0dp" />
 
                         <TextView
@@ -437,24 +384,85 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/light_silver_bg"
                             android:backgroundTint="@color/light_tint"
-                            android:fontFamily="@font/istok_web_regular"
+                            android:fontFamily="@font/istok_web_bold"
                             android:gravity="center"
                             android:paddingHorizontal="@dimen/_8dp"
-                            android:paddingVertical="@dimen/_8dp"
-                            android:text="x1"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            android:paddingVertical="6dp"
+                            android:text="x10"
+                            android:textSize="14sp" />
 
                         <ImageButton
-                            android:id="@+id/iBtnDown"
+                            android:id="@+id/iXBtnDown"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:background="@drawable/baseline_arrow_drop_up_24"
+                            android:background="@drawable/grey_rectangle"
+                            android:backgroundTint="@color/too_light_grey"
+                            android:src="@drawable/baseline_arrow_drop_up_24"
                             android:foreground="?attr/selectableItemBackgroundBorderless"
                             android:rotation="180" />
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/betDetailsCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_15dp"
+                android:layout_marginBottom="@dimen/_8dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/orange"
+                app:cardCornerRadius="12dp"
+                tools:visibility="visible">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="0dp"
+                    app:cardBackgroundColor="@color/light_yellow"
+                    app:cardCornerRadius="12dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/_8dp">
+
+                        <ImageView
+                            android:id="@+id/ivBetPredictionType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@null"
+                            android:src="@drawable/graph_down_ic"
+                            app:tint="@color/red" />
+
+                        <TextView
+                            android:id="@+id/betAmt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8dp"
+                            android:fontFamily="@font/istok_web_regular"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_18sp"
+                            android:textStyle="bold"
+                            tools:text="\u20b9200" />
+
+                        <TextView
+                            android:id="@+id/betEntryAmt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8dp"
+                            android:fontFamily="@font/istok_web_regular"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sp"
+                            tools:text="Entry: \u20b91812.49" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -485,7 +493,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_15dp"
-                        android:fontFamily="@font/istok_web_regular"
+                        android:fontFamily="@font/montserrat_bold"
                         android:gravity="center"
                         android:text="UP"
                         android:textColor="@color/white"
@@ -514,7 +522,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_15dp"
-                        android:fontFamily="@font/istok_web_regular"
+                        android:fontFamily="@font/istok_web_bold"
                         android:gravity="center"
                         android:text="DOWN"
                         android:textColor="@color/white"
@@ -530,10 +538,11 @@
                 android:background="@drawable/purple_corners_shape"
                 android:backgroundTint="@color/blue_new"
                 android:elevation="4dp"
-                android:fontFamily="@font/istok_web_regular"
+                android:fontFamily="@font/istok_web_bold"
                 android:gravity="center"
                 android:paddingVertical="8dp"
                 android:text="Confirm Bet"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
@@ -545,7 +554,7 @@
                 android:drawableStart="@drawable/baseline_access_time_24"
                 android:drawablePadding="@dimen/_4dp"
                 android:fontFamily="@font/istok_web_regular"
-                android:text="Trade History"
+                android:text="Trade History : "
                 android:textColor="@color/black"
                 android:textSize="@dimen/_18sp" />
 

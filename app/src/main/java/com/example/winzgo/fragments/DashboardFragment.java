@@ -48,11 +48,11 @@ public class DashboardFragment extends Fragment {
         });
 
         binding.lyCoinPd.setOnClickListener(v -> {
-            activity.loadFragment(new CoinPredictionFragment(), true, "Coin Prediction");
+            activity.loadFragment(new CoinPredictionFragment(), true, "Crypto Streak");
         });
 
         binding.lyTradeX.setOnClickListener(v -> {
-            activity.loadFragment(new TradeProFragment(), true, "Trade Pro");
+            activity.loadFragment(new TradeProFragment(), true, "Coin Prediction");
         });
     }
 

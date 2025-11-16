@@ -39,9 +39,9 @@ public class Constants {
     public static final String USER_ID_KEY = "userId";
     public static final String NAME_KEY = "name";
     // WalletType 0(win go), 1(coin), 2(trade x)
-    public static final String WIN_GO_BALANCE_KEY = "coinWallet";
-    public static final String COIN_BALANCE_KEY = "coinWallet";
-    public static final String TRADE_PRO_BALANCE_KEY = "tradeProWallet";
+    public static final String WIN_GO_BALANCE_KEY = "balance";
+    public static final String COIN_BALANCE_KEY = "coinBalance";
+    public static final String TRADE_PRO_BALANCE_KEY = "tradeProBalance";
     // sp key end
     public static final String RUPEE_ICON = "\u20b9";
 
