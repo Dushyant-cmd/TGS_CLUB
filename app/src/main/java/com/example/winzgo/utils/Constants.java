@@ -13,6 +13,7 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.winzgo.databinding.ProfileEditDialogBinding;
@@ -183,5 +184,10 @@ public class Constants {
             e.printStackTrace();
             Toast.makeText(activity, "something went wrong", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static void showEditTextError(EditText et, String message) {
+        et.setError(message);
+        et.requestFocus();
     }
 }

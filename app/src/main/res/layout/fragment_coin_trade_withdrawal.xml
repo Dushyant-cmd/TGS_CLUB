@@ -57,18 +57,18 @@
             android:layout_marginStart="@dimen/_8dp"
             android:layout_marginTop="25dp"
             android:fontFamily="@font/istok_web_regular"
-            android:text="Enter UTR Code "
+            android:text="Withdrawal Amount "
             android:textColor="@color/black"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/etUtr"
+            android:id="@+id/etAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4dp"
             android:background="@drawable/light_silver_bg"
             android:fontFamily="@font/istok_web_regular"
-            android:hint="Enter UPI Id"
+            android:hint="Enter Amount"
             android:inputType="text"
             android:paddingVertical="@dimen/_15dp"
             android:paddingStart="24dp"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8dp"
             android:layout_marginTop="2dp"
-            android:fontFamily="@font/istok_web_regular"
+            android:fontFamily="@font/istok_web_bold"
             android:text="Min: ₹200 | Max: ₹200000"
             android:textColor="@color/black"
             android:textSize="12sp" />
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/istok_web_regular"
+            android:fontFamily="@font/istok_web_bold"
             android:text="Withdrawal Tax for ₹200 to ₹1500 : ₹30\nwithdrawal Tax for ₹1500 to ₹2 lakhs  : TDS% \nT&amp;C : Your Wallet Must Be Activated\nDay - MON to FRI    Timing - 10 Am to 5 Pm"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sp" />
