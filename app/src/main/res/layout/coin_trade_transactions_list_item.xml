@@ -11,10 +11,11 @@
     android:paddingVertical="@dimen/_8dp">
 
     <ImageView
+        android:id="@+id/ivCircle"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@drawable/bg_circle"
-        android:backgroundTint="@color/pastel_green"
+        android:backgroundTint="@color/pastel_red"
         android:padding="10dp"
         android:rotation="-45"
         android:src="@drawable/ic_baseline_arrow_back_24"
@@ -28,6 +29,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tvType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/istok_web_regular"
@@ -36,6 +38,7 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/tvDateAndTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -56,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+$100"
-            android:textColor="@color/green"
+            android:textColor="@color/dark_red"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -66,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Completed"
-            android:textColor="@color/green"
+            android:textColor="@color/dark_red"
             android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>

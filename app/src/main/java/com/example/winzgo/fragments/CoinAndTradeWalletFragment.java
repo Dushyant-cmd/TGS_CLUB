@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +17,19 @@ import android.view.ViewGroup;
 
 import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
+import com.example.winzgo.adapter.CoinTradeTransactionsAdapter;
 import com.example.winzgo.databinding.FragmentCoinAndTradeWalletBinding;
 import com.example.winzgo.fragments.recharge.CoinTradeDepositFragment;
 import com.example.winzgo.fragments.withdrawal.CoinTradeWithdrawalFragment;
+import com.example.winzgo.models.TransactionsModel;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.core.OrderBy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CoinAndTradeWalletFragment extends Fragment {
@@ -31,6 +37,8 @@ public class CoinAndTradeWalletFragment extends Fragment {
     private MainActivity hostActivity;
     private FirebaseFirestore firestore;
     private int type = 0;// 0 trade, 1 coin, 2 win-go
+    private CoinTradeTransactionsAdapter adapter;
+    private List<TransactionsModel> list = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,11 +56,34 @@ public class CoinAndTradeWalletFragment extends Fragment {
 
         hostActivity.setupHeader("Wallet");
 
+        adapter = new CoinTradeTransactionsAdapter(getContext(), list);
+        binding.rvTransactions.setAdapter(adapter);
+        binding.rvTransactions.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        getAllTransactions();
         getUserData();
         getAllRecharge();
         getAllWithdrawals();
         getAllBets();
         setListeners();
+    }
+
+    private void setListeners() {
+        binding.btnDeposit.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", type);
+            CoinTradeDepositFragment fragment = new CoinTradeDepositFragment();
+            fragment.setArguments(bundle);
+            hostActivity.loadFragment(fragment, true, "Deposit");
+        });
+
+        binding.btnWithdraw.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", type);
+            CoinTradeWithdrawalFragment fragment = new CoinTradeWithdrawalFragment();
+            fragment.setArguments(bundle);
+            hostActivity.loadFragment(fragment, true, "Withdrawal");
+        });
     }
 
     private void getAllBets() {
@@ -134,22 +165,30 @@ public class CoinAndTradeWalletFragment extends Fragment {
         }
     }
 
-    private void setListeners() {
-        binding.btnDeposit.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putInt("type", type);
-            CoinTradeDepositFragment fragment = new CoinTradeDepositFragment();
-            fragment.setArguments(bundle);
-            hostActivity.loadFragment(fragment, true, "Deposit");
-        });
+    private void getAllTransactions() {
+        if(isNetworkConnected(getActivity())) {
+            Dialog dialog = Constants.showProgressDialog(getContext());
+            firestore.collection("transactions")
+                    .whereEqualTo("gameType", type)
+                    .whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
+                    .get().addOnCompleteListener(task -> {
+                        dialog.dismiss();
+                        long deposit = 0;
+                        if(task.isSuccessful()) {
+                            list.clear();
+                            List<DocumentSnapshot> docList = task.getResult().getDocuments();
+                            for(DocumentSnapshot doc: docList) {
+                                TransactionsModel transactionsModel = doc.toObject(TransactionsModel.class);
+                                list.add(transactionsModel);
+                            }
 
-        binding.btnWithdraw.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putInt("type", type);
-            CoinTradeWithdrawalFragment fragment = new CoinTradeWithdrawalFragment();
-            fragment.setArguments(bundle);
-            hostActivity.loadFragment(fragment, true, "Withdrawal");
-        });
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+        } else {
+            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
+        }
     }
 
     private void getUserData() {
