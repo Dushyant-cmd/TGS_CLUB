@@ -23,7 +23,7 @@
     </style>
     <style name="PurpleSwitchTheme">
         <item name="colorControlActivated">#6366F1</item>
-        <item name="colorSwitchThumbNormal">#FFFFFF</item>
+        <item name="colorSwitchThumbNormal">@color/white</item>
         <item name="android:colorForeground">#6366F1</item>
     </style>
 </resources>

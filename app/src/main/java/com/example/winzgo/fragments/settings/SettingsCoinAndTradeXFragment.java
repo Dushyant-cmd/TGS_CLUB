@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.example.winzgo.MainActivity;
@@ -30,6 +32,7 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
     private FragmentSettingsCoinAndTradeXBinding binding;
     private MainActivity hostAct;
     private FirebaseFirestore firestore;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,11 +53,23 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
         else
             binding.tvCurrType.setText("USD");
 
+        int theme = AppCompatDelegate.getDefaultNightMode();
+        binding.switchDarkMode.setChecked(theme == AppCompatDelegate.MODE_NIGHT_YES);
+
         getUserData();
         setListeners();
     }
 
     private void setListeners() {
+        binding.switchDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        });
         binding.lyLogout.setOnClickListener(v -> {
             Constants.showLogoutAlertDialog(requireContext(), () -> {
                 FirebaseAuth.getInstance().signOut(); // sign-out from firebase
@@ -117,7 +132,7 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
         intent.setData(Uri.parse(group));
         intent.setPackage("com.whatsapp");
 
-        if(intent.resolveActivity(requireActivity().getPackageManager()) != null){
+        if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
             startActivity(intent);
         } else {
             Toast.makeText(getActivity(), "Whatsapp not found", Toast.LENGTH_SHORT).show();

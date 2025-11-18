@@ -205,7 +205,7 @@
             android:layout_height="wrap_content"
             android:text="Choose your game mode"
             android:textSize="13sp"
-            android:textColor="#666666"
+            android:textColor="@color/dark_grey"
             android:fontFamily="@font/istok_web_regular"
             android:layout_marginBottom="12dp" />
 
@@ -453,7 +453,7 @@
                         android:layout_height="wrap_content"
                         android:text="Active Players"
                         android:textSize="11sp"
-                        android:textColor="#666666"
+                        android:textColor="@color/dark_grey"
                         android:layout_marginTop="4dp" />
                 </LinearLayout>
 
@@ -477,7 +477,7 @@
                         android:layout_height="wrap_content"
                         android:text="Total Payouts"
                         android:textSize="11sp"
-                        android:textColor="#666666"
+                        android:textColor="@color/dark_grey"
                         android:layout_marginTop="4dp" />
                 </LinearLayout>
 
@@ -501,7 +501,7 @@
                         android:layout_height="wrap_content"
                         android:text="Winners Today"
                         android:textSize="11sp"
-                        android:textColor="#666666"
+                        android:textColor="@color/dark_grey"
                         android:layout_marginTop="4dp" />
                 </LinearLayout>
             </LinearLayout>

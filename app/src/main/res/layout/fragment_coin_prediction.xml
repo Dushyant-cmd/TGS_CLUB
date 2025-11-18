@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,25 +21,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@drawable/wingo_gradient"
-                android:paddingVertical="4dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="4dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Round #1"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp"
                     android:gravity="center_vertical"
-                    android:layout_marginTop="4dp">
+                    android:orientation="horizontal">
 
                     <View
                         android:layout_width="20dp"
@@ -50,10 +49,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
                         android:text="How to play"
                         android:textColor="@color/white"
-                        android:textSize="9sp"
-                        android:layout_marginStart="6dp" />
+                        android:textSize="9sp" />
                 </LinearLayout>
 
                 <TextView
@@ -68,44 +67,44 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_timer_min1"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:text="0"
                         android:background="@drawable/light_yellow_rectangle"
-                        android:textSize="20sp"
                         android:backgroundTint="@color/white"
-                        android:gravity="center"
                         android:fontFamily="@font/inria_serif_bold"
-                        android:textColor="@color/black" />
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/tv_timer_min2"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:layout_marginStart="6dp"
                         android:background="@drawable/light_yellow_rectangle"
-                        android:text="0"
                         android:backgroundTint="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
                         android:fontFamily="@font/inria_serif_bold"
+                        android:gravity="center"
+                        android:text="0"
                         android:textColor="@color/black"
-                        android:layout_marginStart="6dp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=":"
-                        android:textColor="#FFFFFF"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
                         android:layout_marginStart="4dp"
-                        android:layout_marginEnd="4dp" />
+                        android:layout_marginEnd="4dp"
+                        android:text=":"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_timer_sec1"
@@ -114,25 +113,25 @@
                         android:background="@drawable/light_yellow_rectangle"
                         android:backgroundTint="@color/white"
                         android:fontFamily="@font/inria_serif_bold"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
                         android:gravity="center"
                         android:text="1"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_timer_sec2"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:layout_marginStart="6dp"
                         android:background="@drawable/light_yellow_rectangle"
                         android:backgroundTint="@color/white"
                         android:fontFamily="@font/inria_serif_bold"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
                         android:gravity="center"
                         android:text="1"
                         android:textColor="@color/black"
-                        android:layout_marginStart="6dp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -195,18 +194,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:fontFamily="@font/istok_web_bold"
                         android:text="₿ BITCOIN"
-                        android:layout_marginHorizontal="@dimen/_8dp"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
                         android:layout_marginHorizontal="@dimen/_8dp"
+                        android:layout_marginTop="2dp"
                         android:fontFamily="@font/istok_web_regular"
                         android:text="₹45,234.50"
                         android:textColor="#000000"
@@ -216,11 +215,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:layout_marginTop="1dp"
                         android:fontFamily="@font/istok_web_regular"
                         android:text="Last 24h: +2.34%"
                         android:textColor="@color/black"
-                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:textSize="9sp" />
 
                     <View
@@ -232,6 +231,7 @@
                         android:id="@+id/chart_bitcoin"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:layout_marginHorizontal="1dp"
                         android:background="@color/white" />
 
                     <View
@@ -242,8 +242,8 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
                         android:layout_marginHorizontal="@dimen/_8dp"
+                        android:layout_marginTop="4dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -278,8 +278,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/istok_web_bold"
                         android:layout_marginHorizontal="@dimen/_8dp"
+                        android:fontFamily="@font/istok_web_bold"
                         android:text="Ξ ETHEREUM"
                         android:textColor="#000000"
                         android:textSize="12sp"
@@ -288,9 +288,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:layout_marginTop="2dp"
                         android:fontFamily="@font/istok_web_regular"
-                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:text="₹2,890.20"
                         android:textColor="#000000"
                         android:textSize="11sp"
@@ -299,8 +299,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
                         android:layout_marginHorizontal="@dimen/_8dp"
+                        android:layout_marginTop="1dp"
                         android:fontFamily="@font/istok_web_regular"
                         android:text="Last 24h: -1.23%"
                         android:textColor="@color/black"
@@ -315,6 +315,7 @@
                         android:id="@+id/chart_ethereum"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:layout_marginHorizontal="1dp"
                         android:background="@color/white" />
 
                     <View
@@ -325,9 +326,9 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center_vertical"
-                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -359,8 +360,8 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_marginStart="@dimen/_8dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -374,9 +375,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_4dp"
-                            android:text="SOL"
                             android:fontFamily="@font/istok_web_bold"
                             android:gravity="center"
+                            android:text="SOL"
                             android:textColor="@color/black"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -384,9 +385,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:layout_marginTop="2dp"
                         android:fontFamily="@font/istok_web_regular"
-                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:text="₹98.45"
                         android:textColor="#000000"
                         android:textSize="11sp"
@@ -395,11 +396,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:layout_marginTop="1dp"
                         android:fontFamily="@font/istok_web_regular"
                         android:text="Last 24h: +0.89%"
                         android:textColor="@color/black"
-                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:textSize="9sp" />
 
                     <View
@@ -411,6 +412,7 @@
                         android:id="@+id/chart_solana"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:layout_marginHorizontal="1dp"
                         android:background="@color/white" />
 
                     <View
@@ -421,9 +423,9 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:layout_marginTop="4dp"
                         android:gravity="center_vertical"
-                        android:layout_marginHorizontal="@dimen/_8dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -454,11 +456,11 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
+                    android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -484,11 +486,11 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:paddingVertical="@dimen/_4dp"
-                    android:paddingHorizontal="12dp"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
                     android:background="@drawable/light_silver_bg"
-                    android:layout_alignParentEnd="true">
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="@dimen/_4dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -515,13 +517,13 @@
 
         <!-- Bet Amount Section -->
         <RelativeLayout
-            android:background="@drawable/silver_bg_sk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
+            android:background="@drawable/silver_bg_sk"
             android:paddingHorizontal="@dimen/_15dp"
-            android:paddingVertical="@dimen/_8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:paddingVertical="@dimen/_8dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -563,7 +565,7 @@
                     android:background="@drawable/white_border_rectangle"
                     android:gravity="center"
                     android:text="$10"
-                    android:textColor="#666666"
+                    android:textColor="@color/dark_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -576,7 +578,7 @@
                     android:background="@drawable/white_border_rectangle"
                     android:gravity="center"
                     android:text="$50"
-                    android:textColor="#666666"
+                    android:textColor="@color/dark_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -589,7 +591,7 @@
                     android:background="@drawable/white_border_rectangle"
                     android:gravity="center"
                     android:text="$100"
-                    android:textColor="#666666"
+                    android:textColor="@color/dark_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -602,7 +604,7 @@
                     android:background="@drawable/white_border_rectangle"
                     android:gravity="center"
                     android:text="$200"
-                    android:textColor="#666666"
+                    android:textColor="@color/dark_grey"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -617,8 +619,8 @@
                         android:id="@+id/iBtnUp"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:background="@drawable/baseline_arrow_drop_up_24"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:minWidth="0dp" />
 
                     <TextView
@@ -637,8 +639,8 @@
                         android:id="@+id/iBtnDown"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:background="@drawable/baseline_arrow_drop_up_24"
+                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:rotation="180" />
                 </LinearLayout>
             </LinearLayout>
@@ -648,22 +650,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Coin :"
-            android:textSize="14sp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/istok_web_regular"
-            android:layout_marginStart="16dp"
-            android:textColor="@color/black" />
+            android:text="Select Coin :"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
         <!-- Coin Selection -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4dp"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:gravity="center"
             android:weightSum="3">
 
             <!-- Bitcoin -->
@@ -671,53 +673,9 @@
                 android:id="@+id/card_bitcoin"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true"
-                app:cardBackgroundColor="@color/little_dark_violet">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="12dp">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/btc_coin_ic"
-                        android:contentDescription="Bitcoin" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bitcoin"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:layout_marginTop="6dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="BTC"
-                        android:textSize="11sp"
-                        android:textColor="#E0D4FF"
-                        android:layout_marginTop="2dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Ethereum -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_ethereum"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:layout_marginEnd="8dp"
+                app:cardBackgroundColor="@color/little_dark_violet"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
                 app:cardPreventCornerOverlap="false"
@@ -726,32 +684,76 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:padding="12dp">
 
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/eth_coin_ic"
-                        android:contentDescription="Ethereum" />
+                        android:contentDescription="Bitcoin"
+                        android:src="@drawable/btc_coin_ic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ethereum"
+                        android:layout_marginTop="6dp"
+                        android:text="Bitcoin"
+                        android:textColor="@color/white"
                         android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#000000"
-                        android:layout_marginTop="6dp" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="BTC"
+                        android:textColor="#E0D4FF"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Ethereum -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_ethereum"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="Ethereum"
+                        android:src="@drawable/eth_coin_ic" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Ethereum"
+                        android:textColor="#000000"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:text="ETH"
-                        android:textSize="11sp"
-                        android:textColor="#666666"
-                        android:layout_marginTop="2dp" />
+                        android:textColor="@color/dark_grey"
+                        android:textSize="11sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -769,32 +771,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:padding="12dp">
 
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/sol_coin_ic"
-                        android:contentDescription="Solana" />
+                        android:contentDescription="Solana"
+                        android:src="@drawable/sol_coin_ic" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
                         android:text="Solana"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
                         android:textColor="#000000"
-                        android:layout_marginTop="6dp" />
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:text="SOL"
-                        android:textSize="11sp"
-                        android:textColor="#666666"
-                        android:layout_marginTop="2dp" />
+                        android:textColor="@color/dark_grey"
+                        android:textSize="11sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
@@ -805,23 +807,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:paddingVertical="8dp"
-            android:text="Confirm Bet"
-            android:textSize="20sp"
-            android:fontFamily="@font/istok_web_bold"
-            android:textColor="@color/white"
             android:background="@drawable/purple_corners_shape"
             android:backgroundTint="@color/blue_new"
+            android:elevation="4dp"
+            android:fontFamily="@font/istok_web_bold"
             android:gravity="center"
-            android:elevation="4dp" />
+            android:paddingVertical="8dp"
+            android:text="Confirm Bet"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             android:paddingBottom="@dimen/_8dp"
             tools:itemCount="3"
-            tools:listitem="@layout/coin_prediction_history_list_item"
-            android:layout_height="wrap_content" />
+            tools:listitem="@layout/coin_prediction_history_list_item" />
     </LinearLayout>
 </ScrollView>

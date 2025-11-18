@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/silver_bg_sk"
-    android:backgroundTint="@color/white"
     android:orientation="vertical"
     android:padding="24dp">
 
@@ -57,7 +56,7 @@
                 android:background="@drawable/violet_gradient_circle"
                 android:gravity="center"
                 android:text="₹"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -129,7 +128,7 @@
                 android:background="@drawable/orange_circle_bg"
                 android:gravity="center"
                 android:text="$"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
