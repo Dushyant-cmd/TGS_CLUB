@@ -10,7 +10,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_round_linear_gradient"
         android:padding="8dp">
 
         <LinearLayout

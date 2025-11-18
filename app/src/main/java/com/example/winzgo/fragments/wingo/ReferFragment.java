@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
 import com.example.winzgo.adapter.ReferListAdapter;
 import com.example.winzgo.models.ReferListModel;
@@ -62,6 +63,8 @@ public class ReferFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_refer, container, false);
         View view = inflater.inflate(R.layout.fragment_refer, container, false);
+        ((MainActivity) getActivity()).setupHeader("refer");
+        MainActivity.binding.mainHeaderLy.setVisibility(View.GONE);
         recyclerView = view.findViewById(R.id.listRefer);
         sharedPreferences = new SessionSharedPref(getActivity());
         firestore = FirebaseFirestore.getInstance();

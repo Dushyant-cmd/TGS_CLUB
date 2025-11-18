@@ -3,8 +3,16 @@ package com.example.winzgo.fragments.settings;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,15 +21,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.winzgo.BuildConfig;
-import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
 import com.example.winzgo.activities.SignUpAndSignIn;
 import com.example.winzgo.databinding.FragmentSettingsBinding;
@@ -221,15 +221,14 @@ public class SettingsFragment extends Fragment {
     }
 
     public static class AlertDialogs extends DialogFragment {
-        View view;//contains custom layout of AlertDialog
+        View view;
         AlertDialog.Builder builder;
         AlertDialog dialog;
 
         @NonNull
         @Override
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-            setCancelable(false);//to set AlertDialog to non-cancelable when user click outside of AlertDialog window(with layout by default
-            // empty layout)
+            setCancelable(false);
             builder.setView(view);
             TextView okay = view.findViewById(R.id.closeDialog);
             TextView headOfDialog = view.findViewById(R.id.headOfDialog);
@@ -238,9 +237,8 @@ public class SettingsFragment extends Fragment {
             okay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dialog.dismiss();//close or dismiss AlertDialog.
-                    AlertDialogs.super.onDestroy();//Clear Fragment from Fragment stack or make AlertDialogs(DialogFragment) fragment to Destroyed
-                    //state using its lifecycle callback onDestroy().
+                    dialog.dismiss();
+                    AlertDialogs.super.onDestroy();
                 }
             });
             return dialog;

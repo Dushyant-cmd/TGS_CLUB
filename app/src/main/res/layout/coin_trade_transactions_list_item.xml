@@ -5,10 +5,10 @@
     android:layout_height="wrap_content"
     android:background="@drawable/silver_bg_sk"
     android:gravity="center"
-    android:layout_marginTop="12dp"
+    android:layout_marginTop="8dp"
     android:orientation="horizontal"
     android:paddingHorizontal="16dp"
-    android:paddingVertical="@dimen/_8dp">
+    android:paddingVertical="@dimen/_10dp">
 
     <ImageView
         android:id="@+id/ivCircle"
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:text="01/11/2025  11:00 pm"
             android:textColor="@color/black"
             android:textSize="14sp" />

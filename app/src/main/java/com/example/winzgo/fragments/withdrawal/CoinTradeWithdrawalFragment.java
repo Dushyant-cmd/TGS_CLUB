@@ -92,6 +92,10 @@ public class CoinTradeWithdrawalFragment extends Fragment {
                         });
             }
         });
+
+        binding.cancelBtn.setOnClickListener(v -> {
+            hostAct.popCurrent();
+        });
     }
 
     private void withdraw(String withdrawAmount) {

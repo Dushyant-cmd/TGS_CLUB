@@ -2,18 +2,15 @@ package com.example.winzgo.fragments;
 
 import static com.example.winzgo.utils.Constants.isNetworkConnected;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
@@ -27,7 +24,6 @@ import com.example.winzgo.utils.Constants;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.core.OrderBy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +35,7 @@ public class CoinAndTradeWalletFragment extends Fragment {
     private int type = 0;// 0 trade, 1 coin, 2 win-go
     private CoinTradeTransactionsAdapter adapter;
     private List<TransactionsModel> list = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,12 +57,20 @@ public class CoinAndTradeWalletFragment extends Fragment {
         binding.rvTransactions.setAdapter(adapter);
         binding.rvTransactions.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        getAllTransactions();
-        getUserData();
-        getAllRecharge();
-        getAllWithdrawals();
-        getAllBets();
+        queries();
         setListeners();
+    }
+
+    private void queries() {
+        if (isNetworkConnected(getActivity())) {
+            getAllTransactions();
+            getUserData();
+            getAllRecharge();
+            getAllWithdrawals();
+            getAllBets();
+        } else {
+            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
+        }
     }
 
     private void setListeners() {
@@ -84,138 +89,132 @@ public class CoinAndTradeWalletFragment extends Fragment {
             fragment.setArguments(bundle);
             hostActivity.loadFragment(fragment, true, "Withdrawal");
         });
+
+        binding.swipeRefLy.setOnRefreshListener(this::queries);
     }
 
     private void getAllBets() {
-        if(isNetworkConnected(getActivity())) {
-            Dialog dialog = Constants.showProgressDialog(getContext());
-            String collection = "tradeBets";
-            if(type == 1) {
-                collection = "coinBets";
-            }
-            firestore.collection(collection).whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
-                    .get().addOnCompleteListener(task -> {
-                        dialog.dismiss();
-                        long profit = 0;
-                        if(task.isSuccessful()) {
-                            List<DocumentSnapshot> list = task.getResult().getDocuments();
-                            for(DocumentSnapshot doc: list) {
-                                boolean isWinner = doc.getBoolean("isWinner");
-                                if(isWinner) {
-                                    profit += doc.getLong("win_amount");
-                                }
-                            }
-
-                            binding.tvTotalBets.setText(String.valueOf(list.size()));
-                        }
-                        binding.tvTotalProfits.setText(Constants.RUPEE_ICON + profit);
-                    });
-        } else {
-            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
+        String collection = "tradeBets";
+        if (type == 1) {
+            collection = "coinBets";
         }
+        binding.tvTotalBets.setVisibility(View.GONE);
+        binding.pbBets.setVisibility(View.VISIBLE);
+        binding.tvTotalProfits.setVisibility(View.GONE);
+        binding.pbProfits.setVisibility(View.VISIBLE);
+        firestore.collection(collection).whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
+                .get().addOnCompleteListener(task -> {
+                    binding.swipeRefLy.setRefreshing(false);
+                    long profit = 0;
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> list = task.getResult().getDocuments();
+                        for (DocumentSnapshot doc : list) {
+                            boolean isWinner = doc.getBoolean("isWinner");
+                            if (isWinner) {
+                                profit += doc.getLong("win_amount");
+                            }
+                        }
+
+                        binding.tvTotalBets.setVisibility(View.VISIBLE);
+                        binding.pbBets.setVisibility(View.GONE);
+                        binding.tvTotalBets.setText(String.valueOf(list.size()));
+                    }
+                    binding.tvTotalProfits.setVisibility(View.VISIBLE);
+                    binding.pbProfits.setVisibility(View.GONE);
+
+                    binding.tvTotalProfits.setText(Constants.RUPEE_ICON + profit);
+                });
     }
 
     private void getAllWithdrawals() {
-        if(isNetworkConnected(getActivity())) {
-            Dialog dialog = Constants.showProgressDialog(getContext());
-            firestore.collection("transactions")
-                    .whereEqualTo("gameType", type)
-                    .whereEqualTo("type", "withdraw")
-                    .whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
-                    .get().addOnCompleteListener(task -> {
-                        dialog.dismiss();
-                        long withdrawals = 0;
-                        if(task.isSuccessful()) {
-                            List<DocumentSnapshot> list = task.getResult().getDocuments();
-                            for(DocumentSnapshot doc: list) {
-                                long amt = Long.parseLong(doc.getString("amount"));
-                                withdrawals += amt;
-                            }
-
+        binding.tvTotalWithdrawals.setVisibility(View.GONE);
+        binding.pbWithdrawals.setVisibility(View.VISIBLE);
+        firestore.collection("transactions")
+                .whereEqualTo("gameType", type)
+                .whereEqualTo("type", "withdraw").whereEqualTo("status", "completed")
+                .whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
+                .get().addOnCompleteListener(task -> {
+                    long withdrawals = 0;
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> list = task.getResult().getDocuments();
+                        for (DocumentSnapshot doc : list) {
+                            long amt = Long.parseLong(doc.getString("amount"));
+                            withdrawals += amt;
                         }
-                        binding.tvTotalWithdrawals.setText(Constants.RUPEE_ICON + withdrawals);
-                    });
-        } else {
-            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
-        }
+
+                    }
+
+                    binding.tvTotalWithdrawals.setVisibility(View.VISIBLE);
+                    binding.pbWithdrawals.setVisibility(View.GONE);
+
+                    binding.tvTotalWithdrawals.setText(Constants.RUPEE_ICON + withdrawals);
+                });
     }
 
     private void getAllRecharge() {
-        if(isNetworkConnected(getActivity())) {
-            Dialog dialog = Constants.showProgressDialog(getContext());
-            firestore.collection("transactions")
-                    .whereEqualTo("gameType", type)
-                    .whereEqualTo("type", "recharge")
-                    .whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
-                    .get().addOnCompleteListener(task -> {
-                        dialog.dismiss();
-                        long deposit = 0;
-                        if(task.isSuccessful()) {
-                            List<DocumentSnapshot> list = task.getResult().getDocuments();
-                            for(DocumentSnapshot doc: list) {
-                                long amt = Long.parseLong(doc.getString("amount"));
-                                deposit += amt;
-                            }
-
+        binding.tvTotalDeposits.setVisibility(View.GONE);
+        binding.pbDeposit.setVisibility(View.VISIBLE);
+        firestore.collection("transactions")
+                .whereEqualTo("gameType", type)
+                .whereEqualTo("type", "recharge").whereEqualTo("status", "completed")
+                .whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
+                .get().addOnCompleteListener(task -> {
+                    long deposit = 0;
+                    if (task.isSuccessful()) {
+                        List<DocumentSnapshot> list = task.getResult().getDocuments();
+                        for (DocumentSnapshot doc : list) {
+                            long amt = Long.parseLong(doc.getString("amount"));
+                            deposit += amt;
                         }
-                        binding.tvTotalDeposits.setText(Constants.RUPEE_ICON + deposit);
-                    });
-        } else {
-            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
-        }
+
+                    }
+                    binding.tvTotalDeposits.setVisibility(View.VISIBLE);
+                    binding.pbDeposit.setVisibility(View.GONE);
+
+                    binding.tvTotalDeposits.setText(Constants.RUPEE_ICON + deposit);
+                });
     }
 
     private void getAllTransactions() {
-        if(isNetworkConnected(getActivity())) {
-            Dialog dialog = Constants.showProgressDialog(getContext());
-            firestore.collection("transactions")
-                    .whereEqualTo("gameType", type)
-                    .whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
-                    .orderBy("timestamp", Query.Direction.DESCENDING)
-                    .get().addOnCompleteListener(task -> {
-                        dialog.dismiss();
-                        long deposit = 0;
-                        if(task.isSuccessful()) {
-                            list.clear();
-                            List<DocumentSnapshot> docList = task.getResult().getDocuments();
-                            for(DocumentSnapshot doc: docList) {
-                                TransactionsModel transactionsModel = doc.toObject(TransactionsModel.class);
-                                list.add(transactionsModel);
-                            }
-
-                            adapter.notifyDataSetChanged();
+        binding.pbTxnHistory.setVisibility(View.VISIBLE);
+        binding.rvTransactions.setVisibility(View.GONE);
+        firestore.collection("transactions")
+                .whereEqualTo("gameType", type)
+                .whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        list.clear();
+                        List<DocumentSnapshot> docList = task.getResult().getDocuments();
+                        for (DocumentSnapshot doc : docList) {
+                            TransactionsModel transactionsModel = doc.toObject(TransactionsModel.class);
+                            list.add(transactionsModel);
                         }
-                    });
-        } else {
-            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
-        }
+
+                        binding.pbTxnHistory.setVisibility(View.GONE);
+                        binding.rvTransactions.setVisibility(View.VISIBLE);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     private void getUserData() {
-        if (isNetworkConnected(requireActivity())) {
-            long userId = SessionSharedPref.getLong(requireContext(), Constants.USER_ID_KEY, 0L);
-            if (userId != 0L) {
-                ProgressDialog dialog1 = new ProgressDialog(requireActivity());
-                dialog1.setMessage("Please wait...");
-                dialog1.show();
-                firestore.collection("users").document(String.valueOf(userId))
-                        .get().addOnCompleteListener(task -> {
-                            dialog1.dismiss();
-                            long balance = task.getResult().getLong(Constants.TRADE_PRO_BALANCE_KEY);
+        long userId = SessionSharedPref.getLong(requireContext(), Constants.USER_ID_KEY, 0L);
+        if (userId != 0L) {
+            firestore.collection("users").document(String.valueOf(userId))
+                    .get().addOnCompleteListener(task -> {
+                        long balance = task.getResult().getLong(Constants.TRADE_PRO_BALANCE_KEY);
 
-                            if(type == 0) {
-                                SessionSharedPref.setLong(requireContext(), Constants.TRADE_PRO_BALANCE_KEY, balance);
-                            } else if(type == 1) {
-                                balance = task.getResult().getLong(Constants.COIN_BALANCE_KEY);
-                                SessionSharedPref.setLong(requireContext(), Constants.COIN_BALANCE_KEY, balance);
-                            }
+                        if (type == 0) {
+                            SessionSharedPref.setLong(requireContext(), Constants.TRADE_PRO_BALANCE_KEY, balance);
+                        } else if (type == 1) {
+                            balance = task.getResult().getLong(Constants.COIN_BALANCE_KEY);
+                            SessionSharedPref.setLong(requireContext(), Constants.COIN_BALANCE_KEY, balance);
+                        }
 
-                            MainActivity.binding.tvBalance.setText(Constants.RUPEE_ICON + balance);
-                            binding.tvBalance.setText(Constants.RUPEE_ICON + balance);
-                        });
-            }
-        } else {
-            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
+                        MainActivity.binding.tvBalance.setText(Constants.RUPEE_ICON + balance);
+                        binding.tvBalance.setText(Constants.RUPEE_ICON + balance);
+                    });
         }
     }
 }

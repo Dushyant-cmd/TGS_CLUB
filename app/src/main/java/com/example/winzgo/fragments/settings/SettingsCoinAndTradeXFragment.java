@@ -1,18 +1,19 @@
 package com.example.winzgo.fragments.settings;
 
+import static com.example.winzgo.utils.Constants.isNetworkConnected;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
@@ -23,10 +24,12 @@ import com.example.winzgo.fragments.wingo.ReferFragment;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SettingsCoinAndTradeXFragment extends Fragment {
     private FragmentSettingsCoinAndTradeXBinding binding;
     private MainActivity hostAct;
+    private FirebaseFirestore firestore;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,8 +41,16 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         binding = FragmentSettingsCoinAndTradeXBinding.bind(view);
         hostAct = (MainActivity) requireActivity();
+        firestore = FirebaseFirestore.getInstance();
 
         hostAct.setupHeader("Settings");
+        boolean currencyType = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
+        if (currencyType)
+            binding.tvCurrType.setText("INR");
+        else
+            binding.tvCurrType.setText("USD");
+
+        getUserData();
         setListeners();
     }
 
@@ -72,6 +83,26 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
             CurrencyChangeDialog dialog = new CurrencyChangeDialog();
             dialog.show(getChildFragmentManager(), "");
         });
+    }
+
+    private void getUserData() {
+        if (isNetworkConnected(getActivity())) {
+            long userId = SessionSharedPref.getLong(requireContext(), Constants.USER_ID_KEY, 0L);
+            if (userId != 0L) {
+                firestore.collection("users").document(String.valueOf(userId))
+                        .get().addOnCompleteListener(task -> {
+                            long balance = task.getResult().getLong(Constants.WIN_GO_BALANCE_KEY);
+                            long tradeBalance = task.getResult().getLong(Constants.TRADE_PRO_BALANCE_KEY);
+                            long coinBalance = task.getResult().getLong(Constants.COIN_BALANCE_KEY);
+
+                            long totalBalance = balance + tradeBalance + coinBalance;
+
+                            binding.tvWalletAmt.setText(Constants.RUPEE_ICON + totalBalance);
+                        });
+            }
+        } else {
+            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
+        }
     }
 
     private void showTeamBonusAlertDialog() {

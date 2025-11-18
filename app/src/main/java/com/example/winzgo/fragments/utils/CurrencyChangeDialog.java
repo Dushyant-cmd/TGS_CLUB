@@ -39,6 +39,9 @@ public class CurrencyChangeDialog extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         binding = CurrencyChangeDialogBinding.bind(view);
+        boolean currencyType = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
+
+        changeCurrSelection(currencyType);
         setListeners();
     }
 
@@ -48,23 +51,31 @@ public class CurrencyChangeDialog extends DialogFragment {
         });
 
         binding.cardInr.setOnClickListener(v -> {
+            changeCurrSelection(true);
+        });
+
+        binding.cardUsd.setOnClickListener(v -> {
+            changeCurrSelection(false);
+        });
+    }
+
+    private void changeCurrSelection(boolean isInr) {
+        if (isInr) {
             binding.cardInr.setCardBackgroundColor(getResources().getColor(R.color.sky_blue));
             binding.ivTickInr.setVisibility(View.VISIBLE);
 
             binding.cardUsd.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
             binding.ivTickUsd.setVisibility(View.INVISIBLE);
 
-            SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, true);
-        });
-
-        binding.cardUsd.setOnClickListener(v -> {
+            SessionSharedPref.setBoolean(getContext(), Constants.IS_INR, true);
+        } else {
             binding.cardUsd.setCardBackgroundColor(getResources().getColor(R.color.sky_blue));
             binding.ivTickUsd.setVisibility(View.VISIBLE);
 
             binding.cardInr.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
             binding.ivTickInr.setVisibility(View.INVISIBLE);
 
-            SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
-        });
+            SessionSharedPref.setBoolean(getContext(), Constants.IS_INR, false);
+        }
     }
 }

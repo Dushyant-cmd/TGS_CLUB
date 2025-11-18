@@ -1,7 +1,7 @@
 package com.example.winzgo.models;
 
 public class TransactionsModel {
-    String status, type, dateAndTime;
+    String status, type, dateAndTime, date;
     String amount;
 
     public TransactionsModel(String status, String type, String dateAndTime, String amount) {
@@ -10,6 +10,16 @@ public class TransactionsModel {
         this.amount = amount;
         this.dateAndTime = dateAndTime;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public TransactionsModel() {}
 
     public String getStatus() {
         return status;
