@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:fillViewport="true"
-    android:background="@color/too_light_grey"
+    android:background="@color/richWhite"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/istok_web_bold"
                     android:text="John Doe"
-                    android:textSize="18sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="@color/black" />
 
@@ -63,7 +63,7 @@
                     android:fontFamily="@font/istok_web_regular"
                     android:text="ID - 91284"
                     android:textSize="13sp"
-                    android:textColor="@color/dark_grey"
+                    android:textColor="@color/black"
                     android:layout_marginTop="2dp" />
 
                 <TextView
@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:text="Mobile no - 6587687696"
                     android:textSize="13sp"
-                    android:textColor="@color/dark_grey"
+                    android:textColor="@color/black"
                     android:layout_marginTop="1dp" />
             </LinearLayout>
         </LinearLayout>
@@ -112,7 +112,7 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:gravity="center_vertical"
-                android:background="?attr/selectableItemBackground">
+                android:foreground="?attr/selectableItemBackground">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -151,7 +151,7 @@
                 android:padding="8dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:background="?attr/selectableItemBackground">
+                android:foreground="?attr/selectableItemBackground">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -230,7 +230,7 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:gravity="center_vertical"
-                android:background="?attr/selectableItemBackground">
+                android:foreground="?attr/selectableItemBackground">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -410,7 +410,7 @@
                     android:text="English"
                     android:fontFamily="@font/istok_web_regular"
                     android:textSize="14sp"
-                    android:textColor="@color/dark_grey" />
+                    android:textColor="@color/black" />
             </LinearLayout>
         </LinearLayout>
 
@@ -479,7 +479,7 @@
                         android:text="Chat with us 24/7"
                         android:textSize="12sp"
                         android:fontFamily="@font/istok_web_regular"
-                        android:textColor="#999999"
+                        android:textColor="@color/dark_grey"
                         android:layout_marginTop="2dp" />
                 </LinearLayout>
 

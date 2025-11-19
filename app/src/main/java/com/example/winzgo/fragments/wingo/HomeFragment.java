@@ -1,5 +1,7 @@
 package com.example.winzgo.fragments.wingo;
 
+import static com.example.winzgo.utils.Constants.setDarkMode;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;

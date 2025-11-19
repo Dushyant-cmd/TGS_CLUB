@@ -5,12 +5,10 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#D3D3D3</color>
-    <color name="newBlack">#000000</color>
-    <color name="white">#FFFFFF</color>
     <color name="logoColor1">#008037</color>
     <color name="logoColor2">#E6CC61</color>
     <color name="resultHeadingColor">#FCEDF3FD</color>
+    <color name="actualWhite">#FFFFFF</color>
     <color name="diamondColor">#71CFEC</color>
     <color name="goldColor">#FF9800</color>
     <color name="bitcoinColor">#989898</color>
@@ -23,7 +21,6 @@
     <color name="pastel_blue">#61C2ED</color>
     <color name="red">#FF0000</color>
     <color name="light_grey">#FFFFFF</color>
-    <color name="too_light_grey">#121F4B</color>
     <color name="light_grey_tp">#A6D9D9D9</color>
     <color name="light_black_tp">#4D000000</color>
     <color name="dark_grey">#737373</color>
@@ -51,4 +48,13 @@
     <color name="light_yellow">#F8FAD6</color>
     <color name="sky_blue">#00BCD4</color>
     <color name="orange">#E68D40</color>
+
+<!--    dark theme colors-->
+    <color name="black">#FFFFFF</color>
+    <color name="white">#000000</color>
+    <color name="richWhite">#121F4B</color>
+    <color name="too_light_grey">#121F4B</color>
+    <color name="btc_light_violet">#121F4B</color>
+    <color name="light_sky_blue">#121F4B</color>
+    <color name="sol_sky_blue">#121F4B</color>
 </resources>

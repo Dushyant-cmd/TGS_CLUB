@@ -1,9 +1,12 @@
 package com.example.winzgo.fragments;
 
+import static com.example.winzgo.utils.Constants.setDarkMode;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -33,6 +36,9 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         activity = (MainActivity) requireActivity();
 
+        boolean isDarkMode = SessionSharedPref.getBoolean(getContext(), Constants.DARK_MODE_KEY, false);
+        setDarkMode(getContext(), isDarkMode);
+
         requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.white));
         requireActivity().findViewById(R.id.bottomNav).setVisibility(View.GONE);
         requireActivity().findViewById(R.id.mainHeaderLy).setVisibility(View.VISIBLE);
@@ -44,6 +50,7 @@ public class DashboardFragment extends Fragment {
 
     private void setListeners() {
         binding.lyWinGo.setOnClickListener(v -> {
+            setDarkMode(getContext(), false);
             activity.loadFragment(new HomeFragment(), true, "Win-Go");
         });
 

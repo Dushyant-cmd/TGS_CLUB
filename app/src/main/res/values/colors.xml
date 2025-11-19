@@ -6,8 +6,9 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="newBlack">#ffffff</color>
     <color name="white">#FFFFFF</color>
+    <color name="actualWhite">#FFFFFF</color>
+    <color name="richWhite">#FFFFFF</color>
     <color name="logoColor1">#008037</color>
     <color name="logoColor2">#E6CC61</color>
     <color name="resultHeadingColor">#FCEDF3FD</color>
@@ -51,4 +52,7 @@
     <color name="light_yellow">#F8FAD6</color>
     <color name="sky_blue">#00BCD4</color>
     <color name="orange">#E68D40</color>
+    <color name="btc_light_violet">#8b5adb</color>
+    <color name="light_sky_blue">#99a9f2</color>
+    <color name="sol_sky_blue">#00c9ff</color>
 </resources>

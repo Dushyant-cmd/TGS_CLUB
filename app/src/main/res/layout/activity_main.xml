@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
-        android:background="@color/newBlack"
+        android:background="@color/white"
         android:paddingVertical="@dimen/_8dp"
         android:elevation="2dp">
 
@@ -46,6 +46,7 @@
             android:layout_centerVertical="true"
             android:background="@color/white"
             android:padding="8dp"
+            app:tint="@color/black"
             android:src="@drawable/home_ic" />
 
         <ImageButton
@@ -55,6 +56,7 @@
             android:layout_toStartOf="@id/btn_settings"
             android:layout_centerVertical="true"
             android:background="@drawable/light_silver_bg"
+            app:tint="@color/black"
             android:src="@drawable/dark_mode"
             android:contentDescription="Scan" />
 
@@ -63,6 +65,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
+            app:tint="@color/black"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/settings_ic"
             android:contentDescription="Settings" />

@@ -1,227 +1,233 @@
-<?xml version="1.0" encoding="utf-8"?><!-- dialog_currency_preference.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/silver_bg_sk"
-    android:orientation="vertical"
-    android:padding="24dp">
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_20dp">
 
-    <!-- Title -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/istok_web_bold"
-        android:text="Currency Preference"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <!-- Subtitle -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/istok_web_bold"
-        android:text="Choose your preferred currency for wallet balance and withdrawals"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
-
-    <!-- Indian Rupee Option (Selected) -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardInr"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:clickable="true"
-        app:cardBackgroundColor="@color/sky_blue"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp">
+        android:orientation="vertical"
+        android:padding="24dp">
 
-        <LinearLayout
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/istok_web_bold"
+            android:text="Currency Preference"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/istok_web_bold"
+            android:text="Choose your preferred currency for wallet balance and withdrawals"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <!-- Indian Rupee Option (Selected) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardInr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:background="@drawable/light_silver_bg"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp">
+            android:layout_marginTop="24dp"
+            android:clickable="true"
+            app:cardBackgroundColor="@color/sky_blue"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp">
 
-            <!-- Currency Icon -->
-            <TextView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/violet_gradient_circle"
-                android:gravity="center"
-                android:text="₹"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <!-- Currency Details -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_margin="1dp"
+                android:background="@drawable/light_silver_bg"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
+                <!-- Currency Icon -->
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/istok_web_bold"
-                    android:text="Indian Rupee (INR)"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/violet_gradient_circle"
+                    android:gravity="center"
+                    android:text="₹"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvInrBalance"
-                    android:layout_width="wrap_content"
+                <!-- Currency Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/istok_web_bold"
+                        android:text="Indian Rupee (INR)"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvInrBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/istok_web_regular"
+                        android:text="Balance: ₹12,450"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Check Icon -->
+                <ImageView
+                    android:id="@+id/ivTickInr"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/blue"
+                    android:src="@drawable/ic_check_circle"
+                    app:tint="@color/white" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- US Dollar Option -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardUsd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:background="@drawable/light_silver_bg"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <!-- Currency Icon -->
+                <TextView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/orange_circle_bg"
+                    android:gravity="center"
+                    android:text="$"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <!-- Currency Details -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/istok_web_regular"
+                        android:text="US Dollar (USD)"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvUsdBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/istok_web_regular"
+                        android:text="Balance: $150.00"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Check Icon -->
+                <ImageView
+                    android:id="@+id/ivTickUsd"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/blue"
+                    android:src="@drawable/ic_check_circle"
+                    android:visibility="gone"
+                    app:tint="@color/white" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Exchange Rate Info -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/light_silver_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/exchange_ic"
+                    app:tint="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvExchangeRate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/istok_web_regular"
-                    android:text="Balance: ₹12,450"
+                    android:text="Exchange Rate: 1 USD = ₹83"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <!-- Check Icon -->
-            <ImageView
-                android:id="@+id/ivTickInr"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/blue"
-                android:src="@drawable/ic_check_circle"
-                app:tint="@color/white" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- US Dollar Option -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardUsd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:clickable="true"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="0dp">
-
-        <LinearLayout
+        <!-- Close Button -->
+        <TextView
+            android:id="@+id/btnClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:background="@drawable/light_silver_bg"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <!-- Currency Icon -->
-            <TextView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/orange_circle_bg"
-                android:gravity="center"
-                android:text="$"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <!-- Currency Details -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/istok_web_regular"
-                    android:text="US Dollar (USD)"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvUsdBalance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/istok_web_regular"
-                    android:text="Balance: $150.00"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <!-- Check Icon -->
-            <ImageView
-                android:id="@+id/ivTickUsd"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/blue"
-                android:src="@drawable/ic_check_circle"
-                android:visibility="gone"
-                app:tint="@color/white" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Exchange Rate Info -->
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardElevation="0dp"
-        app:strokeWidth="1dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/light_silver_bg"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/exchange_ic"
-                app:tint="@color/black" />
-
-            <TextView
-                android:id="@+id/tvExchangeRate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/istok_web_regular"
-                android:text="Exchange Rate: 1 USD = ₹83"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Close Button -->
-    <TextView
-        android:id="@+id/btnClose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_12dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/silver_bg_sk"
-        android:fontFamily="@font/istok_web_bold"
-        android:gravity="center"
-        android:paddingVertical="14dp"
-        android:text="Close"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-</LinearLayout>
+            android:layout_marginHorizontal="@dimen/_12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/silver_bg_sk"
+            android:fontFamily="@font/istok_web_bold"
+            android:gravity="center"
+            android:paddingVertical="14dp"
+            android:text="Close"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

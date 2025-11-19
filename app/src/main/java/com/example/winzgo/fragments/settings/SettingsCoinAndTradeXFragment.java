@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,28 +46,34 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
         firestore = FirebaseFirestore.getInstance();
 
         hostAct.setupHeader("Settings");
+        setupViews();
+        getUserData();
+        setListeners();
+    }
+
+    private void setupViews() {
         boolean currencyType = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
         if (currencyType)
             binding.tvCurrType.setText("INR");
         else
             binding.tvCurrType.setText("USD");
 
-        int theme = AppCompatDelegate.getDefaultNightMode();
-        binding.switchDarkMode.setChecked(theme == AppCompatDelegate.MODE_NIGHT_YES);
+        boolean isDarkMode = SessionSharedPref.getBoolean(getContext(), Constants.DARK_MODE_KEY, false);
+        binding.switchDarkMode.setChecked(isDarkMode);
 
-        getUserData();
-        setListeners();
+        boolean isNotificationEnabled = SessionSharedPref.getBoolean(getContext(), Constants.NOTIFICATION_PERMISSION, false);
+        binding.switchNotifications.setChecked(isNotificationEnabled);
     }
 
     private void setListeners() {
-        binding.switchDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                } else
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            }
+        binding.switchDarkMode.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+            requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+            SessionSharedPref.setBoolean(getContext(), Constants.DARK_MODE_KEY, b);
         });
         binding.lyLogout.setOnClickListener(v -> {
             Constants.showLogoutAlertDialog(requireContext(), () -> {
@@ -97,6 +102,10 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
         binding.lyCurrChange.setOnClickListener(v -> {
             CurrencyChangeDialog dialog = new CurrencyChangeDialog();
             dialog.show(getChildFragmentManager(), "");
+        });
+
+        binding.switchNotifications.setOnCheckedChangeListener((btn, b) -> {
+            SessionSharedPref.setBoolean(getContext(), Constants.NOTIFICATION_PERMISSION, b);
         });
     }
 

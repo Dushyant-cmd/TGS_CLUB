@@ -63,8 +63,10 @@ public class CoinTradeTransactionsAdapter extends RecyclerView.Adapter<CoinTrade
                     binding.tvStatus.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.green, context.getTheme()));
                 else if (itemDataObj.getStatus().equalsIgnoreCase("pending"))
                     binding.tvStatus.setTextColor(ResourcesCompat.getColor(context.getResources(), android.R.color.black, context.getTheme()));
-                else
+                else {
+                    binding.tvStatus.setText("Cancelled");
                     binding.tvStatus.setTextColor(ResourcesCompat.getColor(context.getResources(), android.R.color.holo_blue_light, context.getTheme()));
+                }
 
                 binding.tvAmt.setTextColor(context.getResources().getColor(R.color.green));
                 binding.ivCircle.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.pastel_green)));
@@ -79,8 +81,10 @@ public class CoinTradeTransactionsAdapter extends RecyclerView.Adapter<CoinTrade
                     binding.tvStatus.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.green, context.getTheme()));
                 else if (itemDataObj.getStatus().equalsIgnoreCase("pending"))
                     binding.tvStatus.setTextColor(ResourcesCompat.getColor(context.getResources(), android.R.color.black, context.getTheme()));
-                else
+                else {
+                    binding.tvStatus.setText("Cancelled");
                     binding.tvStatus.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.red, context.getTheme()));
+                }
 
                 binding.tvAmt.setTextColor(context.getResources().getColor(R.color.dark_red));
                 binding.ivCircle.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.pastel_red)));

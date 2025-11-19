@@ -1,14 +1,16 @@
 package com.example.winzgo;
 
+import static com.example.winzgo.utils.Constants.setDarkMode;
+
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,11 +18,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.winzgo.databinding.ActivityMainBinding;
 import com.example.winzgo.fragments.CoinAndTradeWalletFragment;
 import com.example.winzgo.fragments.DashboardFragment;
-import com.example.winzgo.fragments.recharge.CoinTradeDepositFragment;
 import com.example.winzgo.fragments.settings.SettingsCoinAndTradeXFragment;
 import com.example.winzgo.fragments.settings.SettingsFragment;
 import com.example.winzgo.fragments.wingo.HomeFragment;
 import com.example.winzgo.fragments.wingo.MoneyFragment;
+import com.example.winzgo.sharedpref.SessionSharedPref;
+import com.example.winzgo.utils.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -79,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
 
         binding.btnBack.setOnClickListener(v -> {
             super.onBackPressed();
+        });
+
+        binding.btnDarkMode.setOnClickListener(v -> {
+            boolean isDarkMode = SessionSharedPref.getBoolean(this, Constants.DARK_MODE_KEY, false);
+            setDarkMode(this, !isDarkMode);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.white));
         });
     }
 

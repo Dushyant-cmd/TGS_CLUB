@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -36,7 +37,7 @@
                 android:layout_marginEnd="8dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                android:backgroundTint="#8b5adb">
+                android:backgroundTint="@color/btc_light_violet">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,7 +85,7 @@
                 android:layout_marginEnd="8dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                android:backgroundTint="#99a9f2">
+                android:backgroundTint="@color/light_sky_blue">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -131,7 +132,7 @@
                 android:layout_weight="1"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                android:backgroundTint="#00c9ff">
+                android:backgroundTint="@color/sol_sky_blue">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -197,17 +198,15 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:fontFamily="@font/istok_web_bold"
-            android:textColor="@color/black"
-            android:layout_marginBottom="4dp" />
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Choose your game mode"
             android:textSize="13sp"
-            android:textColor="@color/dark_grey"
-            android:fontFamily="@font/istok_web_regular"
-            android:layout_marginBottom="12dp" />
+            android:textColor="@color/black"
+            android:fontFamily="@font/istok_web_regular" />
 
         <!-- Wingo Card -->
         <RelativeLayout
@@ -260,7 +259,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Wingo"
-                            android:textColor="@color/white"
+                            android:textColor="@color/actualWhite"
                             android:textSize="24sp"
                             android:textStyle="bold" />
 
@@ -276,7 +275,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Play &amp; Win Prediction Game"
-                        android:textColor="#E5DEFF"
+                        android:textColor="@color/actualWhite"
                         android:fontFamily="@font/istok_web_regular"
                         android:textSize="13sp"
                         android:layout_marginTop="4dp" />
@@ -284,8 +283,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⏱ New Entry"
-                        android:textColor="@color/white"
+                        android:text="⏱ How to play"
+                        android:textColor="@color/actualWhite"
                         android:fontFamily="@font/istok_web_regular"
                         android:textSize="11sp"
                         android:layout_marginTop="8dp" />
@@ -325,7 +324,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Coin Prediction"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -333,7 +332,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Predict market surges &amp; win"
-                        android:textColor="#B3FFFF"
+                        android:textColor="@color/actualWhite"
                         android:textSize="13sp"
                         android:fontFamily="@font/istok_web_regular"
                         android:layout_marginTop="4dp" />
@@ -341,9 +340,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⏱ New Entry"
+                        android:text="⏱ How to play"
                         android:fontFamily="@font/istok_web_regular"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="11sp"
                         android:layout_marginTop="8dp" />
                 </LinearLayout>
@@ -382,7 +381,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Trade X Pro"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -391,16 +390,16 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/istok_web_regular"
                         android:text="Trade BTC, ETH, SOL &amp; more"
-                        android:textColor="#FFB3D1"
+                        android:textColor="@color/actualWhite"
                         android:textSize="13sp"
                         android:layout_marginTop="4dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⏱ New Trade"
+                        android:text="⏱ How to play"
                         android:fontFamily="@font/istok_web_regular"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="11sp"
                         android:layout_marginTop="8dp" />
                 </LinearLayout>

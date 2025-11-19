@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.example.winzgo.databinding.ProfileEditDialogBinding;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,7 +37,6 @@ public class Constants {
     public static final String VIP_BETS_SUB = "vipBetSubs";
     public static final String APP_DOWNLOAD_LINK = "appDownloadLink";
     public static final String NOTIFICATION_PERMISSION = "notificationPermission";
-    public static final String DARK_MODE = "darkMode";
     public static final String IS_INR = "isInr";
     public static final String USER_ID_KEY = "userId";
     public static final String NAME_KEY = "name";
@@ -43,6 +44,7 @@ public class Constants {
     public static final String WIN_GO_BALANCE_KEY = "balance";
     public static final String COIN_BALANCE_KEY = "coinBalance";
     public static final String TRADE_PRO_BALANCE_KEY = "tradeProBalance";
+    public static final String DARK_MODE_KEY = "darkMode";
     // sp key end
     public static final String RUPEE_ICON = "\u20b9";
 
@@ -189,5 +191,15 @@ public class Constants {
     public static void showEditTextError(EditText et, String message) {
         et.setError(message);
         et.requestFocus();
+    }
+
+    /** This method will set dark mode of theme */
+    public static void setDarkMode(Context context, boolean isDarkMode) {
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        SessionSharedPref.setBoolean(context, Constants.DARK_MODE_KEY, isDarkMode);
     }
 }
