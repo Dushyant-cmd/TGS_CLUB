@@ -207,6 +207,7 @@
                         android:fontFamily="@font/istok_web_bold"
                         android:layout_alignParentEnd="true"
                         android:textSize="15sp"
+                        android:textAllCaps="true"
                         android:textStyle="bold"
                         android:textColor="@color/blue_color" />
 

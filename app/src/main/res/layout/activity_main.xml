@@ -133,7 +133,7 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/purple_rect"
         app:itemIconSize="24dp"
-        app:itemIconTint="@color/black"
+        app:itemIconTint="@color/actualBlack"
         app:menu="@menu/bottom_nav_items" />
 
 </RelativeLayout>

@@ -28,7 +28,7 @@
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/inria_serif_bold"
                 android:text="Transactions"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/inria_serif_bold"
                 android:text="Your trading journey"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -51,7 +51,7 @@
             android:layout_marginStart="@dimen/_15dp"
             android:fontFamily="@font/inria_serif_bold"
             android:text="Trade History"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -120,7 +120,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/inria_serif_bold"
                         android:text="Trade History"
-                        android:textColor="@color/black"
+                        android:textColor="@color/actualBlack"
                         android:textSize="16sp" />
                 </FrameLayout>
 
@@ -144,7 +144,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/inria_serif_bold"
                         android:text="Transactions"
-                        android:textColor="@color/black"
+                        android:textColor="@color/actualBlack"
                         android:textSize="16sp" />
                 </FrameLayout>
             </LinearLayout>
@@ -161,7 +161,7 @@
                     android:layout_marginHorizontal="@dimen/_10dp"
                     android:layout_marginTop="@dimen/_15dp"
                     android:background="@drawable/linear_gradient"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/actualWhite"
                     android:elevation="8dp"
                     android:orientation="vertical"
                     android:paddingBottom="2dp">
@@ -183,7 +183,7 @@
                             android:gravity="center_vertical"
                             android:paddingVertical="@dimen/_10dp"
                             android:textAllCaps="true"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="10sp" />
 
                         <TextView
@@ -191,7 +191,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/tint_round_shape"
-                            android:backgroundTint="@color/white"
+                            android:backgroundTint="@color/actualWhite"
                             android:elevation="@dimen/_4dp"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center_vertical"
@@ -199,7 +199,7 @@
                             android:paddingVertical="@dimen/_4dp"
                             android:text="All bets"
                             android:layout_marginStart="@dimen/_5dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="10sp" />
 
                         <TextView
@@ -208,14 +208,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_4dp"
                             android:background="@drawable/tint_round_shape"
-                            android:backgroundTint="@color/white"
+                            android:backgroundTint="@color/actualWhite"
                             android:elevation="@dimen/_4dp"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center_vertical"
                             android:paddingHorizontal="@dimen/_8dp"
                             android:paddingVertical="@dimen/_4dp"
                             android:text="Wins"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="10sp" />
 
                         <TextView
@@ -224,14 +224,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_4dp"
                             android:background="@drawable/tint_round_shape"
-                            android:backgroundTint="@color/white"
+                            android:backgroundTint="@color/actualWhite"
                             android:elevation="@dimen/_4dp"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center_vertical"
                             android:paddingHorizontal="@dimen/_8dp"
                             android:paddingVertical="@dimen/_4dp"
                             android:text="Losses"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="10sp" />
 
                         <RelativeLayout
@@ -245,7 +245,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/purple_corners_shape"
-                                android:backgroundTint="@color/white"
+                                android:backgroundTint="@color/actualWhite"
                                 android:elevation="@dimen/_4dp"
                                 android:fontFamily="@font/inria_serif_bold"
                                 android:gravity="center_vertical"
@@ -253,11 +253,12 @@
                                 android:paddingVertical="@dimen/_4dp"
                                 android:text="Select"
                                 android:drawableStart="@drawable/calendar_ic"
+                                android:drawableTint="@color/actualBlack"
                                 android:layout_alignParentEnd="true"
                                 android:drawablePadding="@dimen/_8dp"
                                 android:textAllCaps="true"
                                 android:layout_marginStart="@dimen/_5dp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/actualBlack"
                                 android:textSize="10sp" />
 
                         </RelativeLayout>
@@ -271,7 +272,7 @@
                     android:layout_marginHorizontal="@dimen/_10dp"
                     android:layout_marginTop="@dimen/_15dp"
                     android:background="@drawable/linear_gradient"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/actualWhite"
                     android:elevation="8dp"
                     android:orientation="vertical"
                     android:paddingBottom="2dp">
@@ -292,7 +293,7 @@
                             android:gravity="center"
                             android:paddingVertical="@dimen/_10dp"
                             android:text="Trade ID"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_12sp" />
 
                         <TextView
@@ -304,7 +305,7 @@
                             android:gravity="center"
                             android:paddingVertical="@dimen/_10dp"
                             android:text="Bet"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_12sp" />
 
                         <TextView
@@ -316,7 +317,7 @@
                             android:gravity="center"
                             android:paddingVertical="@dimen/_10dp"
                             android:text="Win"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_12sp" />
 
                         <TextView
@@ -328,7 +329,7 @@
                             android:gravity="center"
                             android:paddingVertical="@dimen/_10dp"
                             android:text="Result"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_12sp" />
 
                         <TextView
@@ -340,7 +341,7 @@
                             android:gravity="center"
                             android:paddingVertical="@dimen/_10dp"
                             android:text="Selected"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_12sp" />
 
                     </LinearLayout>
@@ -371,7 +372,7 @@
                     android:layout_marginHorizontal="@dimen/_10dp"
                     android:layout_marginTop="@dimen/_15dp"
                     android:background="@drawable/linear_gradient"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/actualWhite"
                     android:elevation="8dp"
                     android:orientation="vertical"
                     android:paddingBottom="2dp">
@@ -391,7 +392,7 @@
                             android:gravity="center"
                             android:paddingVertical="@dimen/_10dp"
                             android:text="Time"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_12sp" />
 
                         <TextView
@@ -403,7 +404,7 @@
                             android:gravity="center"
                             android:paddingVertical="@dimen/_10dp"
                             android:text="Status"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_12sp" />
 
                         <TextView
@@ -415,7 +416,7 @@
                             android:gravity="center"
                             android:paddingVertical="@dimen/_10dp"
                             android:text="Type"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_12sp" />
 
                         <TextView
@@ -427,7 +428,7 @@
                             android:gravity="center"
                             android:paddingVertical="@dimen/_10dp"
                             android:text="Amount"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_12sp" />
 
                     </LinearLayout>

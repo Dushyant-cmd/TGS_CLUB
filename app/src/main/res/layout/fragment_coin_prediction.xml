@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:paddingVertical="@dimen/_12dp"
+    android:background="@drawable/dark_theme_gradient_bg"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -30,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Round #1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/actualWhite"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -44,6 +46,7 @@
                     <View
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:backgroundTint="@color/actualWhite"
                         android:background="@drawable/baseline_info_24" />
 
                     <TextView
@@ -51,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:text="How to play"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="9sp" />
                 </LinearLayout>
 
@@ -60,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Time Left"
-                    android:textColor="@color/white"
+                    android:textColor="@color/actualWhite"
                     android:textSize="9sp" />
 
                 <!-- Timer -->
@@ -68,18 +71,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_marginTop="@dimen/_4dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_timer_min1"
-                        android:layout_width="24dp"
+                        android:layout_width="31dp"
                         android:layout_height="24dp"
                         android:background="@drawable/light_yellow_rectangle"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/actualWhite"
                         android:fontFamily="@font/inria_serif_bold"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="@color/black"
+                        android:textColor="@color/actualBlack"
                         android:textSize="20sp" />
 
                     <TextView
@@ -88,34 +92,37 @@
                         android:layout_height="24dp"
                         android:layout_marginStart="6dp"
                         android:background="@drawable/light_yellow_rectangle"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/actualWhite"
                         android:fontFamily="@font/inria_serif_bold"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="@color/black"
+                        android:textColor="@color/actualBlack"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="4dp"
                         android:layout_marginEnd="4dp"
                         android:text=":"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:backgroundTint="@color/actualWhite"
+                        android:paddingHorizontal="@dimen/_8dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:background="@drawable/light_yellow_rectangle"
+                        android:textColor="@color/actualBlack" />
 
                     <TextView
                         android:id="@+id/tv_timer_sec1"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:background="@drawable/light_yellow_rectangle"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/actualWhite"
                         android:fontFamily="@font/inria_serif_bold"
                         android:gravity="center"
                         android:text="1"
-                        android:textColor="@color/black"
+                        android:textColor="@color/actualBlack"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -125,16 +132,17 @@
                         android:layout_height="24dp"
                         android:layout_marginStart="6dp"
                         android:background="@drawable/light_yellow_rectangle"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/actualWhite"
                         android:fontFamily="@font/inria_serif_bold"
                         android:gravity="center"
                         android:text="1"
-                        android:textColor="@color/black"
+                        android:textColor="@color/actualBlack"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginTop="@dimen/_4dp"
                     android:id="@+id/logo_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -147,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/white_circle_grey_stroke"
-                        android:backgroundTint="@color/black"
+                        android:backgroundTint="@color/actualBlack"
                         android:padding="2dp">
 
                         <ImageView
@@ -168,7 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/silver_bg_sk"
+            android:background="@drawable/dark_theme_supported_silver_black_bg"
             android:elevation="@dimen/_8dp"
             android:orientation="vertical"
             android:paddingHorizontal="8dp"
@@ -208,7 +216,7 @@
                         android:layout_marginTop="2dp"
                         android:fontFamily="@font/istok_web_regular"
                         android:text="₹45,234.50"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="11sp"
                         android:textStyle="bold" />
 
@@ -281,7 +289,7 @@
                         android:layout_marginHorizontal="@dimen/_8dp"
                         android:fontFamily="@font/istok_web_bold"
                         android:text="Ξ ETHEREUM"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -292,7 +300,7 @@
                         android:layout_marginTop="2dp"
                         android:fontFamily="@font/istok_web_regular"
                         android:text="₹2,890.20"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="11sp"
                         android:textStyle="bold" />
 
@@ -389,7 +397,7 @@
                         android:layout_marginTop="2dp"
                         android:fontFamily="@font/istok_web_regular"
                         android:text="₹98.45"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="11sp"
                         android:textStyle="bold" />
 
@@ -521,7 +529,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/silver_bg_sk"
+            android:background="@drawable/dark_theme_supported_silver_black_bg"
             android:paddingHorizontal="@dimen/_15dp"
             android:paddingVertical="@dimen/_8dp">
 
@@ -565,7 +573,7 @@
                     android:background="@drawable/white_border_rectangle"
                     android:gravity="center"
                     android:text="$10"
-                    android:textColor="@color/dark_grey"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -578,7 +586,7 @@
                     android:background="@drawable/white_border_rectangle"
                     android:gravity="center"
                     android:text="$50"
-                    android:textColor="@color/dark_grey"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -591,7 +599,7 @@
                     android:background="@drawable/white_border_rectangle"
                     android:gravity="center"
                     android:text="$100"
-                    android:textColor="@color/dark_grey"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -604,7 +612,7 @@
                     android:background="@drawable/white_border_rectangle"
                     android:gravity="center"
                     android:text="$200"
-                    android:textColor="@color/dark_grey"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -620,6 +628,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:background="@drawable/baseline_arrow_drop_up_24"
+                        android:backgroundTint="@color/black"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:minWidth="0dp" />
 
@@ -632,6 +641,7 @@
                         android:paddingHorizontal="@dimen/_8dp"
                         android:paddingVertical="@dimen/_8dp"
                         android:text="x10"
+                        android:textColor="@color/actualBlack"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -639,6 +649,7 @@
                         android:id="@+id/iBtnDown"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:backgroundTint="@color/black"
                         android:background="@drawable/baseline_arrow_drop_up_24"
                         android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:rotation="180" />
@@ -669,17 +680,14 @@
             android:weightSum="3">
 
             <!-- Bitcoin -->
-            <androidx.cardview.widget.CardView
+            <FrameLayout
                 android:id="@+id/card_bitcoin"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="@color/little_dark_violet"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
+                android:background="@drawable/silver_bg_sk"
+                android:backgroundTint="@color/little_dark_violet"
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -699,7 +707,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="Bitcoin"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -708,22 +716,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="BTC"
-                        android:textColor="#E0D4FF"
+                        android:textColor="@color/actualWhite"
                         android:textSize="11sp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </FrameLayout>
 
             <!-- Ethereum -->
-            <androidx.cardview.widget.CardView
+            <FrameLayout
                 android:id="@+id/card_ethereum"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_marginEnd="8dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
+                android:background="@drawable/silver_bg_sk">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -743,7 +747,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="Ethereum"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -752,21 +756,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="ETH"
-                        android:textColor="@color/dark_grey"
+                        android:textColor="@color/black"
                         android:textSize="11sp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </FrameLayout>
 
             <!-- Solana -->
-            <androidx.cardview.widget.CardView
+            <FrameLayout
                 android:id="@+id/card_solana"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_marginStart="@dimen/_8dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
+                android:background="@drawable/silver_bg_sk">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -786,7 +788,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="Solana"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -795,10 +797,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="SOL"
-                        android:textColor="@color/dark_grey"
+                        android:textColor="@color/black"
                         android:textSize="11sp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </FrameLayout>
         </LinearLayout>
 
         <!-- Confirm Bet Button -->
@@ -814,7 +816,7 @@
             android:gravity="center"
             android:paddingVertical="8dp"
             android:text="Confirm Bet"
-            android:textColor="@color/white"
+            android:textColor="@color/actualWhite"
             android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView

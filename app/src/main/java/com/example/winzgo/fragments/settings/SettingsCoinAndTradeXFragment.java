@@ -24,6 +24,7 @@ import com.example.winzgo.fragments.utils.CurrencyChangeDialog;
 import com.example.winzgo.fragments.wingo.ReferFragment;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
+import com.example.winzgo.utils.UtilsInterfaces;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -101,6 +102,13 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
 
         binding.lyCurrChange.setOnClickListener(v -> {
             CurrencyChangeDialog dialog = new CurrencyChangeDialog();
+            dialog.addListeners(new UtilsInterfaces.AllClickListener() {
+                @Override
+                public void onClick(Object data) {
+                    String currencySelected = (String) data;
+                    binding.tvCurrType.setText(currencySelected);
+                }
+            });
             dialog.show(getChildFragmentManager(), "");
         });
 

@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:text="Name:"
-                android:textColor="@color/white"
+                android:textColor="@color/actualWhite"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Guest_2303"
-                android:textColor="@color/white"
+                android:textColor="@color/actualWhite"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -52,13 +52,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:text="SignUp:"
-                android:textColor="@color/white"
+                android:textColor="@color/actualWhite"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/referSignUp"
-                android:textColor="@color/white"
+                android:textColor="@color/actualWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="No"
@@ -76,13 +76,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:text="Recharge:"
-                android:textColor="@color/white"
+                android:textColor="@color/actualWhite"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/referRecharge"
-                android:textColor="@color/white"
+                android:textColor="@color/actualWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="No"

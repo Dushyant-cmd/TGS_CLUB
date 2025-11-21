@@ -64,7 +64,6 @@ public class ReferFragment extends Fragment {
 //        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_refer, container, false);
         View view = inflater.inflate(R.layout.fragment_refer, container, false);
         ((MainActivity) getActivity()).setupHeader("refer");
-        MainActivity.binding.mainHeaderLy.setVisibility(View.GONE);
         recyclerView = view.findViewById(R.id.listRefer);
         sharedPreferences = new SessionSharedPref(getActivity());
         firestore = FirebaseFirestore.getInstance();

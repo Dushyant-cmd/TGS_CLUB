@@ -2,8 +2,10 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/swipeRefLy"
+    android:layout_width="match_parent"
+    android:paddingVertical="@dimen/_12dp"
+    android:background="@drawable/dark_theme_gradient_bg"
     android:layout_height="match_parent">
 
     <ScrollView
@@ -38,7 +40,7 @@
                         android:drawablePadding="@dimen/_8dp"
                         android:fontFamily="@font/istok_web_regular"
                         android:text="Available Balance"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="14sp" />
 
                     <TextView
@@ -48,7 +50,7 @@
                         android:layout_marginStart="24dp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/istok_web_regular"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="36sp"
                         android:textStyle="bold"
                         tools:text="$12,450" />
@@ -99,7 +101,7 @@
                                 android:layout_marginTop="8dp"
                                 android:fontFamily="@font/istok_web_regular"
                                 android:text="DEPOSIT"
-                                android:textColor="@color/white"
+                                android:textColor="@color/actualWhite"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -135,7 +137,7 @@
                                 android:layout_marginTop="8dp"
                                 android:fontFamily="@font/istok_web_regular"
                                 android:text="WITHDRAW"
-                                android:textColor="@color/white"
+                                android:textColor="@color/actualWhite"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -164,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/istok_web_regular"
                             android:text="Total Deposits"
-                            android:textColor="@color/dark_grey"
+                            android:textColor="@color/black"
                             android:textSize="12sp" />
 
                         <TextView
@@ -200,7 +202,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/istok_web_regular"
                             android:text="Total Withdrawals"
-                            android:textColor="@color/dark_grey"
+                            android:textColor="@color/black"
                             android:textSize="12sp" />
 
                         <TextView
@@ -244,7 +246,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/istok_web_regular"
                             android:text="Total Profits"
-                            android:textColor="@color/dark_grey"
+                            android:textColor="@color/black"
                             android:textSize="12sp" />
 
                         <TextView
@@ -280,7 +282,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/istok_web_regular"
                             android:text="Total bets"
-                            android:textColor="@color/dark_grey"
+                            android:textColor="@color/black"
                             android:textSize="12sp" />
 
                         <TextView
@@ -309,9 +311,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="12dp"
-                    android:drawableStart="@drawable/baseline_access_time_24"
-                    android:drawablePadding="@dimen/_8dp"
-                    android:fontFamily="@font/istok_web_bold"
+                    android:fontFamily="@font/istok_web_regular"
                     android:text="Deposit/Withdrawal History :"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_16sp" />

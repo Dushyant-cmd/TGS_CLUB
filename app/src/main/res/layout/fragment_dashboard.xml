@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/dark_theme_gradient_bg"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -49,7 +49,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₿ BTC"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:fontFamily="@font/istok_web_bold"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -59,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₹45,234.50"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="16sp"
                         android:fontFamily="@font/istok_web_regular"
                         android:textStyle="bold"
@@ -98,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:text="Ξ ETH"
                         android:fontFamily="@font/istok_web_bold"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -107,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₹2,890.20"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="16sp"
                         android:fontFamily="@font/istok_web_regular"
                         android:textStyle="bold"
@@ -151,7 +151,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="◎"
-                            android:textColor="@color/white"
+                            android:textColor="@color/actualWhite"
                             android:textSize="20sp" />
 
                         <TextView
@@ -161,7 +161,7 @@
                             android:fontFamily="@font/istok_web_bold"
                             android:layout_marginTop="2dp"
                             android:layout_marginStart="2dp"
-                            android:textColor="@color/white"
+                            android:textColor="@color/actualWhite"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₹98.45"
-                        android:textColor="@color/white"
+                        android:textColor="@color/actualWhite"
                         android:textSize="16sp"
                         android:fontFamily="@font/istok_web_regular"
                         android:textStyle="bold"

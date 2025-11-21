@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_round_linear_gradient"
-        android:textColor="@color/black"
+        android:textColor="@color/actualBlack"
         android:text="Rules Of Games"
         android:fontFamily="@font/inria_serif_bold"
         android:textStyle="bold"
@@ -20,14 +20,14 @@
         android:padding="8dp"/>
 
     <TextView
-        android:textColor="@color/black"
+        android:textColor="@color/actualBlack"
         android:padding="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="3 minutes 1 issue, 2 minutes and 30 seconds to order, 30 seconds to show the lottery result. It opens all day. The total number of trade is 480 issues"/>
     <TextView
-        android:textColor="@color/black"
+        android:textColor="@color/actualBlack"
         android:padding="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
 
             <TextView
                 android:gravity="center_vertical"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
@@ -61,7 +61,7 @@
         </LinearLayout>
 
         <TextView
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:padding="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 android:src="@drawable/red"/>
         </LinearLayout>
         <TextView
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:padding="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
 
             <TextView
                 android:gravity="center_vertical"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
@@ -135,7 +135,7 @@
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:text=": If result shows 0, 5 you will get (98 * 4) Rs498"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="16sp" />
     </LinearLayout>
     <androidx.cardview.widget.CardView

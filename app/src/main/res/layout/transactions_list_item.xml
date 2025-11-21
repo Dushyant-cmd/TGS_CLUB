@@ -20,7 +20,7 @@
             android:paddingVertical="@dimen/_10dp"
             android:text="On: 22"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="12sp" />
 
         <View
@@ -39,7 +39,7 @@
             android:paddingVertical="@dimen/_10dp"
             android:text="status"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="12sp" />
 
         <View
@@ -58,7 +58,7 @@
             android:paddingVertical="@dimen/_10dp"
             android:text="type"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="12sp" />
 
         <View
@@ -77,7 +77,7 @@
             android:paddingVertical="@dimen/_10dp"
             android:text="amount"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="12sp" />
 
     </LinearLayout>

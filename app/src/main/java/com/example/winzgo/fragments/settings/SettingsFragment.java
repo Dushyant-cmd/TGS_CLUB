@@ -234,6 +234,7 @@ public class SettingsFragment extends Fragment {
             TextView headOfDialog = view.findViewById(R.id.headOfDialog);
             headOfDialog.setText("Team bonus");
             dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             okay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

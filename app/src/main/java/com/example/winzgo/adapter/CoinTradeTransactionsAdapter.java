@@ -68,6 +68,7 @@ public class CoinTradeTransactionsAdapter extends RecyclerView.Adapter<CoinTrade
                     binding.tvStatus.setTextColor(ResourcesCompat.getColor(context.getResources(), android.R.color.holo_blue_light, context.getTheme()));
                 }
 
+                binding.getRoot().setBackgroundResource(R.drawable.dark_theme_silver_green_bg);
                 binding.tvAmt.setTextColor(context.getResources().getColor(R.color.green));
                 binding.ivCircle.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.pastel_green)));
                 binding.ivCircle.setRotation(125f);
@@ -86,6 +87,7 @@ public class CoinTradeTransactionsAdapter extends RecyclerView.Adapter<CoinTrade
                     binding.tvStatus.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.red, context.getTheme()));
                 }
 
+                binding.getRoot().setBackgroundResource(R.drawable.dark_theme_silver_red_bg);
                 binding.tvAmt.setTextColor(context.getResources().getColor(R.color.dark_red));
                 binding.ivCircle.setBackgroundTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.pastel_red)));
                 binding.ivCircle.setRotation(-45f);

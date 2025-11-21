@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Refer &amp; Earn"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:layout_marginStart="@dimen/_15dp"
                 android:fontFamily="@font/inria_serif_bold"
                 android:textSize="24sp"
@@ -70,7 +70,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:letterSpacing="0.1"
         android:text="Total Referral Earning: 0Rs"
-        android:textColor="@color/black"
+        android:textColor="@color/actualBlack"
         android:textSize="16sp" />
 
     <TextView
@@ -80,7 +80,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="You have not Refer &amp; Earn yet!"
-        android:textColor="@color/black"
+        android:textColor="@color/actualBlack"
         android:textSize="24sp"
         android:textStyle="bold"
         android:visibility="gone" />

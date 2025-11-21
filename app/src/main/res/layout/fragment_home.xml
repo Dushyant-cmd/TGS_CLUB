@@ -98,7 +98,7 @@
                             android:text="@string/add_money"
                             android:textAllCaps="true"
                             android:fontFamily="@font/inria_serif_bold"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:shadowColor="@color/text_shadow"
@@ -127,7 +127,7 @@
                             android:text="Withdraw"
                             android:fontFamily="@font/inria_serif_bold"
                             android:textAllCaps="true"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:shadowColor="@color/text_shadow"
@@ -144,7 +144,7 @@
                         android:layout_marginTop="@dimen/_15dp"
                         android:layout_marginBottom="2dp"
                         android:background="@drawable/tint_round_shape"
-                        android:backgroundTint="@color/white"
+                        android:backgroundTint="@color/actualWhite"
                         android:elevation="@dimen/_4dp"
                         android:gravity="center"
                         android:orientation="horizontal"
@@ -162,7 +162,7 @@
                             android:layout_marginStart="@dimen/_10dp"
                             android:fontFamily="@font/inria_serif_bold"
                             android:text="@string/game_rules"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -215,7 +215,7 @@
                         android:fontFamily="@font/inria_serif_bold"
                         android:gravity="center"
                         android:text="@string/win_go_3min"
-                        android:textColor="@color/black"
+                        android:textColor="@color/actualBlack"
                         android:textSize="14sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -227,7 +227,7 @@
                     android:layout_marginStart="@dimen/_4dp"
                     android:layout_weight="1"
                     android:background="@drawable/linear_gradient_stroke"
-                    android:backgroundTint="@color/white"
+                    android:backgroundTint="@color/actualWhite"
                     android:elevation="2dp"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -261,7 +261,7 @@
                         android:fontFamily="@font/inria_serif_bold"
                         android:gravity="center"
                         android:text="@string/win_go_1min"
-                        android:textColor="@color/black"
+                        android:textColor="@color/actualBlack"
                         android:textSize="14sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -390,11 +390,11 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_margin="2dp"
-                            android:background="@drawable/time_box"
+                            android:background="@drawable/white_rect"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center"
                             tools:text="0"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="16sp" />
 
                         <TextView
@@ -402,11 +402,11 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_margin="2dp"
-                            android:background="@drawable/time_box"
+                            android:background="@drawable/white_rect"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center"
                             tools:text="2"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="16sp" />
 
                         <TextView
@@ -414,11 +414,11 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:layout_margin="2dp"
-                            android:background="@drawable/time_box"
+                            android:background="@drawable/white_rect"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center"
                             android:text=":"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="16sp" />
 
                         <TextView
@@ -427,11 +427,11 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:layout_margin="2dp"
-                            android:background="@drawable/time_box"
+                            android:background="@drawable/white_rect"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center"
                             tools:text="5"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="16sp" />
 
                         <TextView
@@ -440,11 +440,11 @@
                             android:layout_height="20dp"
                             android:layout_gravity="center"
                             android:layout_margin="2dp"
-                            android:background="@drawable/time_box"
+                            android:background="@drawable/white_rect"
                             android:fontFamily="@font/inria_serif_bold"
                             android:gravity="center"
                             tools:text="9"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -1017,7 +1017,7 @@
                         android:paddingVertical="@dimen/_10dp"
                         android:text="Trade ID"
                         android:textAllCaps="true"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/actualBlack" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -1029,7 +1029,7 @@
                         android:paddingVertical="@dimen/_10dp"
                         android:text="Number"
                         android:textAllCaps="true"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/actualBlack" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -1041,7 +1041,7 @@
                         android:paddingVertical="@dimen/_10dp"
                         android:text="result"
                         android:textAllCaps="true"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/actualBlack" />
 
                 </LinearLayout>
             </LinearLayout>

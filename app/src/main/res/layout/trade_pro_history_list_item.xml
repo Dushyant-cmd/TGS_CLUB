@@ -7,7 +7,7 @@
     android:layout_marginHorizontal="@dimen/_15dp"
     android:layout_marginTop="@dimen/_15dp"
     android:paddingHorizontal="@dimen/_15dp"
-    android:background="@drawable/light_silver_bg"
+    android:background="@drawable/dark_theme_silver_red_bg"
     android:paddingVertical="@dimen/_12dp"
     android:orientation="horizontal">
 

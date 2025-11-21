@@ -41,7 +41,7 @@
                 android:layout_marginStart="@dimen/_15dp"
                 android:fontFamily="@font/inria_serif_bold"
                 android:text="Withdraw Funds"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="24sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -60,7 +60,7 @@
                 android:layout_marginStart="@dimen/_8dp"
                 android:fontFamily="@font/inria_serif_bold"
                 android:text="Account Number : "
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
             <EditText
@@ -75,7 +75,7 @@
                 android:paddingVertical="@dimen/_15dp"
                 android:paddingStart="@dimen/_8dp"
                 android:paddingEnd="@dimen/_4dp"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
             <TextView
@@ -85,7 +85,7 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/inria_serif_bold"
                 android:text="Bank holder Name : "
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
             <EditText
@@ -99,7 +99,7 @@
                 android:inputType="textPersonName"
                 android:paddingVertical="@dimen/_15dp"
                 android:paddingStart="@dimen/_8dp"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
             <TextView
@@ -109,7 +109,7 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/inria_serif_bold"
                 android:text="Bank Name : "
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
             <EditText
@@ -123,7 +123,7 @@
                 android:inputType="textPersonName"
                 android:paddingVertical="@dimen/_15dp"
                 android:paddingStart="@dimen/_8dp"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
             <TextView
@@ -133,7 +133,7 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/inria_serif_bold"
                 android:text="IFSC Code : "
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
             <EditText
@@ -147,7 +147,7 @@
                 android:inputType="text"
                 android:paddingVertical="@dimen/_15dp"
                 android:paddingStart="@dimen/_8dp"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
             <CheckBox
@@ -185,7 +185,7 @@
                     android:layout_marginStart="@dimen/_8dp"
                     android:fontFamily="@font/inria_serif_bold"
                     android:text="Withdrawal Amount : "
-                    android:textColor="@color/black"
+                    android:textColor="@color/actualBlack"
                     android:textSize="16sp" />
 
                 <EditText
@@ -200,7 +200,7 @@
                     android:paddingVertical="@dimen/_15dp"
                     android:paddingStart="@dimen/_8dp"
                     android:paddingEnd="@dimen/_4dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/actualBlack"
                     android:textSize="16sp" />
 
                 <TextView
@@ -210,7 +210,7 @@
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/inria_serif_bold"
                     android:text="Min: ₹200 | Max: ₹200000"
-                    android:textColor="@color/black"
+                    android:textColor="@color/actualBlack"
                     android:textSize="12sp" />
 
                 <TextView
@@ -220,7 +220,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/inria_serif_bold"
                     android:text="Withdrawal Tax for ₹200 to ₹1500 : ₹30\nwithdrawal Tax for ₹1500 to ₹2 lakhs  : TDS% \n\nT&amp;C : Your Wallet Must Be Activated\nDay - MON to FRI    Timing - 10 Am to 5 Pm"
-                    android:textColor="@color/black"
+                    android:textColor="@color/actualBlack"
                     android:textSize="@dimen/_12sp" />
 
                 <TextView
@@ -236,7 +236,7 @@
                     android:paddingHorizontal="@dimen/_15dp"
                     android:paddingVertical="@dimen/_12dp"
                     android:text="Confirm Withdrawal"
-                    android:textColor="@color/black"
+                    android:textColor="@color/actualBlack"
                     android:textSize="24sp"
                     android:textStyle="bold" />
             </LinearLayout>

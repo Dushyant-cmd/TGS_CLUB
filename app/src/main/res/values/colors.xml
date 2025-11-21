@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFF</color>
     <color name="actualWhite">#FFFFFF</color>
+    <color name="actualBlack">#000000</color>
     <color name="richWhite">#FFFFFF</color>
     <color name="logoColor1">#008037</color>
     <color name="logoColor2">#E6CC61</color>
@@ -24,7 +25,9 @@
     <color name="pastel_blue">#61C2ED</color>
     <color name="red">#FF0000</color>
     <color name="light_grey">#D3D3D3</color>
+    <color name="light_grey_and_black">#D3D3D3</color>
     <color name="too_light_grey">#F3F3F3</color>
+    <color name="too_light_grey_and_black">#F3F3F3</color>
     <color name="light_grey_tp">#A6D9D9D9</color>
     <color name="light_black_tp">#4D000000</color>
     <color name="dark_grey">#737373</color>
@@ -43,6 +46,8 @@
     <color name="light_brown">#F6ECD4</color>
     <color name="dark_green">#00925f</color>
     <color name="dark_red">#ce3229</color>
+    <color name="light_grey_and_green">#A6D9D9D9</color>
+    <color name="light_grey_and_red">#A6D9D9D9</color>
 
 <!--    for text shadow-->
     <color name="light_font">#FBFBFB</color>

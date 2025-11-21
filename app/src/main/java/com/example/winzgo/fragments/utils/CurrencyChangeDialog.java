@@ -16,9 +16,14 @@ import com.example.winzgo.R;
 import com.example.winzgo.databinding.CurrencyChangeDialogBinding;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
+import com.example.winzgo.utils.UtilsInterfaces;
 
 public class CurrencyChangeDialog extends DialogFragment {
     private CurrencyChangeDialogBinding binding;
+    private UtilsInterfaces.AllClickListener listener;
+    public void addListeners(UtilsInterfaces.AllClickListener listener) {
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -68,6 +73,7 @@ public class CurrencyChangeDialog extends DialogFragment {
             binding.ivTickUsd.setVisibility(View.INVISIBLE);
 
             SessionSharedPref.setBoolean(getContext(), Constants.IS_INR, true);
+            listener.onClick("INR");
         } else {
             binding.cardUsd.setCardBackgroundColor(getResources().getColor(R.color.sky_blue));
             binding.ivTickUsd.setVisibility(View.VISIBLE);
@@ -76,6 +82,7 @@ public class CurrencyChangeDialog extends DialogFragment {
             binding.ivTickInr.setVisibility(View.INVISIBLE);
 
             SessionSharedPref.setBoolean(getContext(), Constants.IS_INR, false);
+            listener.onClick("USD");
         }
     }
 }

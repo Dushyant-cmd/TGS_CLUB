@@ -22,7 +22,7 @@
             android:paddingVertical="@dimen/_10dp"
             android:text="time"
             android:textAllCaps="true"
-            android:textColor="@color/black" />
+            android:textColor="@color/actualBlack" />
 
         <!--<TextView
             android:id="@+id/gameHistoryTime"
@@ -35,7 +35,7 @@
             android:paddingVertical="@dimen/_10dp"
             android:text="trade id"
             android:textAllCaps="true"
-            android:textColor="@color/black" />-->
+            android:textColor="@color/actualBlack" />-->
 
         <TextView
             android:id="@+id/betGameHistory"
@@ -48,7 +48,7 @@
             android:paddingVertical="@dimen/_10dp"
             android:text="bet"
             android:textAllCaps="true"
-            android:textColor="@color/black" />
+            android:textColor="@color/actualBlack" />
 
         <TextView
             android:id="@+id/winGameHistory"
@@ -61,7 +61,7 @@
             android:paddingVertical="@dimen/_10dp"
             android:text="win"
             android:textAllCaps="true"
-            android:textColor="@color/black" />
+            android:textColor="@color/actualBlack" />
 
         <TextView
             android:id="@+id/resultGameHistory"
@@ -74,7 +74,7 @@
             android:paddingVertical="@dimen/_10dp"
             android:text="result"
             android:textAllCaps="true"
-            android:textColor="@color/black" />
+            android:textColor="@color/actualBlack" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                 tools:text="1"
                 android:textSize="@dimen/_16sp"
                 android:layout_gravity="center"
-                android:textColor="@color/black" />
+                android:textColor="@color/actualBlack" />
 
         </LinearLayout>
 

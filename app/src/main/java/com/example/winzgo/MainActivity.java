@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -60,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.cardWallet.setOnClickListener(v -> {
-            Fragment currFragment = getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() -1);
+            Fragment currFragment = getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() - 1);
             int type = 0;// 0 trade, 1 coin, 2 win-go
-            if(currFragment.toString().contains("CoinPredictionFragment")) {
+            if (currFragment.toString().contains("CoinPredictionFragment")) {
                 type = 1;
             }
             Bundle bundle = new Bundle();
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         setupHeader(title);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.container, fragment);
-        if(isAddToBackstack)
+        if (isAddToBackstack)
             ft.addToBackStack(null);
 
         ft.commit();
@@ -104,17 +103,20 @@ public class MainActivity extends AppCompatActivity {
     public void setupHeader(String title) {
         oldTitle = binding.tvTitle.getText().toString();
         binding.tvTitle.setText(title);
+        MainActivity.binding.mainHeaderLy.setVisibility(View.VISIBLE);
 
-        if(title.equalsIgnoreCase("home")) {
+        if (title.equalsIgnoreCase("home")) {
             binding.cardWallet.setVisibility(View.GONE);
             binding.btnHome.setVisibility(View.GONE);
             binding.btnDarkMode.setVisibility(View.VISIBLE);
             binding.btnSettings.setVisibility(View.VISIBLE);
-        } else if(title.equalsIgnoreCase("coin prediction") || title.equalsIgnoreCase("crypto streak")) {
+        } else if (title.equalsIgnoreCase("coin prediction") || title.equalsIgnoreCase("crypto streak")) {
             binding.cardWallet.setVisibility(View.VISIBLE);
             binding.btnHome.setVisibility(View.GONE);
             binding.btnDarkMode.setVisibility(View.GONE);
             binding.btnSettings.setVisibility(View.GONE);
+        } else if (title.equalsIgnoreCase("refer")) {
+            MainActivity.binding.mainHeaderLy.setVisibility(View.GONE);
         } else {
             binding.cardWallet.setVisibility(View.GONE);
             binding.btnHome.setVisibility(View.VISIBLE);
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Fragment currFragment = getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() -1);
+        Fragment currFragment = getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() - 1);
 
         if (currFragment.toString().contains("DashboardFragment")) {
             if (i == 1) {

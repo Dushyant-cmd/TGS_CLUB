@@ -7,17 +7,20 @@
         android:id="@+id/moneyItem"
         android:icon="@drawable/history_ic"
         app:showAsAction="always"
+        app:iconTint="@color/actualBlack"
         tools:ignore="MenuTitle" />
 
     <item
         android:id="@+id/homeItem"
         android:icon="@drawable/home_ic"
+        app:iconTint="@color/actualBlack"
         app:showAsAction="always"
         tools:ignore="MenuTitle" />
 
     <item
         android:id="@+id/settingsItem"
         android:icon="@drawable/settings_ic"
+        app:iconTint="@color/actualBlack"
         app:showAsAction="always"
         tools:ignore="MenuTitle" />
 

@@ -50,7 +50,6 @@ public class DashboardFragment extends Fragment {
 
     private void setListeners() {
         binding.lyWinGo.setOnClickListener(v -> {
-            setDarkMode(getContext(), false);
             activity.loadFragment(new HomeFragment(), true, "Win-Go");
         });
 
