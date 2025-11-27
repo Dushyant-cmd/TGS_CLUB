@@ -85,6 +85,32 @@ public class TradeProFragment extends Fragment {
         return binding.getRoot();
     }
 
+    private void getUserCurrBet() {
+        firestore.collection("tradeBets").whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
+                .whereEqualTo("id", currentGameId).limit(1).get().addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
+                        List<DocumentSnapshot> list = task.getResult().getDocuments();
+                        if(!list.isEmpty()) {
+                            DocumentSnapshot doc = list.get(0);
+                            long amt = doc.getLong("bet_amount");
+                            boolean isUp = doc.getBoolean("isUp");
+                            long selectedEntry = doc.getLong("selected");
+
+                            binding.betDetailsCard.setVisibility(View.VISIBLE);
+                            binding.betAmt.setText(Constants.RUPEE_ICON + amt);
+                            binding.betEntryAmt.setText("Entry: " + Constants.RUPEE_ICON + selectedEntry);
+                            if (isUp) {
+                                binding.ivBetPredictionType.setImageResource(R.drawable.graph_up_ic);
+                                binding.ivBetPredictionType.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.green)));
+                            } else {
+                                binding.ivBetPredictionType.setImageResource(R.drawable.graph_down_ic);
+                                binding.ivBetPredictionType.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.red)));
+                            }
+                        }
+                    }
+                });
+    }
+
     private void setupViews() {
         hostAct = (MainActivity) getActivity();
         hostAct.setupHeader("Coin Prediction");
@@ -388,6 +414,7 @@ public class TradeProFragment extends Fragment {
                             }
                         });
 
+                        getUserCurrBet();
                         getTradeHistory(true);
                     } else {
                         Constants.showSnackBar(binding.getRoot(), "Something went wrong");

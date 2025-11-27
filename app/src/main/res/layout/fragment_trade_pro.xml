@@ -470,7 +470,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_8dp"
                             android:fontFamily="@font/istok_web_regular"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_18sp"
                             android:textStyle="bold"
                             tools:text="\u20b9200" />
@@ -481,7 +481,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_8dp"
                             android:fontFamily="@font/istok_web_regular"
-                            android:textColor="@color/black"
+                            android:textColor="@color/actualBlack"
                             android:textSize="@dimen/_14sp"
                             tools:text="Entry: \u20b91812.49" />
                     </LinearLayout>
@@ -578,6 +578,7 @@
                 android:layout_marginHorizontal="@dimen/_15dp"
                 android:layout_marginTop="4dp"
                 android:drawableStart="@drawable/baseline_access_time_24"
+                android:drawableTint="@color/black"
                 android:drawablePadding="@dimen/_4dp"
                 android:fontFamily="@font/istok_web_regular"
                 android:text="Trade History : "
