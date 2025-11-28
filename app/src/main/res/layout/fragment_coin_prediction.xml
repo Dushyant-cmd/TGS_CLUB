@@ -216,8 +216,7 @@
                             android:fontFamily="@font/istok_web_regular"
                             android:text="₿ BITCOIN"
                             android:textColor="@color/black"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tvBtcAmt"
@@ -482,6 +481,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:visibility="gone"
+                        tools:visibility="visible"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:paddingStart="16dp">

@@ -5,17 +5,7 @@ import static com.example.winzgo.utils.Constants.isNetworkConnected;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,23 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.example.winzgo.MainActivity;
 import com.example.winzgo.R;
 import com.example.winzgo.adapter.CoinPredictionHistoryAdapter;
-import com.example.winzgo.adapter.TradeHistoryAdapter;
 import com.example.winzgo.databinding.FragmentCoinPredictionBinding;
-import com.example.winzgo.fragments.CoinAndTradeWalletFragment;
 import com.example.winzgo.models.CoinPredictionHistoryModel;
-import com.example.winzgo.models.TradeHistoryModel;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -47,16 +37,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class CoinPredictionFragment extends Fragment {
     private FragmentCoinPredictionBinding binding;
     private MainActivity hostAct;
     private FirebaseFirestore firestore;
-    private long currentGameId, currBtcLastEntry = 0L, currEthLastEntry = 0L, currSolLastEntry = 0L, oneMinCounter;
+    private long currentGameId, oneMinCounter;
     private long betAmt = 50, betIntoAmt = 50, betInto = 10;
+    private float currBtcLastEntry = 0L, currEthLastEntry = 0L, currSolLastEntry = 0L;
     private CountDownTimer countDownTimer;
     private List<Float> btcList = new ArrayList<>(), ethList = new ArrayList<>(), solList = new ArrayList<>();
     private DocumentSnapshot lastDoc = null;
@@ -204,9 +193,13 @@ public class CoinPredictionFragment extends Fragment {
                     binding.swipeRefLy.setRefreshing(false);
                     if (taskOne.isSuccessful()) {
                         currentGameId = taskOne.getResult().getLong("id");
-                        firestore.collection("coinPredictionHistory").document(String.valueOf(currentGameId)).get().addOnCompleteListener(task -> {
+                        firestore.collection("coinPredictionHistory").whereGreaterThanOrEqualTo("id", currentGameId - 1).get().addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                DocumentSnapshot doc = task.getResult();
+                                DocumentSnapshot prevGameDoc = task.getResult().getDocuments().get(0);
+                                String result = prevGameDoc.getString("result");
+                                binding.tvLastResult.setText(result);
+
+                                DocumentSnapshot doc = task.getResult().getDocuments().get(1);// Current game document
                                 btcList = new ArrayList<>();
                                 ethList = new ArrayList<>();
                                 solList = new ArrayList<>();
@@ -223,16 +216,16 @@ public class CoinPredictionFragment extends Fragment {
                                     }
 
                                     float growPercentage = 0f;
-                                    long newCurrLastEntry = Long.parseLong(String.valueOf(btcList.get(btcList.size() - 1)));
+                                    float newCurrLastEntry = Float.parseFloat(String.valueOf(btcList.get(btcList.size() - 1)));
                                     if (currBtcLastEntry > 0) {
-                                        growPercentage = ((float) (newCurrLastEntry - currBtcLastEntry) / currBtcLastEntry) * 100;
+                                        growPercentage = ((newCurrLastEntry - currBtcLastEntry) / currBtcLastEntry) * 100;
                                     }
 
                                     currBtcLastEntry = newCurrLastEntry;
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
                                     binding.tvBtcAmt.setText(Constants.RUPEE_ICON + currBtcLastEntry + ".00");
-                                    binding.tvMomentumBtc.setText("(" + formattedGrowPercentage + "%)");
+                                    binding.tvMomentumBtc.setText(formattedGrowPercentage + "%");
                                     binding.tvMomentumBtc.setTextColor(getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
                                         binding.tvMomentumBtc.setTextColor(getResources().getColor(R.color.dark_red));
@@ -252,16 +245,16 @@ public class CoinPredictionFragment extends Fragment {
                                     }
 
                                     float growPercentage = 0f;
-                                    long newCurrLastEntry = Long.parseLong(String.valueOf(ethList.get(ethList.size() - 1)));
+                                    float newCurrLastEntry = Float.parseFloat(String.valueOf(ethList.get(ethList.size() - 1)));
                                     if (currEthLastEntry > 0) {
-                                        growPercentage = ((float) (newCurrLastEntry - currEthLastEntry) / currEthLastEntry) * 100;
+                                        growPercentage = ((newCurrLastEntry - currEthLastEntry) / currEthLastEntry) * 100;
                                     }
 
                                     currEthLastEntry = newCurrLastEntry;
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
                                     binding.tvEthAmt.setText(Constants.RUPEE_ICON + currEthLastEntry + ".00");
-                                    binding.tvMomentumEth.setText("(" + formattedGrowPercentage + "%)");
+                                    binding.tvMomentumEth.setText(formattedGrowPercentage + "%");
                                     binding.tvMomentumEth.setTextColor(getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
                                         binding.tvMomentumEth.setTextColor(getResources().getColor(R.color.dark_red));
@@ -281,16 +274,16 @@ public class CoinPredictionFragment extends Fragment {
                                     }
 
                                     float growPercentage = 0f;
-                                    long newCurrLastEntry = Long.parseLong(String.valueOf(solList.get(solList.size() - 1)));
+                                    float newCurrLastEntry = Float.parseFloat(String.valueOf(solList.get(solList.size() - 1)));
                                     if (currSolLastEntry > 0) {
-                                        growPercentage = ((float) (newCurrLastEntry - currSolLastEntry) / currSolLastEntry) * 100;
+                                        growPercentage = ((newCurrLastEntry - currSolLastEntry) / currSolLastEntry) * 100;
                                     }
 
                                     currSolLastEntry = newCurrLastEntry;
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
                                     binding.tvSolAmt.setText(Constants.RUPEE_ICON + currSolLastEntry + ".00");
-                                    binding.tvMomentumSol.setText("(" + formattedGrowPercentage + "%)");
+                                    binding.tvMomentumSol.setText(formattedGrowPercentage + "%");
                                     binding.tvMomentumSol.setTextColor(getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
                                         binding.tvMomentumSol.setTextColor(getResources().getColor(R.color.dark_red));
@@ -317,7 +310,8 @@ public class CoinPredictionFragment extends Fragment {
     }
 
     private void getUserCurrBet() {
-        firestore.collection("coinPredictionBets").whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
+        long userId = SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L);
+        firestore.collection("coinPredictionBets").whereEqualTo("user_id", userId)
                 .whereEqualTo("id", currentGameId).limit(1).get().addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
                         List<DocumentSnapshot> list = task.getResult().getDocuments();
@@ -366,7 +360,7 @@ public class CoinPredictionFragment extends Fragment {
         lineChart.setExtraOffsets(0f, 0f, 0f, 0f);
 
         // Smooth animation
-        lineChart.animateX(1000);
+//        lineChart.animateX(1000);
 
         lineChart.invalidate();
     }
