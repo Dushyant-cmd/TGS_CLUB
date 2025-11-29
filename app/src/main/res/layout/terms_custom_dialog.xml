@@ -7,7 +7,7 @@
     app:cardPreventCornerOverlap="false"
     android:elevation="@dimen/_8dp"
     app:cardElevation="@dimen/_8dp"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/actualWhite"
     app:cardCornerRadius="@dimen/_20dp">
 
     <ScrollView
@@ -30,7 +30,7 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="Terms Of Conditions"
-                android:textColor="@color/white"
+                android:textColor="@color/actualWhite"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -126,7 +126,7 @@ after the wallet is activated." />
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                app:cardBackgroundColor="@color/black"
+                app:cardBackgroundColor="@color/actualBlack"
                 app:cardCornerRadius="20dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
@@ -140,7 +140,7 @@ after the wallet is activated." />
                     android:paddingEnd="32dp"
                     android:paddingBottom="4dp"
                     android:text="Okay"
-                    android:textColor="@color/white"
+                    android:textColor="@color/actualWhite"
                     android:textSize="24sp" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>

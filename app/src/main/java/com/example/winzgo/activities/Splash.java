@@ -196,12 +196,14 @@ public class Splash extends AppCompatActivity {
                         String telegramLink = doc.getString("telegramLink");
                         String vipBetSubs = doc.getString("vipBetSubs");
                         String appDownloadLink = doc.getString("appDownloadLink");
+                        long dollar = doc.getLong("dollar");
 
                         SessionSharedPref.setStr(Splash.this, Constants.WHATSAPP_GROUP, whatsappGroup);
                         SessionSharedPref.setStr(Splash.this, Constants.WINZGO_AGENT_LINK, winzgoAgentLink);
                         SessionSharedPref.setStr(Splash.this, Constants.TELEGRAM_LINK, telegramLink);
                         SessionSharedPref.setStr(Splash.this, Constants.VIP_BETS_SUB, vipBetSubs);
                         SessionSharedPref.setStr(Splash.this, Constants.APP_DOWNLOAD_LINK, appDownloadLink);
+                        SessionSharedPref.setLong(Splash.this, Constants.DOLLAR_CURRENCY, dollar);
                     }
                 });
     }

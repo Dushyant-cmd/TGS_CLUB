@@ -1067,7 +1067,7 @@ public class HomeFragment extends Fragment {
             binding.winGo1minBox.setBackgroundResource(R.drawable.tint_stroke);
             binding.winGo1minBox.setBackgroundTintList(null);
 
-            binding.winGo3minBox.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            binding.winGo3minBox.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.actualWhite)));
 
 
             if (isNetworkConnected()) {
@@ -1086,7 +1086,7 @@ public class HomeFragment extends Fragment {
             binding.winGo3minBox.setBackgroundResource(R.drawable.tint_stroke);
             binding.winGo3minBox.setBackgroundTintList(null);
 
-            binding.winGo1minBox.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            binding.winGo1minBox.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.actualWhite)));
 
             if (isNetworkConnected()) {
                 getSecondsAndStartCountDown();

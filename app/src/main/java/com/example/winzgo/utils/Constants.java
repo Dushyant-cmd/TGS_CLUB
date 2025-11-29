@@ -40,6 +40,7 @@ public class Constants {
     public static final String IS_INR = "isInr";
     public static final String USER_ID_KEY = "userId";
     public static final String NAME_KEY = "name";
+    public static final String DOLLAR_CURRENCY = "dollarCurrency";
     // WalletType 0(win go), 1(coin), 2(trade x)
     public static final String WIN_GO_BALANCE_KEY = "balance";
     public static final String COIN_BALANCE_KEY = "coinBalance";
@@ -47,6 +48,7 @@ public class Constants {
     public static final String DARK_MODE_KEY = "darkMode";
     // sp key end
     public static final String RUPEE_ICON = "\u20b9";
+    public static final String USD_ICON = "$";
 
 
     // Interface start
@@ -201,5 +203,17 @@ public class Constants {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         SessionSharedPref.setBoolean(context, Constants.DARK_MODE_KEY, isDarkMode);
+    }
+
+    public static long changeBalanceToDiffCurrency(Context context, long balance, boolean isInrOrUsd) {
+        long dollarCurrentValue = SessionSharedPref.getLong(context, Constants.DOLLAR_CURRENCY, 87L);
+
+        if(isInrOrUsd) {
+            // inr
+            return balance;
+        } else {
+            // usd
+            return balance / dollarCurrentValue;
+        }
     }
 }

@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             binding.btnHome.setVisibility(View.GONE);
             binding.btnDarkMode.setVisibility(View.VISIBLE);
             binding.btnSettings.setVisibility(View.VISIBLE);
-        } else if (title.equalsIgnoreCase("coin prediction") || title.equalsIgnoreCase("crypto streak")) {
+        } else if (title.equalsIgnoreCase("crypto streak") || title.equalsIgnoreCase("trade pro")) {
             binding.cardWallet.setVisibility(View.VISIBLE);
             binding.btnHome.setVisibility(View.GONE);
             binding.btnDarkMode.setVisibility(View.GONE);
@@ -142,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             i++;
+        } else if (currFragment.toString().contains("HomeFragment")) {
+            loadFragment(new DashboardFragment(), false, "Home");
         } else super.onBackPressed();
     }
 

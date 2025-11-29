@@ -52,6 +52,7 @@
     <color name="black">#FFFFFF</color>
     <color name="actualWhite">#FFFFFF</color>
     <color name="actualBlack">#000000</color>
+    <color name="actual_light_grey">#D3D3D3</color>
     <color name="too_light_grey_and_black">#000000</color>
     <color name="light_grey_and_green">#00925f</color>
     <color name="light_grey_and_red">#ce3229</color>

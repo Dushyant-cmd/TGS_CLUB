@@ -113,7 +113,7 @@ public class TradeProFragment extends Fragment {
 
     private void setupViews() {
         hostAct = (MainActivity) getActivity();
-        hostAct.setupHeader("Coin Prediction");
+        hostAct.setupHeader("Trade Pro");
 
         tradeHistoryAdapter = new TradeHistoryAdapter();
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -289,7 +289,11 @@ public class TradeProFragment extends Fragment {
                             });
                 } else {
                     Constants.showSnackBarAction(binding.getRoot(), "Low balance", "Do Recharge", () -> {
-                        hostAct.loadFragment(new CoinTradeDepositFragment(), true, "Deposit");
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("type", 0);
+                        CoinTradeDepositFragment fragment = new CoinTradeDepositFragment();
+                        fragment.setArguments(bundle);
+                        hostAct.loadFragment(fragment, true, "Deposit");
                     });
                 }
             } else {
@@ -401,9 +405,9 @@ public class TradeProFragment extends Fragment {
                                     binding.tvBtcAmt.setText(Constants.RUPEE_ICON + currLastEntry + ".00");
                                     binding.tvBtcPt.setText("(" + formattedGrowPercentage + "%)");
                                     binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
-                                    binding.tvBtcPt.setTextColor(getResources().getColor(R.color.green));
+                                    binding.tvBtcPt.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
-                                        binding.tvBtcPt.setTextColor(getResources().getColor(R.color.dark_red));
+                                        binding.tvBtcPt.setTextColor(hostAct.getResources().getColor(R.color.dark_red));
                                     }
 
                                     binding.tvRoundNum.setText("Round #" + currentGameId);
@@ -510,7 +514,7 @@ public class TradeProFragment extends Fragment {
     }
 
     private void getTradeHistory(boolean isFirstLoad) {
-        if (isNetworkConnected(requireActivity())) {
+        if (isNetworkConnected(getActivity())) {
             if (isFirstLoad) {
                 lastDoc = null;
                 tradeList.clear();

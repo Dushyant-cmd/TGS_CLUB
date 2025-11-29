@@ -52,6 +52,7 @@
 <!--    for text shadow-->
     <color name="light_font">#FBFBFB</color>
     <color name="grey_font">#ff9e9e9e</color>
+    <color name="actual_light_grey">#D3D3D3</color>
     <color name="text_shadow">#7F000000</color>
     <color name="little_dark_violet">#667EEA</color>
     <color name="light_yellow">#F8FAD6</color>

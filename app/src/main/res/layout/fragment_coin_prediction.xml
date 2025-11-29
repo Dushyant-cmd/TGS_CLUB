@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/dark_theme_gradient_bg"
     android:fillViewport="true"
-    android:paddingVertical="@dimen/_12dp">
+    android:paddingTop="@dimen/_8dp">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScroll"
@@ -185,9 +185,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/dark_theme_supported_silver_black_bg"
-                android:elevation="@dimen/_8dp"
+                android:elevation="@dimen/_4dp"
                 android:orientation="vertical"
                 android:paddingHorizontal="8dp"
                 android:paddingTop="16dp"
@@ -485,7 +485,7 @@
                         tools:visibility="visible"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:paddingStart="16dp">
+                        android:paddingStart="4dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -545,7 +545,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/dark_theme_supported_silver_black_bg"
                 android:paddingHorizontal="@dimen/_15dp"
                 android:paddingVertical="@dimen/_8dp">
@@ -694,7 +694,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/istok_web_regular"
                 android:text="Select Coin :"
                 android:textColor="@color/black"
@@ -702,7 +702,7 @@
 
             <!-- Coin Selection -->
             <LinearLayout
-                android:id="@+id/cardSelectionLy"
+                android:id="@+id/betCardSelectionLy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4dp"
@@ -719,28 +719,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:background="@drawable/silver_bg_sk"
-                    android:backgroundTint="@color/little_dark_violet">
+                    android:background="@drawable/silver_bg_sk">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="12dp">
+                        android:padding="8dp">
 
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:contentDescription="Bitcoin"
-                            android:src="@drawable/btc_coin_ic" />
+                            android:src="@drawable/btc_coin_ic"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:text="Bitcoin"
-                            android:textColor="@color/actualWhite"
+                            android:textColor="@color/black"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -749,7 +748,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="BTC"
-                            android:textColor="@color/actualWhite"
+                            android:textColor="@color/black"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </FrameLayout>
@@ -767,7 +766,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="12dp">
+                        android:padding="8dp">
 
                         <ImageView
                             android:layout_width="50dp"
@@ -808,7 +807,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="12dp">
+                        android:padding="8dp">
 
                         <ImageView
                             android:layout_width="50dp"
@@ -842,7 +841,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/purple_corners_shape"
                 android:backgroundTint="@color/blue_new"
                 android:elevation="4dp"
@@ -857,6 +856,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8dp"
                 android:nestedScrollingEnabled="false"
                 android:paddingBottom="@dimen/_8dp"
                 tools:itemCount="3"

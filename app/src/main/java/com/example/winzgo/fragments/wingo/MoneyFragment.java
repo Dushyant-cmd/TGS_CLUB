@@ -64,6 +64,7 @@ public class MoneyFragment extends Fragment {
         sharedPreferences = new SessionSharedPref(getActivity());
         dialog = new ProgressDialog(getActivity());
         gameHistoryAdapter = new GameHistoryAdapter(new ArrayList<>());
+        requireActivity().findViewById(R.id.mainHeaderLy).setVisibility(View.GONE);
 
         binding.swipeRefreshLy.setColorSchemeColors(getResources().getColor(R.color.light_tint));
         if (isNetworkAvailable()) {

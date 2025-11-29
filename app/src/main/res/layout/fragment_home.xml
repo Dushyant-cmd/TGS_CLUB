@@ -996,7 +996,7 @@
                 android:layout_marginHorizontal="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_8dp"
                 android:background="@drawable/linear_gradient"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/actualWhite"
                 android:elevation="4dp"
                 android:orientation="vertical"
                 android:paddingBottom="2dp">

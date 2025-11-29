@@ -21,6 +21,7 @@ import com.example.winzgo.utils.UtilsInterfaces;
 public class CurrencyChangeDialog extends DialogFragment {
     private CurrencyChangeDialogBinding binding;
     private UtilsInterfaces.AllClickListener listener;
+    private long balance = 0L;
     public void addListeners(UtilsInterfaces.AllClickListener listener) {
         this.listener = listener;
     }
@@ -45,7 +46,11 @@ public class CurrencyChangeDialog extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         binding = CurrencyChangeDialogBinding.bind(view);
         boolean currencyType = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
+        balance = getArguments().getLong("balance");
 
+        binding.tvInrBalance.setText(Constants.RUPEE_ICON + balance);
+        binding.tvUsdBalance.setText(Constants.USD_ICON + Constants.changeBalanceToDiffCurrency(getContext(), balance, false));
+        binding.tvExchangeRate.setText("Exchange Rate: 1 USD = " + Constants.RUPEE_ICON + SessionSharedPref.getLong(getContext(), Constants.DOLLAR_CURRENCY, 87L));
         changeCurrSelection(currencyType);
         setListeners();
     }
@@ -72,6 +77,7 @@ public class CurrencyChangeDialog extends DialogFragment {
             binding.cardUsd.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
             binding.ivTickUsd.setVisibility(View.INVISIBLE);
 
+            binding.tvInrBalance.setText(Constants.RUPEE_ICON + balance);
             SessionSharedPref.setBoolean(getContext(), Constants.IS_INR, true);
             listener.onClick("INR");
         } else {
@@ -81,6 +87,7 @@ public class CurrencyChangeDialog extends DialogFragment {
             binding.cardInr.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
             binding.ivTickInr.setVisibility(View.INVISIBLE);
 
+            binding.tvUsdBalance.setText(Constants.USD_ICON + Constants.changeBalanceToDiffCurrency(getContext(), balance, false));
             SessionSharedPref.setBoolean(getContext(), Constants.IS_INR, false);
             listener.onClick("USD");
         }

@@ -5,12 +5,14 @@ import static com.example.winzgo.utils.Constants.isNetworkConnected;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,24 +22,30 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.winzgo.MainActivity;
+import com.example.winzgo.MyApplication;
 import com.example.winzgo.R;
 import com.example.winzgo.adapter.CoinPredictionHistoryAdapter;
 import com.example.winzgo.databinding.FragmentCoinPredictionBinding;
+import com.example.winzgo.fragments.recharge.CoinTradeDepositFragment;
 import com.example.winzgo.models.CoinPredictionHistoryModel;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
+import com.example.winzgo.utils.UtilsInterfaces;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CoinPredictionFragment extends Fragment {
     private FragmentCoinPredictionBinding binding;
@@ -52,14 +60,7 @@ public class CoinPredictionFragment extends Fragment {
     private boolean isCoinHistoryLoaded = false;
     private CoinPredictionHistoryAdapter coinHistoryAdapter;
     private List<CoinPredictionHistoryModel> coinList = new ArrayList<>();
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getSecondsAndStartCountDown();
-        getCoinGraphDetails();
-        getUserData();
-    }
+    private String selectedBetCoin = ""; // if empty means nothing selected
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +75,10 @@ public class CoinPredictionFragment extends Fragment {
         hostAct = (MainActivity) requireActivity();
         firestore = FirebaseFirestore.getInstance();
 
-        hostAct.setupHeader("Coin Prediction");
+        hostAct.setupHeader("Crypto Streak");
+        getSecondsAndStartCountDown();
+        getCoinGraphDetails(true);
+        getUserData();
         setupViews();
         setListeners();
     }
@@ -82,22 +86,29 @@ public class CoinPredictionFragment extends Fragment {
     private void setListeners() {
         binding.swipeRefLy.setOnRefreshListener(() -> {
             getSecondsAndStartCountDown();
-            getCoinGraphDetails();
+            getCoinGraphDetails(true);
             getCoinPredictionHistory(true);
             getUserData();
         });
 
         binding.cardBitcoin.setOnClickListener(v -> {
+            setBetSelection(0, false);
         });
 
         binding.cardEthereum.setOnClickListener(v -> {
+            setBetSelection(1, false);
         });
 
         binding.cardSolana.setOnClickListener(v -> {
+            setBetSelection(2, false);
         });
 
         binding.btnConfirmBet.setOnClickListener(v -> {
-//            checkAndPutBet();
+            if (!selectedBetCoin.isEmpty()) {
+                checkAndPutBet();
+            } else {
+                Constants.showSnackBar(binding.getRoot(), "No coin selected");
+            }
         });
 
         binding.btnBet50.setOnClickListener(v -> {
@@ -147,6 +158,34 @@ public class CoinPredictionFragment extends Fragment {
         });
     }
 
+    private void setBetSelection(int selectedItem, boolean clearSelection) {
+        if (selectedItem == 0) {
+            selectedBetCoin = "btc";
+        } else if (selectedItem == 1) {
+            selectedBetCoin = "eth";
+        } else if (selectedItem == 2) {
+            selectedBetCoin = "sol";
+        }
+
+        int childCount = binding.betCardSelectionLy.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            FrameLayout fm = (FrameLayout) binding.betCardSelectionLy.getChildAt(i);
+
+            if (!clearSelection) {
+                if (i == selectedItem) {
+                    fm.setBackgroundResource(R.drawable.silver_bg_sk);
+                    fm.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.little_dark_violet)));
+                } else {
+                    fm.setBackgroundResource(R.drawable.silver_bg_sk);
+                    fm.setBackgroundTintList(null);
+                }
+            } else {
+                fm.setBackgroundResource(R.drawable.silver_bg_sk);
+                fm.setBackgroundTintList(null);
+            }
+        }
+    }
+
     private void highlightBetAmtLayout(long amount) {
         int count = binding.betAmtSelectionLy.getChildCount();
         for (int i = 0; i < count; i++) {
@@ -185,7 +224,7 @@ public class CoinPredictionFragment extends Fragment {
         });
     }
 
-    private void getCoinGraphDetails() {
+    private void getCoinGraphDetails(boolean isFirstLoad) {
         if (isNetworkConnected(getActivity())) {
             firestore.collection("ids").document("coinPredictionId").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -197,6 +236,13 @@ public class CoinPredictionFragment extends Fragment {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot prevGameDoc = task.getResult().getDocuments().get(0);
                                 String result = prevGameDoc.getString("result");
+                                if (result.equalsIgnoreCase("btc"))
+                                    result = "Bitcoin";
+                                else if (result.equalsIgnoreCase("eth"))
+                                    result = "Ethereum";
+                                else if (result.equalsIgnoreCase("sol"))
+                                    result = "Solana";
+
                                 binding.tvLastResult.setText(result);
 
                                 DocumentSnapshot doc = task.getResult().getDocuments().get(1);// Current game document
@@ -226,9 +272,9 @@ public class CoinPredictionFragment extends Fragment {
 
                                     binding.tvBtcAmt.setText(Constants.RUPEE_ICON + currBtcLastEntry + ".00");
                                     binding.tvMomentumBtc.setText(formattedGrowPercentage + "%");
-                                    binding.tvMomentumBtc.setTextColor(getResources().getColor(R.color.green));
+                                    binding.tvMomentumBtc.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
-                                        binding.tvMomentumBtc.setTextColor(getResources().getColor(R.color.dark_red));
+                                        binding.tvMomentumBtc.setTextColor(hostAct.getResources().getColor(R.color.dark_red));
                                     }
 
                                     binding.tvRoundNum.setText("Round #" + currentGameId);
@@ -255,9 +301,9 @@ public class CoinPredictionFragment extends Fragment {
 
                                     binding.tvEthAmt.setText(Constants.RUPEE_ICON + currEthLastEntry + ".00");
                                     binding.tvMomentumEth.setText(formattedGrowPercentage + "%");
-                                    binding.tvMomentumEth.setTextColor(getResources().getColor(R.color.green));
+                                    binding.tvMomentumEth.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
-                                        binding.tvMomentumEth.setTextColor(getResources().getColor(R.color.dark_red));
+                                        binding.tvMomentumEth.setTextColor(hostAct.getResources().getColor(R.color.dark_red));
                                     }
 
                                     binding.tvRoundNum.setText("Round #" + currentGameId);
@@ -284,9 +330,9 @@ public class CoinPredictionFragment extends Fragment {
 
                                     binding.tvSolAmt.setText(Constants.RUPEE_ICON + currSolLastEntry + ".00");
                                     binding.tvMomentumSol.setText(formattedGrowPercentage + "%");
-                                    binding.tvMomentumSol.setTextColor(getResources().getColor(R.color.green));
+                                    binding.tvMomentumSol.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
-                                        binding.tvMomentumSol.setTextColor(getResources().getColor(R.color.dark_red));
+                                        binding.tvMomentumSol.setTextColor(hostAct.getResources().getColor(R.color.dark_red));
                                     }
 
                                     binding.tvRoundNum.setText("Round #" + currentGameId);
@@ -298,14 +344,16 @@ public class CoinPredictionFragment extends Fragment {
                         });
 
                         getUserCurrBet();
-                        getCoinPredictionHistory(true);
+                        getCoinPredictionHistory(isFirstLoad);
                     } else {
                         Constants.showSnackBar(binding.getRoot(), "Something went wrong");
                     }
                 }
             });
         } else {
-            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getCoinGraphDetails);
+            Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", () -> {
+                getCoinGraphDetails(true);
+            });
         }
     }
 
@@ -313,16 +361,22 @@ public class CoinPredictionFragment extends Fragment {
         long userId = SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L);
         firestore.collection("coinPredictionBets").whereEqualTo("user_id", userId)
                 .whereEqualTo("id", currentGameId).limit(1).get().addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) {
+                    if (task.isSuccessful()) {
                         List<DocumentSnapshot> list = task.getResult().getDocuments();
-                        if(!list.isEmpty()) {
+                        if (!list.isEmpty()) {
                             DocumentSnapshot doc = list.get(0);
                             long amt = doc.getLong("bet_amount");
                             boolean isWinner = doc.getBoolean("isWinner");
-                            String selected = doc.getString("selected");
+                            String selectedBet = doc.getString("selected");
+                            if (selectedBet.equalsIgnoreCase("btc"))
+                                selectedBet = "Bitcoin";
+                            else if (selectedBet.equalsIgnoreCase("eth"))
+                                selectedBet = "Ethereum";
+                            else if (selectedBet.equalsIgnoreCase("sol"))
+                                selectedBet = "Solana";
 
                             binding.betLy.setVisibility(View.VISIBLE);
-                            binding.tvSelected.setText(selected + "(" + Constants.RUPEE_ICON + amt + ")");
+                            binding.tvSelected.setText(selectedBet + "(" + Constants.RUPEE_ICON + amt + ")");
                         }
                     }
                 });
@@ -338,7 +392,7 @@ public class CoinPredictionFragment extends Fragment {
         LineDataSet dataSet = new LineDataSet(entries, "Price");
 
         // 🎯 ---- Styling like your image ----
-        dataSet.setColor(getResources().getColor(R.color.black)); // Line color
+        dataSet.setColor(hostAct.getResources().getColor(R.color.black)); // Line color
         dataSet.setLineWidth(1f);                   // Thickness
         dataSet.setDrawCircles(false);              // No dots
         dataSet.setDrawValues(false);               // No text on points
@@ -360,7 +414,9 @@ public class CoinPredictionFragment extends Fragment {
         lineChart.setExtraOffsets(0f, 0f, 0f, 0f);
 
         // Smooth animation
-//        lineChart.animateX(1000);
+        if (oneMinCounter > 55) {
+            lineChart.animateX(1000);
+        }
 
         lineChart.invalidate();
     }
@@ -420,7 +476,7 @@ public class CoinPredictionFragment extends Fragment {
                             binding.tvTimerSec2.setText("0");
                         } else if (oneMinCounter % 5 == 0) {
                             Log.d("TradePro.java", "onTick: " + oneMinCounter);
-                            getCoinGraphDetails();
+                            getCoinGraphDetails(false);
                         }
 
                         if (getActivity() == null) {
@@ -433,10 +489,9 @@ public class CoinPredictionFragment extends Fragment {
                     @Override
                     public void onFinish() {
                         getSecondsAndStartCountDown();
-                        getCoinGraphDetails();
+                        getCoinGraphDetails(false);
                         binding.betLy.setVisibility(View.GONE);
                         getUserData();
-                        getCoinPredictionHistory(true);
                     }
                 }.start();
             } else {
@@ -448,7 +503,7 @@ public class CoinPredictionFragment extends Fragment {
     }
 
     private void getCoinPredictionHistory(boolean isFirstLoad) {
-        if (isNetworkConnected(requireActivity())) {
+        if (isNetworkConnected(getActivity())) {
             if (isFirstLoad) {
                 lastDoc = null;
                 coinList.clear();
@@ -492,7 +547,7 @@ public class CoinPredictionFragment extends Fragment {
 
     private void getUserData() {
         if (isNetworkConnected(requireActivity())) {
-            long userId = SessionSharedPref.getLong(requireContext(), Constants.USER_ID_KEY, 0L);
+            long userId = SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L);
             if (userId != 0L) {
                 ProgressDialog dialog1 = new ProgressDialog(requireActivity());
                 dialog1.setMessage("Please wait...");
@@ -503,7 +558,7 @@ public class CoinPredictionFragment extends Fragment {
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 dialog1.dismiss();
                                 long balance = task.getResult().getLong(Constants.COIN_BALANCE_KEY);
-                                SessionSharedPref.setLong(requireContext(), Constants.COIN_BALANCE_KEY, balance);
+                                SessionSharedPref.setLong(getContext(), Constants.COIN_BALANCE_KEY, balance);
 
                                 MainActivity.binding.tvBalance.setText(Constants.RUPEE_ICON + balance);
                             }
@@ -512,5 +567,88 @@ public class CoinPredictionFragment extends Fragment {
         } else {
             Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::getUserData);
         }
+    }
+
+    private void checkAndPutBet() {
+        if (oneMinCounter > 10) {
+            if (isNetworkConnected(requireActivity())) {
+                long balance = SessionSharedPref.getLong(requireContext(), Constants.COIN_BALANCE_KEY, 0L);
+                long userId = SessionSharedPref.getLong(requireContext(), Constants.USER_ID_KEY, 0L);
+                if (balance >= betAmt) {
+                    Dialog dialog = Constants.showProgressDialog(requireContext());
+                    firestore.collection("coinPredictionBets").whereEqualTo("id", currentGameId).whereEqualTo("user_id", userId)
+                            .limit(1).get().addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    if (task.getResult().getDocuments().isEmpty()) {
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put("bet_amount", betAmt);
+                                        map.put("selected", selectedBetCoin);
+                                        map.put("user_id", userId);
+                                        map.put("timestamp", System.currentTimeMillis());
+                                        map.put("dateAndTime", ((MyApplication) requireActivity().getApplication()).getCurrDateAndTime());
+                                        map.put("name", SessionSharedPref.getStr(requireContext(), Constants.NAME_KEY, ""));
+                                        map.put("result", "btc");
+                                        map.put("id", currentGameId);
+                                        map.put("isWinner", false);
+                                        map.put("win_amount", 0);
+                                        firestore.collection("coinPredictionBets").add(map)
+                                                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                        dialog.dismiss();
+                                                        if (task.isSuccessful()) {
+                                                            String selectedBet = selectedBetCoin;
+                                                            if (selectedBet.equalsIgnoreCase("btc"))
+                                                                selectedBet = "Bitcoin";
+                                                            else if (selectedBet.equalsIgnoreCase("eth"))
+                                                                selectedBet = "Ethereum";
+                                                            else if (selectedBet.equalsIgnoreCase("sol"))
+                                                                selectedBet = "Solana";
+
+                                                            binding.betLy.setVisibility(View.VISIBLE);
+                                                            binding.tvSelected.setText(selectedBet + "(" + Constants.RUPEE_ICON + betAmt + ")");
+
+                                                            selectedBetCoin = ""; // clear bet selection
+                                                            Constants.updateBalance(requireActivity(), betAmt, false, Constants.COIN_BALANCE_KEY, () -> {
+                                                                getUserData();
+                                                            });
+                                                        } else {
+                                                            selectedBetCoin = ""; // clear bet selection
+                                                            Constants.showSnackBar(binding.getRoot(), task.getException().getMessage());
+                                                        }
+                                                    }
+                                                });
+                                    } else {
+                                        selectedBetCoin = ""; // clear bet selection
+                                        dialog.dismiss();
+                                        Constants.showAlerDialog(requireContext(), "Only one prediction submission is authorized within the contract timeframe.", "Okay", () -> {
+                                        });
+                                    }
+                                } else {
+                                    selectedBetCoin = ""; // clear bet selection
+                                    dialog.dismiss();
+                                    Constants.showSnackBar(binding.getRoot(), "Something went wrong");
+                                }
+                            });
+                } else {
+                    selectedBetCoin = ""; // clear bet selection
+                    Constants.showSnackBarAction(binding.getRoot(), "Low balance", "Do Recharge", () -> {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("type", 1);
+                        CoinTradeDepositFragment fragment = new CoinTradeDepositFragment();
+                        fragment.setArguments(bundle);
+                        hostAct.loadFragment(fragment, true, "Deposit");
+                    });
+                }
+            } else {
+                selectedBetCoin = ""; // clear bet selection
+                Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", this::checkAndPutBet);
+            }
+        } else {
+            selectedBetCoin = ""; // clear bet selection
+            Constants.showSnackBar(binding.getRoot(), "Wait for the next round");
+        }
+
+        setBetSelection(4, true);// clear selection
     }
 }

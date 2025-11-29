@@ -58,6 +58,7 @@ public class SettingsFragment extends Fragment {
         firestore = FirebaseFirestore.getInstance();
         TAG = "SettingsFragment.java";
         binding.tvVersion.setText("Version: " + BuildConfig.VERSION_NAME);
+        requireActivity().findViewById(R.id.mainHeaderLy).setVisibility(View.GONE);
 
         setupViews();
         setListeners();

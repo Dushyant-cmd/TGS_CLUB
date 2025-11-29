@@ -356,34 +356,29 @@ public class SignUpAndSignIn extends AppCompatActivity {
                         Toast.makeText(SignUpAndSignIn.this, "Old users can't redeem referral code!", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                     boolean isOldUser = !doc.contains("coinBalance");
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("fcmToken", fcmToken);
                     if (isOldUser) {
-                        HashMap<String, Object> map = new HashMap<>();
                         map.put("coinBalance", 0);
                         map.put("tradeProBalance", 0);
-                        map.put("fcmToken", fcmToken);
-
-                        mFirestore.collection("users").document(userDoc.getId() + "")
-                                .update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Intent i = new Intent(SignUpAndSignIn.this, MainActivity.class);
-                                            i.putExtra("phone", phone);//with +91 code in phone variable.
-                                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                            startActivity(i);
-                                            finish();
-                                        } else {
-                                            Constants.showSnackBar(binding.getRoot(), "Something went wrong");
-                                        }
-                                    }
-                                });
-                    } else {
-                        Intent i = new Intent(SignUpAndSignIn.this, MainActivity.class);
-                        i.putExtra("phone", phone);//with +91 code in phone variable.
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
-                        finish();
                     }
+
+                    mFirestore.collection("users").document(userDoc.getId() + "")
+                            .update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent i = new Intent(SignUpAndSignIn.this, MainActivity.class);
+                                        i.putExtra("phone", phone);//with +91 code in phone variable.
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(i);
+                                        finish();
+                                    } else {
+                                        Constants.showSnackBar(binding.getRoot(), "Something went wrong");
+                                    }
+                                }
+                            });
+
                 } else if (task.isSuccessful()) {
                     try {
                         mFirestore.collection("constants").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

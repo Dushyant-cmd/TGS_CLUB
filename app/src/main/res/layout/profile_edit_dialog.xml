@@ -16,7 +16,8 @@
         android:layout_height="32dp"
         android:layout_gravity="end"
         android:background="@drawable/linear_gradient_stroke"
-        android:src="@drawable/ic_close" />
+        android:src="@drawable/ic_close"
+        app:tint="@color/actualBlack"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +33,7 @@
             android:layout_marginStart="@dimen/_8dp"
             android:layout_marginTop="@dimen/_15dp"
             android:background="@drawable/purple_corners_shape"
-            android:backgroundTint="@color/light_grey"
+            android:backgroundTint="@color/actual_light_grey"
             android:drawableStart="@drawable/ic_person"
             android:drawablePadding="@dimen/_4dp"
             android:hint="Enter your name"
@@ -47,7 +48,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="25dp"
             android:background="@drawable/tint_round_shape"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/actualBlack"
             android:drawableEnd="@drawable/ic_arrow_24"
             android:drawableTint="@color/white"
             android:elevation="2dp"

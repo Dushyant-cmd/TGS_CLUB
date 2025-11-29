@@ -79,5 +79,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:id="@+id/view"
-        android:background="@color/light_grey"/>
+        android:background="@color/actual_light_grey"/>
 </LinearLayout>

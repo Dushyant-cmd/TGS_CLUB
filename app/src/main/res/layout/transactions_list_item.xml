@@ -26,7 +26,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/light_grey" />
+            android:background="@color/actual_light_grey" />
 
         <TextView
             android:id="@+id/statusTransactions"
@@ -45,7 +45,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/light_grey" />
+            android:background="@color/actual_light_grey" />
 
         <TextView
             android:id="@+id/typeTransactions"
@@ -64,7 +64,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/light_grey" />
+            android:background="@color/actual_light_grey" />
 
         <TextView
             android:id="@+id/amountTransactions"
@@ -86,5 +86,5 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/light_grey" />
+        android:background="@color/actual_light_grey" />
 </LinearLayout>

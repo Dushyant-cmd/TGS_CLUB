@@ -3,8 +3,8 @@ package com.example.winzgo.models;
 import java.util.Objects;
 
 public class CoinPredictionHistoryModel {
-    private long bet_amount, id, result, selected, timestamp, user_id, win_amount;
-    private String dateAndTime, name;
+    private long bet_amount, id, timestamp, user_id, win_amount;
+    private String dateAndTime, name, result, selected;
 
     private boolean isWinner;
 
@@ -24,19 +24,19 @@ public class CoinPredictionHistoryModel {
         this.id = id;
     }
 
-    public long getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(long result) {
+    public void setResult(String result) {
         this.result = result;
     }
 
-    public long getSelected() {
+    public String getSelected() {
         return selected;
     }
 
-    public void setSelected(long selected) {
+    public void setSelected(String selected) {
         this.selected = selected;
     }
 

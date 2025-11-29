@@ -52,7 +52,7 @@ public class CoinTradeDepositFragment extends Fragment {
     private FragmentCoinTradeDepositBinding binding;
     private String walletAddress = "";
     private MyApplication application;
-    private long type = 0;
+    private long type = 0; // 0 trade, 1 coin, 2 win-go
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

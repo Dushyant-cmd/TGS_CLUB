@@ -138,8 +138,13 @@ public class SessionSharedPref {
     }
 
     public static long getLong(Context context, String key, long defaultValue) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
-        return sharedPreferences.getLong(key, defaultValue);
+        try {
+            SharedPreferences sharedPreferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+            return sharedPreferences.getLong(key, defaultValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0L;
+        }
     }
 
     public static void clearFile(Context context) {

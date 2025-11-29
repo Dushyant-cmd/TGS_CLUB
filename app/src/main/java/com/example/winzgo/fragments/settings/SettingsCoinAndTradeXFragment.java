@@ -32,6 +32,7 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
     private FragmentSettingsCoinAndTradeXBinding binding;
     private MainActivity hostAct;
     private FirebaseFirestore firestore;
+    private long totalBalance = 0L;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,6 +103,9 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
 
         binding.lyCurrChange.setOnClickListener(v -> {
             CurrencyChangeDialog dialog = new CurrencyChangeDialog();
+            Bundle bundle = new Bundle();
+            bundle.putLong("balance", totalBalance);
+            dialog.setArguments(bundle);
             dialog.addListeners(new UtilsInterfaces.AllClickListener() {
                 @Override
                 public void onClick(Object data) {
@@ -127,7 +131,7 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
                             long tradeBalance = task.getResult().getLong(Constants.TRADE_PRO_BALANCE_KEY);
                             long coinBalance = task.getResult().getLong(Constants.COIN_BALANCE_KEY);
 
-                            long totalBalance = balance + tradeBalance + coinBalance;
+                            totalBalance = balance + tradeBalance + coinBalance;
 
                             binding.tvWalletAmt.setText(Constants.RUPEE_ICON + totalBalance);
                         });

@@ -39,7 +39,7 @@ public class DashboardFragment extends Fragment {
     private MainActivity activity;
     private FirebaseFirestore firestore;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         activity = (MainActivity) requireActivity();
@@ -84,9 +84,9 @@ public class DashboardFragment extends Fragment {
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
                                     binding.tvBtcPt.setText(formattedGrowPercentage + "%");
-                                    binding.tvBtcPt.setTextColor(getResources().getColor(R.color.green));
+                                    binding.tvBtcPt.setTextColor(activity.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
-                                        binding.tvBtcPt.setTextColor(getResources().getColor(R.color.dark_red));
+                                        binding.tvBtcPt.setTextColor(activity.getResources().getColor(R.color.dark_red));
                                     }
                                 }
 
@@ -102,9 +102,9 @@ public class DashboardFragment extends Fragment {
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
                                     binding.tvEthPt.setText(formattedGrowPercentage + "%");
-                                    binding.tvEthPt.setTextColor(getResources().getColor(R.color.green));
+                                    binding.tvEthPt.setTextColor(activity.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
-                                        binding.tvEthPt.setTextColor(getResources().getColor(R.color.dark_red));
+                                        binding.tvEthPt.setTextColor(activity.getResources().getColor(R.color.dark_red));
                                     }
                                 }
 
@@ -120,9 +120,9 @@ public class DashboardFragment extends Fragment {
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
                                     binding.tvSolPt.setText(formattedGrowPercentage + "%");
-                                    binding.tvSolPt.setTextColor(getResources().getColor(R.color.green));
+                                    binding.tvSolPt.setTextColor(activity.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
-                                        binding.tvSolPt.setTextColor(getResources().getColor(R.color.dark_red));
+                                        binding.tvSolPt.setTextColor(activity.getResources().getColor(R.color.dark_red));
                                     }
                                 }
                             } else {
@@ -149,7 +149,7 @@ public class DashboardFragment extends Fragment {
         });
 
         binding.lyTradeX.setOnClickListener(v -> {
-            activity.loadFragment(new TradeProFragment(), true, "Coin Prediction");
+            activity.loadFragment(new TradeProFragment(), true, "Trade Pro");
         });
     }
 

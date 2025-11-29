@@ -68,33 +68,26 @@ public class CoinPredictionHistoryAdapter extends RecyclerView.Adapter<CoinPredi
         }
 
         public void bind(CoinPredictionHistoryModel data) {
-            String time = data.getDateAndTime().split(",")[1].trim();
-            /*binding.tvBetAmt.setText(Constants.RUPEE_ICON + data.getBet_amount());
-            binding.tvTradeDesc.setText("Entry: " + Constants.RUPEE_ICON + data.getSelected() + "-> " + "Exit: " + Constants.RUPEE_ICON + data.getResult() + " | " + time);
-
-            if (data.isUp()) {
-                // on up
-                binding.ivBetGraph.setImageResource(R.drawable.graph_up_ic);
-                binding.ivBetGraph.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.ivBetGraph.getContext(), R.color.green)));
-
-                binding.tvUpStatus.setVisibility(View.VISIBLE);
-                binding.tvDownStatus.setVisibility(View.GONE);
-            } else {
-                // on down
-                binding.ivBetGraph.setImageResource(R.drawable.graph_down_ic);
-                binding.ivBetGraph.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.ivBetGraph.getContext(), R.color.red)));
-
-                binding.tvDownStatus.setVisibility(View.VISIBLE);
-                binding.tvUpStatus.setVisibility(View.GONE);
-            }
+            binding.tvAmtSummary.setText(Constants.RUPEE_ICON + data.getBet_amount() + " on " + data.getSelected());
+            binding.tvResult.setText("Winner : " + data.getResult());
 
             if (data.isWinner()) {
-                binding.tvBetResult.setText("+" + Constants.RUPEE_ICON + data.getWin_amount());
-                binding.tvBetResult.setTextColor(ContextCompat.getColor(binding.tvBetResult.getContext(), R.color.green));
+                binding.tvWinAmt.setText("+" + Constants.RUPEE_ICON + data.getWin_amount());
+                binding.tvWinAmt.setTextColor(ContextCompat.getColor(binding.tvWinAmt.getContext(), R.color.green));
+                binding.ivWinType.setImageResource(R.drawable.graph_up_ic);
+                binding.ivWinType.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.ivWinType.getContext(), R.color.green)));
+
+                binding.tvResultType.setText("You Won!");
+                binding.tvResultType.setTextColor(ContextCompat.getColor(binding.tvWinAmt.getContext(), R.color.green));
             } else {
-                binding.tvBetResult.setText("-" + Constants.RUPEE_ICON + data.getBet_amount());
-                binding.tvBetResult.setTextColor(ContextCompat.getColor(binding.tvBetResult.getContext(), R.color.red));
-            }*/
+                binding.tvWinAmt.setText("-" + Constants.RUPEE_ICON + data.getBet_amount());
+                binding.tvWinAmt.setTextColor(ContextCompat.getColor(binding.tvWinAmt.getContext(), R.color.red));
+                binding.ivWinType.setImageResource(R.drawable.graph_down_ic);
+                binding.ivWinType.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.ivWinType.getContext(), R.color.red)));
+
+                binding.tvResultType.setText("You Loss!");
+                binding.tvResultType.setTextColor(ContextCompat.getColor(binding.tvWinAmt.getContext(), R.color.green));
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/purple_corners_shape"
-    android:backgroundTint="@color/white"
+    android:backgroundTint="@color/actualWhite"
     android:orientation="vertical">
 
     <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_marginStart="8dp"
             android:fontFamily="@font/inria_serif_bold"
             android:text="TGS club"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="24sp" />
 
         <LinearLayout
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="Selected Green"
                 android:id="@+id/resultImgTv"
-                android:textColor="#000000"
+                android:textColor="@color/actualBlack"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inria_serif_bold"
             android:text="Balance : "
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="20sp" />
 
         <TextView
@@ -94,7 +94,7 @@
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/inria_serif_bold"
             android:text="$ 10"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="20sp" />
 
     </RelativeLayout>
@@ -118,7 +118,7 @@
                 android:padding="10dp"
                 android:fontFamily="@font/inria_serif_bold"
                 android:text="10"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
         </FrameLayout>
@@ -136,7 +136,7 @@
                 android:padding="10dp"
                 android:text="100"
                 android:fontFamily="@font/inria_serif_bold"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
         </FrameLayout>
@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="1000"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
         </FrameLayout>
@@ -172,7 +172,7 @@
                 android:fontFamily="@font/inria_serif_bold"
                 android:padding="10dp"
                 android:text="10000"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
         </FrameLayout>
@@ -190,7 +190,7 @@
                 android:padding="10dp"
                 android:fontFamily="@font/inria_serif_bold"
                 android:text="100000"
-                android:textColor="@color/black"
+                android:textColor="@color/actualBlack"
                 android:textSize="16sp" />
 
         </FrameLayout>
@@ -204,7 +204,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/inria_serif_bold"
         android:text="Quantity: "
-        android:textColor="@color/black"
+        android:textColor="@color/actualBlack"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -222,7 +222,7 @@
             android:background="@drawable/violet_gradient_circle"
             android:padding="@dimen/_15dp"
             android:text="+"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="22sp" />
 
         <TextView
@@ -236,7 +236,7 @@
             android:paddingHorizontal="@dimen/_15dp"
             android:paddingVertical="@dimen/_4dp"
             android:text="x 1"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="22sp" />
 
         <TextView
@@ -247,7 +247,7 @@
             android:background="@drawable/violet_gradient_circle"
             android:padding="@dimen/_15dp"
             android:text=" - "
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="22sp" />
 
     </LinearLayout>
@@ -269,7 +269,7 @@
             android:paddingHorizontal="@dimen/_30dp"
             android:paddingVertical="2dp"
             android:text="x 1"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="22sp" />
 
         <TextView
@@ -282,7 +282,7 @@
             android:paddingHorizontal="@dimen/_30dp"
             android:paddingVertical="2dp"
             android:text="x 5"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="22sp" />
 
         <TextView
@@ -295,7 +295,7 @@
             android:paddingHorizontal="@dimen/_30dp"
             android:paddingVertical="2dp"
             android:text="x 10"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="22sp" />
     </LinearLayout>
 
@@ -317,7 +317,7 @@
             android:paddingHorizontal="@dimen/_30dp"
             android:paddingVertical="2dp"
             android:text="x 20"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="22sp" />
 
         <TextView
@@ -330,7 +330,7 @@
             android:paddingHorizontal="@dimen/_30dp"
             android:paddingVertical="2dp"
             android:text="x 50"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="22sp" />
 
         <TextView
@@ -343,7 +343,7 @@
             android:paddingHorizontal="@dimen/_30dp"
             android:paddingVertical="2dp"
             android:text="x 100"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="22sp" />
     </LinearLayout>
 
@@ -356,6 +356,7 @@
         android:layout_marginTop="@dimen/_4dp"
         android:buttonTint="#602DB6"
         android:checked="true"
+        android:textColor="@color/actualBlack"
         android:fontFamily="@font/inria_serif_bold"
         android:text="@string/i_agree_to_the_terms_conditions"
         android:textSize="16sp" />
@@ -374,12 +375,12 @@
             android:layout_marginStart="2dp"
             android:layout_marginEnd="2dp"
             android:background="@drawable/purple_corners_shape"
-            android:backgroundTint="@color/light_grey"
+            android:backgroundTint="@color/actual_light_grey"
             android:fontFamily="@font/inria_serif_bold"
             android:paddingHorizontal="@dimen/_15dp"
             android:paddingVertical="@dimen/_10dp"
             android:text="Cancel"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="24sp" />
 
         <TextView
@@ -393,7 +394,7 @@
             android:paddingHorizontal="@dimen/_15dp"
             android:paddingVertical="@dimen/_10dp"
             android:text="Confirm Bet"
-            android:textColor="@color/black"
+            android:textColor="@color/actualBlack"
             android:textSize="24sp" />
 
     </LinearLayout>
