@@ -77,6 +77,7 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
             requireActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.white));
             SessionSharedPref.setBoolean(getContext(), Constants.DARK_MODE_KEY, b);
         });
+
         binding.lyLogout.setOnClickListener(v -> {
             Constants.showLogoutAlertDialog(requireContext(), () -> {
                 FirebaseAuth.getInstance().signOut(); // sign-out from firebase
@@ -106,12 +107,16 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putLong("balance", totalBalance);
             dialog.setArguments(bundle);
-            dialog.addListeners(new UtilsInterfaces.AllClickListener() {
-                @Override
-                public void onClick(Object data) {
-                    String currencySelected = (String) data;
-                    binding.tvCurrType.setText(currencySelected);
+            dialog.addListeners(data -> {
+                String currencySelected = (String) data;
+
+                String balance = Constants.RUPEE_ICON + totalBalance;
+                if(currencySelected.equalsIgnoreCase("USD")) {
+                    balance = Constants.USD_ICON + Constants.changeBalanceToDiffCurrency(getContext(), totalBalance, false);
                 }
+
+                binding.tvWalletAmt.setText(balance);
+                binding.tvCurrType.setText(currencySelected);
             });
             dialog.show(getChildFragmentManager(), "");
         });
@@ -133,7 +138,13 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
 
                             totalBalance = balance + tradeBalance + coinBalance;
 
-                            binding.tvWalletAmt.setText(Constants.RUPEE_ICON + totalBalance);
+                            String balanceTxt = Constants.RUPEE_ICON + totalBalance;
+                            boolean isInrOrUSD = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, true);
+                            if(!isInrOrUSD) {
+                                balanceTxt = Constants.USD_ICON + Constants.changeBalanceToDiffCurrency(getContext(), totalBalance, false);
+                            }
+
+                            binding.tvWalletAmt.setText(balanceTxt);
                         });
             }
         } else {

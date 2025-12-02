@@ -78,7 +78,7 @@ public class CoinPredictionHistoryAdapter extends RecyclerView.Adapter<CoinPredi
                 binding.ivWinType.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.ivWinType.getContext(), R.color.green)));
 
                 binding.tvResultType.setText("You Won!");
-                binding.tvResultType.setTextColor(ContextCompat.getColor(binding.tvWinAmt.getContext(), R.color.green));
+                binding.tvResultType.setTextColor(ContextCompat.getColor(binding.tvResultType.getContext(), R.color.green));
             } else {
                 binding.tvWinAmt.setText("-" + Constants.RUPEE_ICON + data.getBet_amount());
                 binding.tvWinAmt.setTextColor(ContextCompat.getColor(binding.tvWinAmt.getContext(), R.color.red));
@@ -86,7 +86,7 @@ public class CoinPredictionHistoryAdapter extends RecyclerView.Adapter<CoinPredi
                 binding.ivWinType.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.ivWinType.getContext(), R.color.red)));
 
                 binding.tvResultType.setText("You Loss!");
-                binding.tvResultType.setTextColor(ContextCompat.getColor(binding.tvWinAmt.getContext(), R.color.green));
+                binding.tvResultType.setTextColor(ContextCompat.getColor(binding.tvResultType.getContext(), R.color.red));
             }
         }
     }

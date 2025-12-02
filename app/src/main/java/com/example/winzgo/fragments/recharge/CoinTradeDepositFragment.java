@@ -68,7 +68,7 @@ public class CoinTradeDepositFragment extends Fragment {
         application = (MyApplication) getActivity().getApplication();
         firestore = FirebaseFirestore.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
-        type = getArguments().getLong("type");
+        type = getArguments().getInt("type");
         hostAct.setupHeader("Deposit");
 
         showTermsAlertDialog();

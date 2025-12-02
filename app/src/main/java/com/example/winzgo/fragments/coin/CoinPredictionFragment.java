@@ -1,5 +1,8 @@
 package com.example.winzgo.fragments.coin;
 
+import static com.example.winzgo.utils.Constants.changeBalanceToDiffCurrency;
+import static com.example.winzgo.utils.Constants.checkAndReturnInSetCurrency;
+import static com.example.winzgo.utils.Constants.getFullNameCoins;
 import static com.example.winzgo.utils.Constants.isNetworkConnected;
 
 import android.annotation.SuppressLint;
@@ -61,6 +64,7 @@ public class CoinPredictionFragment extends Fragment {
     private CoinPredictionHistoryAdapter coinHistoryAdapter;
     private List<CoinPredictionHistoryModel> coinList = new ArrayList<>();
     private String selectedBetCoin = ""; // if empty means nothing selected
+    private boolean isInr = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +78,7 @@ public class CoinPredictionFragment extends Fragment {
         binding = FragmentCoinPredictionBinding.bind(view);
         hostAct = (MainActivity) requireActivity();
         firestore = FirebaseFirestore.getInstance();
+        isInr = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
 
         hostAct.setupHeader("Crypto Streak");
         getSecondsAndStartCountDown();
@@ -87,7 +92,6 @@ public class CoinPredictionFragment extends Fragment {
         binding.swipeRefLy.setOnRefreshListener(() -> {
             getSecondsAndStartCountDown();
             getCoinGraphDetails(true);
-            getCoinPredictionHistory(true);
             getUserData();
         });
 
@@ -145,7 +149,7 @@ public class CoinPredictionFragment extends Fragment {
             betInto = betInto + 1;
             betAmt = betIntoAmt * betInto;
             binding.tvBetIntoNum.setText("x" + betInto);
-            binding.tvInvestAmt.setText(Constants.RUPEE_ICON + betAmt);
+            binding.tvInvestAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(betAmt)));
         });
 
         binding.iXBtnDown.setOnClickListener(v -> {
@@ -153,7 +157,7 @@ public class CoinPredictionFragment extends Fragment {
                 betInto = betInto - 1;
                 betAmt = betIntoAmt * betInto;
                 binding.tvBetIntoNum.setText("x" + betInto);
-                binding.tvInvestAmt.setText(Constants.RUPEE_ICON + betAmt);
+                binding.tvInvestAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(betAmt)));
             }
         });
     }
@@ -194,7 +198,7 @@ public class CoinPredictionFragment extends Fragment {
                 TextView tv = (TextView) item;
                 long tvAmt = Long.parseLong(tv.getText().toString().substring(1));
                 if (tvAmt == amount) {
-                    binding.tvInvestAmt.setText(Constants.RUPEE_ICON + amount);
+                    binding.tvInvestAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(amount)));
                     tv.setBackgroundResource(R.drawable.little_dark_violet_rect);
                 } else {
                     tv.setBackgroundResource(R.drawable.light_silver_bg);
@@ -236,12 +240,7 @@ public class CoinPredictionFragment extends Fragment {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot prevGameDoc = task.getResult().getDocuments().get(0);
                                 String result = prevGameDoc.getString("result");
-                                if (result.equalsIgnoreCase("btc"))
-                                    result = "Bitcoin";
-                                else if (result.equalsIgnoreCase("eth"))
-                                    result = "Ethereum";
-                                else if (result.equalsIgnoreCase("sol"))
-                                    result = "Solana";
+                                result = getFullNameCoins(result);
 
                                 binding.tvLastResult.setText(result);
 
@@ -270,7 +269,7 @@ public class CoinPredictionFragment extends Fragment {
                                     currBtcLastEntry = newCurrLastEntry;
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
-                                    binding.tvBtcAmt.setText(Constants.RUPEE_ICON + currBtcLastEntry + ".00");
+                                    binding.tvBtcAmt.setText(Constants.checkAndReturnInSetCurrency(getContext(), String.valueOf(currBtcLastEntry)) + ".00");
                                     binding.tvMomentumBtc.setText(formattedGrowPercentage + "%");
                                     binding.tvMomentumBtc.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
@@ -299,7 +298,7 @@ public class CoinPredictionFragment extends Fragment {
                                     currEthLastEntry = newCurrLastEntry;
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
-                                    binding.tvEthAmt.setText(Constants.RUPEE_ICON + currEthLastEntry + ".00");
+                                    binding.tvEthAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(currEthLastEntry)) + ".00");
                                     binding.tvMomentumEth.setText(formattedGrowPercentage + "%");
                                     binding.tvMomentumEth.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
@@ -328,7 +327,7 @@ public class CoinPredictionFragment extends Fragment {
                                     currSolLastEntry = newCurrLastEntry;
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
-                                    binding.tvSolAmt.setText(Constants.RUPEE_ICON + currSolLastEntry + ".00");
+                                    binding.tvSolAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(currSolLastEntry)) + ".00");
                                     binding.tvMomentumSol.setText(formattedGrowPercentage + "%");
                                     binding.tvMomentumSol.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
@@ -352,7 +351,7 @@ public class CoinPredictionFragment extends Fragment {
             });
         } else {
             Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", () -> {
-                getCoinGraphDetails(true);
+                getCoinGraphDetails(isFirstLoad);
             });
         }
     }
@@ -368,15 +367,10 @@ public class CoinPredictionFragment extends Fragment {
                             long amt = doc.getLong("bet_amount");
                             boolean isWinner = doc.getBoolean("isWinner");
                             String selectedBet = doc.getString("selected");
-                            if (selectedBet.equalsIgnoreCase("btc"))
-                                selectedBet = "Bitcoin";
-                            else if (selectedBet.equalsIgnoreCase("eth"))
-                                selectedBet = "Ethereum";
-                            else if (selectedBet.equalsIgnoreCase("sol"))
-                                selectedBet = "Solana";
+                            selectedBet = getFullNameCoins(selectedBet);
 
                             binding.betLy.setVisibility(View.VISIBLE);
-                            binding.tvSelected.setText(selectedBet + "(" + Constants.RUPEE_ICON + amt + ")");
+                            binding.tvSelected.setText(selectedBet + "(" + checkAndReturnInSetCurrency(getContext(), String.valueOf(amt)) + ")");
                         }
                     }
                 });
@@ -489,9 +483,9 @@ public class CoinPredictionFragment extends Fragment {
                     @Override
                     public void onFinish() {
                         getSecondsAndStartCountDown();
-                        getCoinGraphDetails(false);
-                        binding.betLy.setVisibility(View.GONE);
+                        getCoinGraphDetails(true);
                         getUserData();
+                        binding.betLy.setVisibility(View.GONE);
                     }
                 }.start();
             } else {
@@ -540,7 +534,7 @@ public class CoinPredictionFragment extends Fragment {
             });
         } else {
             Constants.showSnackBarAction(binding.getRoot(), "No internet", "Try again", () -> {
-                getCoinPredictionHistory(true);
+                getCoinPredictionHistory(isFirstLoad);
             });
         }
     }
@@ -560,7 +554,7 @@ public class CoinPredictionFragment extends Fragment {
                                 long balance = task.getResult().getLong(Constants.COIN_BALANCE_KEY);
                                 SessionSharedPref.setLong(getContext(), Constants.COIN_BALANCE_KEY, balance);
 
-                                MainActivity.binding.tvBalance.setText(Constants.RUPEE_ICON + balance);
+                                MainActivity.binding.tvBalance.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(balance)));
                             }
                         });
             }
@@ -597,16 +591,10 @@ public class CoinPredictionFragment extends Fragment {
                                                     public void onComplete(@NonNull Task<DocumentReference> task) {
                                                         dialog.dismiss();
                                                         if (task.isSuccessful()) {
-                                                            String selectedBet = selectedBetCoin;
-                                                            if (selectedBet.equalsIgnoreCase("btc"))
-                                                                selectedBet = "Bitcoin";
-                                                            else if (selectedBet.equalsIgnoreCase("eth"))
-                                                                selectedBet = "Ethereum";
-                                                            else if (selectedBet.equalsIgnoreCase("sol"))
-                                                                selectedBet = "Solana";
+                                                            String selectedBet = getFullNameCoins(selectedBetCoin);
 
                                                             binding.betLy.setVisibility(View.VISIBLE);
-                                                            binding.tvSelected.setText(selectedBet + "(" + Constants.RUPEE_ICON + betAmt + ")");
+                                                            binding.tvSelected.setText(selectedBet + "(" + checkAndReturnInSetCurrency(getContext(), String.valueOf(betAmt)) + ")");
 
                                                             selectedBetCoin = ""; // clear bet selection
                                                             Constants.updateBalance(requireActivity(), betAmt, false, Constants.COIN_BALANCE_KEY, () -> {

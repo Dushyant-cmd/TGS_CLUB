@@ -49,7 +49,7 @@ public class CoinTradeWithdrawalFragment extends Fragment {
         hostAct = (MainActivity) requireActivity();
         firestore = FirebaseFirestore.getInstance();
         userId = SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L);
-        type = getArguments().getLong("type");
+        type = getArguments().getInt("type");
 
         if (type == 0) {
             balance = SessionSharedPref.getLong(getContext(), Constants.TRADE_PRO_BALANCE_KEY, 0L);

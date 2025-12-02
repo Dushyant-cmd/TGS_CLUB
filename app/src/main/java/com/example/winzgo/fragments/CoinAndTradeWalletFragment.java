@@ -96,7 +96,7 @@ public class CoinAndTradeWalletFragment extends Fragment {
     private void getAllBets() {
         String collection = "tradeBets";
         if (type == 1) {
-            collection = "coinBets";
+            collection = "coinPredictionBets";
         }
         binding.tvTotalBets.setVisibility(View.GONE);
         binding.pbBets.setVisibility(View.VISIBLE);

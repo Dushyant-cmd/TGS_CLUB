@@ -216,4 +216,29 @@ public class Constants {
             return balance / dollarCurrentValue;
         }
     }
+
+    public static String checkAndReturnInSetCurrency(Context context, String amountStr) {
+        long dollarCurrentValue = SessionSharedPref.getLong(context, Constants.DOLLAR_CURRENCY, 87L);
+        boolean isInr = SessionSharedPref.getBoolean(context, Constants.IS_INR, false);
+        double amount = Double.parseDouble(amountStr);
+
+        String txt = Constants.RUPEE_ICON + amount; // inr
+        if(!isInr) {
+            // usd
+            double dollar = amount / dollarCurrentValue;
+            txt = Constants.USD_ICON + dollar;
+        }
+
+        return txt;
+    }
+
+    public static String getFullNameCoins(String coin) {
+        if (coin.equalsIgnoreCase("btc"))
+            return "Bitcoin";
+        else if (coin.equalsIgnoreCase("eth"))
+            return "Ethereum";
+        else if (coin.equalsIgnoreCase("sol"))
+            return "Solana";
+        return coin;
+    }
 }

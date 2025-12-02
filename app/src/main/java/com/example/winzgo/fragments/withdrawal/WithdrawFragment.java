@@ -142,10 +142,12 @@ public class WithdrawFragment extends Fragment {
                                 if (isAddBankDetails) {
                                     // add bank details
                                     HashMap<String, Object> map = new HashMap<>();
-                                    map.put("account number", accountNum);
-                                    map.put("bank holder name", bankHolderName1);
-                                    map.put("bank name", bankName1);
-                                    map.put("ifsc code", ifscCode1);
+                                    map.put("accountNumber", accountNum);
+                                    map.put("bankHolderName", bankHolderName1);
+                                    map.put("name", bankName1);
+                                    map.put("ifscCode", ifscCode1);
+                                    map.put("upiId", "");
+
 
                                     HashMap<String, Object> map1 = new HashMap<>();
                                     map1.put("bankDetails", map);
