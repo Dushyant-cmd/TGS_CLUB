@@ -1,5 +1,6 @@
 package com.example.winzgo.fragments;
 
+import static com.example.winzgo.utils.Constants.checkAndReturnInSetCurrency;
 import static com.example.winzgo.utils.Constants.isNetworkConnected;
 import static com.example.winzgo.utils.Constants.setDarkMode;
 
@@ -80,7 +81,7 @@ public class DashboardFragment extends Fragment {
                                         growPercentage = ((prevEntry - newCurrLastEntry) / newCurrLastEntry) * 100;
                                     }
 
-                                    binding.tvBtcAmt.setText(Constants.RUPEE_ICON + newCurrLastEntry);
+                                    binding.tvBtcAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf((long) newCurrLastEntry)));
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
                                     binding.tvBtcPt.setText(formattedGrowPercentage + "%");
@@ -98,7 +99,7 @@ public class DashboardFragment extends Fragment {
                                         growPercentage = ((prevEntry - newCurrLastEntry) / newCurrLastEntry) * 100;
                                     }
 
-                                    binding.tvEthAmt.setText(Constants.RUPEE_ICON + newCurrLastEntry);
+                                    binding.tvEthAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf((long) newCurrLastEntry)));
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
                                     binding.tvEthPt.setText(formattedGrowPercentage + "%");
@@ -116,7 +117,7 @@ public class DashboardFragment extends Fragment {
                                         growPercentage = ((prevEntry - newCurrLastEntry) / newCurrLastEntry) * 100;
                                     }
 
-                                    binding.tvSolAmt.setText(Constants.RUPEE_ICON + newCurrLastEntry);
+                                    binding.tvSolAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf((long) newCurrLastEntry)));
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
                                     binding.tvSolPt.setText(formattedGrowPercentage + "%");

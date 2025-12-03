@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.winzgo.R;
 import com.example.winzgo.databinding.CoinTradeTransactionsListItemBinding;
 import com.example.winzgo.models.TransactionsModel;
+import com.example.winzgo.utils.Constants;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class CoinTradeTransactionsAdapter extends RecyclerView.Adapter<CoinTrade
             binding.tvDateAndTime.setText(itemDataObj.getDate());
             if (itemDataObj.getType().equalsIgnoreCase("recharge")) {
                 binding.tvType.setText("Deposit");
-                binding.tvAmt.setText("+" + itemDataObj.getAmount());
+                binding.tvAmt.setText("+" + Constants.checkAndReturnInSetCurrency(binding.tvAmt.getContext(), itemDataObj.getAmount()));
 
                 if (itemDataObj.getStatus().equalsIgnoreCase("cancelled"))
                     binding.tvStatus.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.red, context.getTheme()));
@@ -74,7 +75,7 @@ public class CoinTradeTransactionsAdapter extends RecyclerView.Adapter<CoinTrade
                 binding.ivCircle.setRotation(125f);
             } else {
                 binding.tvType.setText("Withdrawal");
-                binding.tvAmt.setText("-" + itemDataObj.getAmount());
+                binding.tvAmt.setText("-" + Constants.checkAndReturnInSetCurrency(binding.tvAmt.getContext(), itemDataObj.getAmount()));
 
                 if (itemDataObj.getStatus().equalsIgnoreCase("cancelled"))
                     binding.tvStatus.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.red, context.getTheme()));

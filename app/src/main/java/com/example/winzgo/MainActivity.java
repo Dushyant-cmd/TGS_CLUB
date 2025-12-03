@@ -2,6 +2,9 @@ package com.example.winzgo;
 
 import static com.example.winzgo.utils.Constants.setDarkMode;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -10,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            int permissionGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS);
+
+            if (permissionGranted == PackageManager.PERMISSION_GRANTED)
+                SessionSharedPref.setBoolean(this, Constants.NOTIFICATION_PERMISSION, true);
+        } else {
+            SessionSharedPref.setBoolean(this, Constants.NOTIFICATION_PERMISSION, true);
+        }
         loadFragment(new DashboardFragment(), false, "Home");
         setListeners();
     }

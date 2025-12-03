@@ -1,5 +1,6 @@
 package com.example.winzgo.fragments;
 
+import static com.example.winzgo.utils.Constants.checkAndReturnInSetCurrency;
 import static com.example.winzgo.utils.Constants.isNetworkConnected;
 
 import android.os.Bundle;
@@ -122,7 +123,7 @@ public class CoinAndTradeWalletFragment extends Fragment {
                     binding.tvTotalProfits.setVisibility(View.VISIBLE);
                     binding.pbProfits.setVisibility(View.GONE);
 
-                    binding.tvTotalProfits.setText(Constants.RUPEE_ICON + profit);
+                    binding.tvTotalProfits.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(profit)));
                 });
     }
 
@@ -147,7 +148,7 @@ public class CoinAndTradeWalletFragment extends Fragment {
                     binding.tvTotalWithdrawals.setVisibility(View.VISIBLE);
                     binding.pbWithdrawals.setVisibility(View.GONE);
 
-                    binding.tvTotalWithdrawals.setText(Constants.RUPEE_ICON + withdrawals);
+                    binding.tvTotalWithdrawals.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(withdrawals)));
                 });
     }
 
@@ -171,7 +172,7 @@ public class CoinAndTradeWalletFragment extends Fragment {
                     binding.tvTotalDeposits.setVisibility(View.VISIBLE);
                     binding.pbDeposit.setVisibility(View.GONE);
 
-                    binding.tvTotalDeposits.setText(Constants.RUPEE_ICON + deposit);
+                    binding.tvTotalDeposits.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(deposit)));
                 });
     }
 
@@ -212,8 +213,8 @@ public class CoinAndTradeWalletFragment extends Fragment {
                             SessionSharedPref.setLong(requireContext(), Constants.COIN_BALANCE_KEY, balance);
                         }
 
-                        MainActivity.binding.tvBalance.setText(Constants.RUPEE_ICON + balance);
-                        binding.tvBalance.setText(Constants.RUPEE_ICON + balance);
+                        MainActivity.binding.tvBalance.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(balance)));
+                        binding.tvBalance.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(balance)));
                     });
         }
     }

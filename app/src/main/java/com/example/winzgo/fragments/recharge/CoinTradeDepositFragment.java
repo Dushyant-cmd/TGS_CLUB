@@ -1,5 +1,8 @@
 package com.example.winzgo.fragments.recharge;
 
+import static com.example.winzgo.utils.Constants.changeBalanceToDiffCurrency;
+import static com.example.winzgo.utils.Constants.checkAndReturnInSetCurrency;
+
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
@@ -30,6 +33,7 @@ import com.example.winzgo.adapter.UpiAdapter;
 import com.example.winzgo.databinding.FragmentCoinTradeDepositBinding;
 import com.example.winzgo.databinding.ManualInstructionDialogBinding;
 import com.example.winzgo.models.UpiAdapterModel;
+import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -52,7 +56,7 @@ public class CoinTradeDepositFragment extends Fragment {
     private FragmentCoinTradeDepositBinding binding;
     private String walletAddress = "";
     private MyApplication application;
-    private long type = 0; // 0 trade, 1 coin, 2 win-go
+    private long type = 0, depositAmt = 50; // 0 trade, 1 coin, 2 win-go
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +75,7 @@ public class CoinTradeDepositFragment extends Fragment {
         type = getArguments().getInt("type");
         hostAct.setupHeader("Deposit");
 
+        highlightBetAmtLayout(depositAmt);
         showTermsAlertDialog();
         getTransactionDetails();
         setListeners();
@@ -112,13 +117,15 @@ public class CoinTradeDepositFragment extends Fragment {
         String walletAddress = binding.etWalletAddress.getText().toString();
         String amount = binding.etAmount.getText().toString();
         if (!amount.isEmpty()) {
-            if (id.length() > 4 && Long.parseLong(amount) > 0) {
+            if (id.length() > 4 && Double.parseDouble(amount) > 0) {
                 ProgressDialog dialog1 = new ProgressDialog(getContext());
                 dialog1.setMessage("Please wait...");
                 dialog1.show();
                 binding.btnAddRecharge.setEnabled(false);
+                boolean isInr = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
+
                 HashMap<String, Object> map = new HashMap<>();
-                map.put("amount", amount);
+                map.put("amount", depositAmt);
                 map.put("date", application.getCurrDateAndTime());
                 map.put("info", null);
                 map.put("name", application.sharedPref.getName());
@@ -129,6 +136,7 @@ public class CoinTradeDepositFragment extends Fragment {
                 map.put("utr", id);
                 map.put("gameType", type);
                 map.put("walletAddress", walletAddress);
+                map.put("isInr", isInr);
                 application.firestore.collection("transactions").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -157,19 +165,24 @@ public class CoinTradeDepositFragment extends Fragment {
         }
     }
 
-    private void highlightBetAmtLayout(long amount) {
+    private void highlightBetAmtLayout(long amountTransformed) {
+        depositAmt = amountTransformed;
+        String amount = checkAndReturnInSetCurrency(getContext(), String.valueOf(amountTransformed)).trim();
+
         int count = binding.betAmtLy.getChildCount();
         for (int i = 0; i < count; i++) {
             View item = binding.betAmtLy.getChildAt(i);
             if (item instanceof TextView) {
                 TextView tv = (TextView) item;
-                long tvAmt = Long.parseLong(tv.getText().toString().substring(1));
-                if (tvAmt == amount) {
-                    binding.etAmount.setText(String.valueOf(amount));
+                String tvAmt = checkAndReturnInSetCurrency(getContext(), tv.getText().toString()).trim();
+                if (tvAmt.equals(amount)) {
+                    binding.etAmount.setText(tvAmt.substring(1));
                     tv.setBackgroundResource(R.drawable.little_dark_violet_rect);
                 } else {
                     tv.setBackgroundResource(R.drawable.light_silver_bg);
                 }
+
+                tv.setText(tvAmt.substring(1));
             }
         }
     }

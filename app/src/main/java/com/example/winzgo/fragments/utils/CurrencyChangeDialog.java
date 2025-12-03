@@ -49,7 +49,7 @@ public class CurrencyChangeDialog extends DialogFragment {
         balance = getArguments().getLong("balance");
 
         binding.tvInrBalance.setText(Constants.RUPEE_ICON + balance);
-        binding.tvUsdBalance.setText(Constants.USD_ICON + Constants.changeBalanceToDiffCurrency(getContext(), balance, false));
+        binding.tvUsdBalance.setText(Constants.USD_ICON + Constants.changeBalanceToDiffCurrency(getContext(), String.valueOf(balance), false));
         binding.tvExchangeRate.setText("Exchange Rate: 1 USD = " + Constants.RUPEE_ICON + SessionSharedPref.getLong(getContext(), Constants.DOLLAR_CURRENCY, 87L));
         changeCurrSelection(currencyType);
         setListeners();
@@ -87,7 +87,7 @@ public class CurrencyChangeDialog extends DialogFragment {
             binding.cardInr.setCardBackgroundColor(getResources().getColor(android.R.color.transparent));
             binding.ivTickInr.setVisibility(View.INVISIBLE);
 
-            binding.tvUsdBalance.setText(Constants.USD_ICON + Constants.changeBalanceToDiffCurrency(getContext(), balance, false));
+            binding.tvUsdBalance.setText(Constants.USD_ICON + Constants.changeBalanceToDiffCurrency(getContext(), String.valueOf(balance), false));
             SessionSharedPref.setBoolean(getContext(), Constants.IS_INR, false);
             listener.onClick("USD");
         }

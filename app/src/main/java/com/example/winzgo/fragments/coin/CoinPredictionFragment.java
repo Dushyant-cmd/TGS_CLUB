@@ -1,6 +1,5 @@
 package com.example.winzgo.fragments.coin;
 
-import static com.example.winzgo.utils.Constants.changeBalanceToDiffCurrency;
 import static com.example.winzgo.utils.Constants.checkAndReturnInSetCurrency;
 import static com.example.winzgo.utils.Constants.getFullNameCoins;
 import static com.example.winzgo.utils.Constants.isNetworkConnected;
@@ -33,7 +32,6 @@ import com.example.winzgo.fragments.recharge.CoinTradeDepositFragment;
 import com.example.winzgo.models.CoinPredictionHistoryModel;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
-import com.example.winzgo.utils.UtilsInterfaces;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -81,6 +79,7 @@ public class CoinPredictionFragment extends Fragment {
         isInr = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
 
         hostAct.setupHeader("Crypto Streak");
+        highlightBetAmtLayout(betAmt);
         getSecondsAndStartCountDown();
         getCoinGraphDetails(true);
         getUserData();
@@ -190,19 +189,23 @@ public class CoinPredictionFragment extends Fragment {
         }
     }
 
-    private void highlightBetAmtLayout(long amount) {
+    private void highlightBetAmtLayout(long amountTransformed) {
+        String amount = checkAndReturnInSetCurrency(getContext(), String.valueOf(amountTransformed)).trim();
+
         int count = binding.betAmtSelectionLy.getChildCount();
         for (int i = 0; i < count; i++) {
             View item = binding.betAmtSelectionLy.getChildAt(i);
             if (item instanceof TextView) {
                 TextView tv = (TextView) item;
-                long tvAmt = Long.parseLong(tv.getText().toString().substring(1));
-                if (tvAmt == amount) {
-                    binding.tvInvestAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(amount)));
+                String tvAmt = checkAndReturnInSetCurrency(getContext(), tv.getText().toString().substring(1).trim()).trim();
+                if (tvAmt.equals(amount)) {
+                    binding.tvInvestAmt.setText(tvAmt);
                     tv.setBackgroundResource(R.drawable.little_dark_violet_rect);
                 } else {
                     tv.setBackgroundResource(R.drawable.light_silver_bg);
                 }
+
+                tv.setText(tvAmt);
             }
         }
     }
@@ -269,7 +272,7 @@ public class CoinPredictionFragment extends Fragment {
                                     currBtcLastEntry = newCurrLastEntry;
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
-                                    binding.tvBtcAmt.setText(Constants.checkAndReturnInSetCurrency(getContext(), String.valueOf(currBtcLastEntry)) + ".00");
+                                    binding.tvBtcAmt.setText(Constants.checkAndReturnInSetCurrency(getContext(), String.valueOf((long) currBtcLastEntry)));
                                     binding.tvMomentumBtc.setText(formattedGrowPercentage + "%");
                                     binding.tvMomentumBtc.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
@@ -298,7 +301,7 @@ public class CoinPredictionFragment extends Fragment {
                                     currEthLastEntry = newCurrLastEntry;
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
-                                    binding.tvEthAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(currEthLastEntry)) + ".00");
+                                    binding.tvEthAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf((long) currEthLastEntry)));
                                     binding.tvMomentumEth.setText(formattedGrowPercentage + "%");
                                     binding.tvMomentumEth.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
@@ -327,7 +330,7 @@ public class CoinPredictionFragment extends Fragment {
                                     currSolLastEntry = newCurrLastEntry;
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
-                                    binding.tvSolAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(currSolLastEntry)) + ".00");
+                                    binding.tvSolAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf((long) currSolLastEntry)));
                                     binding.tvMomentumSol.setText(formattedGrowPercentage + "%");
                                     binding.tvMomentumSol.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {

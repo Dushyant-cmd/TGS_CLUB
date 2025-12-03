@@ -23,6 +23,7 @@ import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -205,31 +206,48 @@ public class Constants {
         SessionSharedPref.setBoolean(context, Constants.DARK_MODE_KEY, isDarkMode);
     }
 
-    public static long changeBalanceToDiffCurrency(Context context, long balance, boolean isInrOrUsd) {
+    public static double changeBalanceToDiffCurrency(Context context, String balance, boolean isInrOrUsd) {
         long dollarCurrentValue = SessionSharedPref.getLong(context, Constants.DOLLAR_CURRENCY, 87L);
+        boolean savedInrOrUsd = SessionSharedPref.getBoolean(context, Constants.IS_INR, false);
+
+        DecimalFormat decimalFormat = new DecimalFormat("####0.00");
+        String txt = decimalFormat.format((Double.parseDouble(balance)) / dollarCurrentValue);
 
         if(isInrOrUsd) {
             // inr
-            return balance;
+            double inrBal = Double.parseDouble(balance);
+            if(!savedInrOrUsd) {
+                inrBal = inrBal * dollarCurrentValue; // if saved currency is usd
+            }
+            return inrBal;
         } else {
             // usd
-            return balance / dollarCurrentValue;
+            return Double.parseDouble(txt);
         }
     }
 
     public static String checkAndReturnInSetCurrency(Context context, String amountStr) {
-        long dollarCurrentValue = SessionSharedPref.getLong(context, Constants.DOLLAR_CURRENCY, 87L);
-        boolean isInr = SessionSharedPref.getBoolean(context, Constants.IS_INR, false);
-        double amount = Double.parseDouble(amountStr);
+        try {
+            DecimalFormat decimalFormat = new DecimalFormat("####0.00");
+            long dollarCurrentValue = SessionSharedPref.getLong(context, Constants.DOLLAR_CURRENCY, 87L);
+            boolean isInr = SessionSharedPref.getBoolean(context, Constants.IS_INR, false);
+            double amount = Double.parseDouble(amountStr);
 
-        String txt = Constants.RUPEE_ICON + amount; // inr
-        if(!isInr) {
-            // usd
-            double dollar = amount / dollarCurrentValue;
-            txt = Constants.USD_ICON + dollar;
+            String txt = Constants.RUPEE_ICON + ((long) amount); // inr
+            if (!isInr) {
+                // usd and not already converted to usd
+                if (amountStr.contains("."))
+                    txt = Constants.USD_ICON + amountStr;
+                else
+                    txt = Constants.USD_ICON + decimalFormat.format(amount / dollarCurrentValue);
+            }
+
+            return txt;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return txt;
+        return Constants.RUPEE_ICON + 0;
     }
 
     public static String getFullNameCoins(String coin) {

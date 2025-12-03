@@ -2,18 +2,26 @@ package com.example.winzgo.fragments.settings;
 
 import static com.example.winzgo.utils.Constants.isNetworkConnected;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.winzgo.MainActivity;
@@ -24,7 +32,6 @@ import com.example.winzgo.fragments.utils.CurrencyChangeDialog;
 import com.example.winzgo.fragments.wingo.ReferFragment;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
-import com.example.winzgo.utils.UtilsInterfaces;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -63,8 +70,16 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
         boolean isDarkMode = SessionSharedPref.getBoolean(getContext(), Constants.DARK_MODE_KEY, false);
         binding.switchDarkMode.setChecked(isDarkMode);
 
-        boolean isNotificationEnabled = SessionSharedPref.getBoolean(getContext(), Constants.NOTIFICATION_PERMISSION, false);
-        binding.switchNotifications.setChecked(isNotificationEnabled);
+        boolean isNotificationEnabled = SessionSharedPref.getBoolean(getContext(), Constants.NOTIFICATION_PERMISSION, true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            int permissionGranted = ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.POST_NOTIFICATIONS);
+
+            if (permissionGranted == PackageManager.PERMISSION_GRANTED && isNotificationEnabled)
+                binding.switchNotifications.setChecked(isNotificationEnabled);
+        } else {
+            if (isNotificationEnabled)
+                binding.switchNotifications.setChecked(isNotificationEnabled);
+        }
     }
 
     private void setListeners() {
@@ -110,10 +125,7 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
             dialog.addListeners(data -> {
                 String currencySelected = (String) data;
 
-                String balance = Constants.RUPEE_ICON + totalBalance;
-                if(currencySelected.equalsIgnoreCase("USD")) {
-                    balance = Constants.USD_ICON + Constants.changeBalanceToDiffCurrency(getContext(), totalBalance, false);
-                }
+                String balance = Constants.checkAndReturnInSetCurrency(getContext(), String.valueOf(totalBalance));
 
                 binding.tvWalletAmt.setText(balance);
                 binding.tvCurrType.setText(currencySelected);
@@ -122,9 +134,47 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
         });
 
         binding.switchNotifications.setOnCheckedChangeListener((btn, b) -> {
-            SessionSharedPref.setBoolean(getContext(), Constants.NOTIFICATION_PERMISSION, b);
+            if (b) {
+                if (askNotificationPermission()) {
+                    SessionSharedPref.setBoolean(getContext(), Constants.NOTIFICATION_PERMISSION, true);
+                }
+            } else
+                SessionSharedPref.setBoolean(getContext(), Constants.NOTIFICATION_PERMISSION, false);
         });
     }
+
+    private boolean askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                Constants.showAlerDialog(getContext(), "Permission is required for better user experience", "Okay", () -> {
+                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                });
+            } else {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (!isGranted) {
+                    Constants.showAlerDialog(getContext(), "Permission is required for better user experience", "Okay", () -> {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.fromParts("package", getContext().getPackageName(), null));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    });
+                } else {
+                    SessionSharedPref.setBoolean(getContext(), Constants.NOTIFICATION_PERMISSION, false);
+                }
+            });
 
     private void getUserData() {
         if (isNetworkConnected(getActivity())) {
@@ -137,12 +187,7 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
                             long coinBalance = task.getResult().getLong(Constants.COIN_BALANCE_KEY);
 
                             totalBalance = balance + tradeBalance + coinBalance;
-
-                            String balanceTxt = Constants.RUPEE_ICON + totalBalance;
-                            boolean isInrOrUSD = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, true);
-                            if(!isInrOrUSD) {
-                                balanceTxt = Constants.USD_ICON + Constants.changeBalanceToDiffCurrency(getContext(), totalBalance, false);
-                            }
+                            String balanceTxt = Constants.checkAndReturnInSetCurrency(getContext(), String.valueOf(totalBalance));
 
                             binding.tvWalletAmt.setText(balanceTxt);
                         });

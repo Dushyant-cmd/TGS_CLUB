@@ -1,5 +1,6 @@
 package com.example.winzgo.fragments.tradePro;
 
+import static com.example.winzgo.utils.Constants.checkAndReturnInSetCurrency;
 import static com.example.winzgo.utils.Constants.isNetworkConnected;
 
 import android.annotation.SuppressLint;
@@ -80,6 +81,7 @@ public class TradeProFragment extends Fragment {
         binding = FragmentTradeProBinding.inflate(getLayoutInflater());
         firestore = FirebaseFirestore.getInstance();
 
+        highlightBetAmtLayout(betAmt);
         setupViews();
         setListeners();
         return binding.getRoot();
@@ -97,8 +99,8 @@ public class TradeProFragment extends Fragment {
                             long selectedEntry = doc.getLong("selected");
 
                             binding.betDetailsCard.setVisibility(View.VISIBLE);
-                            binding.betAmt.setText(Constants.RUPEE_ICON + amt);
-                            binding.betEntryAmt.setText("Entry: " + Constants.RUPEE_ICON + selectedEntry);
+                            binding.betAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(amt)));
+                            binding.betEntryAmt.setText("Entry: " + checkAndReturnInSetCurrency(getContext(), String.valueOf(selectedEntry)));
                             if (isUp) {
                                 binding.ivBetPredictionType.setImageResource(R.drawable.graph_up_ic);
                                 binding.ivBetPredictionType.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.green)));
@@ -189,7 +191,7 @@ public class TradeProFragment extends Fragment {
             betInto = betInto + 1;
             betAmt = betIntoAmt * betInto;
             binding.tvBetIntoNum.setText("x" + betInto);
-            binding.tvInvestAmt.setText(Constants.RUPEE_ICON + betAmt);
+            binding.tvInvestAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(betAmt)));
         });
 
         binding.iXBtnDown.setOnClickListener(v -> {
@@ -197,24 +199,28 @@ public class TradeProFragment extends Fragment {
                 betInto = betInto - 1;
                 betAmt = betIntoAmt * betInto;
                 binding.tvBetIntoNum.setText("x" + betInto);
-                binding.tvInvestAmt.setText(Constants.RUPEE_ICON + betAmt);
+                binding.tvInvestAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(betAmt)));
             }
         });
     }
 
-    private void highlightBetAmtLayout(long amount) {
+    private void highlightBetAmtLayout(long amountTransformed) {
+        String amount = checkAndReturnInSetCurrency(getContext(), String.valueOf(amountTransformed)).trim();
+
         int count = binding.betAmtLy.getChildCount();
         for (int i = 0; i < count; i++) {
             View item = binding.betAmtLy.getChildAt(i);
             if (item instanceof TextView) {
                 TextView tv = (TextView) item;
-                long tvAmt = Long.parseLong(tv.getText().toString().substring(1));
-                if (tvAmt == amount) {
-                    binding.tvInvestAmt.setText(Constants.RUPEE_ICON + amount);
+                String tvAmt = checkAndReturnInSetCurrency(getContext(), tv.getText().toString().substring(1).trim()).trim();
+                if (tvAmt.equals(amount)) {
+                    binding.tvInvestAmt.setText(tvAmt);
                     tv.setBackgroundResource(R.drawable.little_dark_violet_rect);
                 } else {
                     tv.setBackgroundResource(R.drawable.light_silver_bg);
                 }
+
+                tv.setText(tvAmt);
             }
         }
     }
@@ -260,8 +266,8 @@ public class TradeProFragment extends Fragment {
                                                         dialog.dismiss();
                                                         if (task.isSuccessful()) {
                                                             binding.betDetailsCard.setVisibility(View.VISIBLE);
-                                                            binding.betAmt.setText(Constants.RUPEE_ICON + betAmt);
-                                                            binding.betEntryAmt.setText("Entry: " + Constants.RUPEE_ICON + currLastEntry);
+                                                            binding.betAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(betAmt)));
+                                                            binding.betEntryAmt.setText("Entry: " + checkAndReturnInSetCurrency(getContext(), String.valueOf(currLastEntry)));
                                                             if (isUp) {
                                                                 binding.ivBetPredictionType.setImageResource(R.drawable.graph_up_ic);
                                                                 binding.ivBetPredictionType.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.green)));
@@ -402,9 +408,10 @@ public class TradeProFragment extends Fragment {
                                     currLastEntry = newCurrLastEntry;
                                     String formattedGrowPercentage = String.format("%.2f", growPercentage);
 
-                                    binding.tvBtcAmt.setText(Constants.RUPEE_ICON + currLastEntry + ".00");
+//                                    binding.tvBtcAmt.setText(Constants.RUPEE_ICON + currLastEntry);
+                                    binding.tvBtcAmt.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(currLastEntry)));
                                     binding.tvBtcPt.setText("(" + formattedGrowPercentage + "%)");
-                                    binding.tvGraphCurrCandle.setText(Constants.RUPEE_ICON + currLastEntry + "(" + formattedGrowPercentage + "%)");
+                                    binding.tvGraphCurrCandle.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(currLastEntry)) + "(" + formattedGrowPercentage + "%)");
                                     binding.tvBtcPt.setTextColor(hostAct.getResources().getColor(R.color.green));
                                     if (growPercentage < 0) {
                                         binding.tvBtcPt.setTextColor(hostAct.getResources().getColor(R.color.dark_red));
@@ -502,7 +509,6 @@ public class TradeProFragment extends Fragment {
                         getTradeGraph();
                         binding.betDetailsCard.setVisibility(View.GONE);
                         getUserData();
-                        getTradeHistory(true);
                     }
                 }.start();
             } else {
@@ -573,7 +579,7 @@ public class TradeProFragment extends Fragment {
                                 long balance = task.getResult().getLong(Constants.TRADE_PRO_BALANCE_KEY);
                                 SessionSharedPref.setLong(requireContext(), Constants.TRADE_PRO_BALANCE_KEY, balance);
 
-                                MainActivity.binding.tvBalance.setText(Constants.RUPEE_ICON + balance);
+                                MainActivity.binding.tvBalance.setText(checkAndReturnInSetCurrency(getContext(), String.valueOf(balance)));
                             }
                         });
             }

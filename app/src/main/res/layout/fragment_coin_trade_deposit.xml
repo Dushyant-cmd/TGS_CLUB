@@ -58,7 +58,7 @@
                     android:backgroundTint="@color/light_brown"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="8dp">
 
                     <View
                         android:layout_width="12dp"
@@ -107,7 +107,7 @@
                         android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
-                        android:text="\u20b950"
+                        android:text="50"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -120,7 +120,7 @@
                         android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
-                        android:text="\u20b9100"
+                        android:text="100"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -133,7 +133,7 @@
                         android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
-                        android:text="\u20b9500"
+                        android:text="500"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -146,7 +146,7 @@
                         android:background="@drawable/light_silver_bg"
                         android:fontFamily="@font/istok_web_regular"
                         android:gravity="center"
-                        android:text="\u20b91000"
+                        android:text="1000"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -254,7 +254,7 @@
                     android:layout_marginTop="@dimen/_8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/istok_web_regular"
-                    android:text="Enter UTR :"
+                    android:text="Enter TXN Id :"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -264,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/light_silver_bg"
                     android:fontFamily="@font/istok_web_regular"
-                    android:hint="Enter UTR Code"
+                    android:hint="Enter TXN Id"
                     android:inputType="text"
                     android:padding="16dp"
                     android:textColor="@color/black"

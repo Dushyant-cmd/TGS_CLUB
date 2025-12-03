@@ -1,5 +1,7 @@
 package com.example.winzgo.adapter;
 
+import static com.example.winzgo.utils.Constants.checkAndReturnInSetCurrency;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
@@ -68,11 +70,11 @@ public class CoinPredictionHistoryAdapter extends RecyclerView.Adapter<CoinPredi
         }
 
         public void bind(CoinPredictionHistoryModel data) {
-            binding.tvAmtSummary.setText(Constants.RUPEE_ICON + data.getBet_amount() + " on " + data.getSelected());
+            binding.tvAmtSummary.setText(checkAndReturnInSetCurrency(binding.tvAmtSummary.getContext(), String.valueOf(data.getBet_amount())) + " on " + data.getSelected());
             binding.tvResult.setText("Winner : " + data.getResult());
 
             if (data.isWinner()) {
-                binding.tvWinAmt.setText("+" + Constants.RUPEE_ICON + data.getWin_amount());
+                binding.tvWinAmt.setText("+" + checkAndReturnInSetCurrency(binding.tvWinAmt.getContext(), String.valueOf(data.getWin_amount())));
                 binding.tvWinAmt.setTextColor(ContextCompat.getColor(binding.tvWinAmt.getContext(), R.color.green));
                 binding.ivWinType.setImageResource(R.drawable.graph_up_ic);
                 binding.ivWinType.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.ivWinType.getContext(), R.color.green)));
@@ -80,7 +82,7 @@ public class CoinPredictionHistoryAdapter extends RecyclerView.Adapter<CoinPredi
                 binding.tvResultType.setText("You Won!");
                 binding.tvResultType.setTextColor(ContextCompat.getColor(binding.tvResultType.getContext(), R.color.green));
             } else {
-                binding.tvWinAmt.setText("-" + Constants.RUPEE_ICON + data.getBet_amount());
+                binding.tvWinAmt.setText("-" + checkAndReturnInSetCurrency(binding.tvAmtSummary.getContext(), String.valueOf(data.getBet_amount())));
                 binding.tvWinAmt.setTextColor(ContextCompat.getColor(binding.tvWinAmt.getContext(), R.color.red));
                 binding.ivWinType.setImageResource(R.drawable.graph_down_ic);
                 binding.ivWinType.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.ivWinType.getContext(), R.color.red)));

@@ -1,5 +1,7 @@
 package com.example.winzgo.adapter;
 
+import static com.example.winzgo.utils.Constants.checkAndReturnInSetCurrency;
+
 import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +64,7 @@ public class TradeHistoryAdapter extends RecyclerView.Adapter<TradeHistoryAdapte
 
         public void bind(TradeHistoryModel data) {
             String time = data.getDateAndTime().split(",")[1].trim();
-            binding.tvBetAmt.setText(Constants.RUPEE_ICON + data.getBet_amount());
+            binding.tvBetAmt.setText(checkAndReturnInSetCurrency(binding.tvBetAmt.getContext(), String.valueOf(data.getBet_amount())));
             binding.tvTradeDesc.setText("Entry: " + Constants.RUPEE_ICON + data.getSelected() + "-> " + "Exit: " + Constants.RUPEE_ICON + data.getResult() + " | " + time);
 
             if(data.isUp()) {
@@ -82,10 +84,10 @@ public class TradeHistoryAdapter extends RecyclerView.Adapter<TradeHistoryAdapte
             }
 
             if(data.isWinner()) {
-                binding.tvBetResult.setText("+" + Constants.RUPEE_ICON + data.getWin_amount());
+                binding.tvBetResult.setText("+" + checkAndReturnInSetCurrency(binding.tvBetResult.getContext(), String.valueOf(data.getWin_amount())));
                 binding.tvBetResult.setTextColor(ContextCompat.getColor(binding.tvBetResult.getContext(), R.color.green));
             } else {
-                binding.tvBetResult.setText("-" + Constants.RUPEE_ICON + data.getBet_amount());
+                binding.tvBetResult.setText("-" + checkAndReturnInSetCurrency(binding.tvBetResult.getContext(), String.valueOf(data.getBet_amount())));
                 binding.tvBetResult.setTextColor(ContextCompat.getColor(binding.tvBetResult.getContext(), R.color.red));
             }
         }
