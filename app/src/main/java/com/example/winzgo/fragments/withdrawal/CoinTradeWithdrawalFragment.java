@@ -2,7 +2,6 @@ package com.example.winzgo.fragments.withdrawal;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -101,6 +99,7 @@ public class CoinTradeWithdrawalFragment extends Fragment {
     private void withdraw(String withdrawAmount) {
         long currentUserBalance = balance;
         long updatedBalance = currentUserBalance - Long.parseLong(withdrawAmount);
+        String walletAddress = binding.etWalletAdd.getText().toString();
 
         Dialog progressDialog1 = Constants.showProgressDialog(requireContext());
         HashMap<String, Object> map = new HashMap<>();
@@ -128,19 +127,21 @@ public class CoinTradeWithdrawalFragment extends Fragment {
                         map.put("timestamp", System.currentTimeMillis());
                         map.put("user_id", userId);
                         map.put("gameType", type);
+                        map.put("walletAddress", walletAddress);
                         firestore.collection("transactions").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 progressDialog1.dismiss();
+                                Constants.updateBalance(getActivity(), Long.parseLong(withdrawAmount), false, Constants.TRADE_PRO_BALANCE_KEY, () -> {
+                                    if (type == 0) {
+                                        SessionSharedPref.setLong(getContext(), Constants.TRADE_PRO_BALANCE_KEY, updatedBalance);
+                                    } else if (type == 1) {
+                                        SessionSharedPref.setLong(getContext(), Constants.COIN_BALANCE_KEY, updatedBalance);
+                                    }
 
-                                if (type == 0) {
-                                    SessionSharedPref.setLong(getContext(), Constants.TRADE_PRO_BALANCE_KEY, updatedBalance);
-                                } else if (type == 1) {
-                                    SessionSharedPref.setLong(getContext(), Constants.COIN_BALANCE_KEY, updatedBalance);
-                                }
-
-                                Toast.makeText(getActivity(), "Withdrawal done successfully", Toast.LENGTH_SHORT).show();
-                                hostAct.popCurrent();
+                                    Toast.makeText(getActivity(), "Withdrawal done successfully", Toast.LENGTH_SHORT).show();
+                                    hostAct.popCurrent();
+                                });
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
