@@ -152,35 +152,4 @@ public class DashboardFragment extends Fragment {
             activity.loadFragment(new TradeProFragment(), true, "Trade Pro");
         });
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getIsUpdate();
-    }
-
-    private void getIsUpdate() {
-        FirebaseFirestore.getInstance().collection("constants").document("3").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    boolean isUpdate = documentSnapshot.getBoolean("isUpdate");
-                    long versionCode = documentSnapshot.getLong("version");
-                    if (isUpdate && BuildConfig.VERSION_CODE < versionCode) {
-                        Dialog dialog = Constants.showAlerDialog(requireContext(), "Please update app", "Update", new UtilsInterfaces.Refresh() {
-                            @Override
-                            public void refresh() {
-                                String link = SessionSharedPref.getStr(requireContext(), Constants.APP_DOWNLOAD_LINK, "");
-                                if (!link.isEmpty()) {
-                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                                    startActivity(intent);
-                                }
-                            }
-                        });
-                        dialog.setCancelable(false);
-                    }
-                }
-            }
-        });
-    }
 }

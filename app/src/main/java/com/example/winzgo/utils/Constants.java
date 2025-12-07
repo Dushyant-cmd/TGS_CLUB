@@ -196,7 +196,9 @@ public class Constants {
         et.requestFocus();
     }
 
-    /** This method will set dark mode of theme */
+    /**
+     * This method will set dark mode of theme
+     */
     public static void setDarkMode(Context context, boolean isDarkMode) {
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -213,10 +215,10 @@ public class Constants {
         DecimalFormat decimalFormat = new DecimalFormat("####0.00");
         String txt = decimalFormat.format((Double.parseDouble(balance)) / dollarCurrentValue);
 
-        if(isInrOrUsd) {
+        if (isInrOrUsd) {
             // inr
             double inrBal = Double.parseDouble(balance);
-            if(!savedInrOrUsd) {
+            if (!savedInrOrUsd) {
                 inrBal = inrBal * dollarCurrentValue; // if saved currency is usd
             }
             return inrBal;

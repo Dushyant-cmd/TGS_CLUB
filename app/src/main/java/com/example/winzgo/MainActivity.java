@@ -3,7 +3,10 @@ package com.example.winzgo;
 import static com.example.winzgo.utils.Constants.setDarkMode;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +30,11 @@ import com.example.winzgo.fragments.wingo.HomeFragment;
 import com.example.winzgo.fragments.wingo.MoneyFragment;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
+import com.example.winzgo.utils.UtilsInterfaces;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     public static ActivityMainBinding binding;
@@ -162,5 +169,40 @@ public class MainActivity extends AppCompatActivity {
     public void popCurrent() {
         if (!isFinishing())
             getSupportFragmentManager().popBackStackImmediate();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getIsUpdate();
+    }
+
+    private void getIsUpdate() {
+        FirebaseFirestore.getInstance().collection("constants").document("3").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    boolean isUpdate = documentSnapshot.getBoolean("isUpdate");
+                    long versionCode = documentSnapshot.getLong("version");
+                    if(BuildConfig.DEBUG) {
+                        versionCode = 6;
+                        isUpdate = true;
+                    }
+                    if (isUpdate && BuildConfig.VERSION_CODE < versionCode) {
+                        Dialog dialog = Constants.showAlerDialog(MainActivity.this, "Please update app", "Update", new UtilsInterfaces.Refresh() {
+                            @Override
+                            public void refresh() {
+                                String link = SessionSharedPref.getStr(MainActivity.this, Constants.APP_DOWNLOAD_LINK, "");
+                                if (!link.isEmpty()) {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+                        dialog.setCancelable(false);
+                    }
+                }
+            }
+        });
     }
 }
