@@ -4,6 +4,7 @@ import static com.example.winzgo.utils.Constants.checkAndReturnInSetCurrency;
 import static com.example.winzgo.utils.Constants.isNetworkConnected;
 import static com.example.winzgo.utils.Constants.setDarkMode;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -166,7 +167,7 @@ public class DashboardFragment extends Fragment {
                     boolean isUpdate = documentSnapshot.getBoolean("isUpdate");
                     long versionCode = documentSnapshot.getLong("version");
                     if (isUpdate && BuildConfig.VERSION_CODE < versionCode) {
-                        Constants.showAlerDialog(requireContext(), "Please update app", "Update", new UtilsInterfaces.Refresh() {
+                        Dialog dialog = Constants.showAlerDialog(requireContext(), "Please update app", "Update", new UtilsInterfaces.Refresh() {
                             @Override
                             public void refresh() {
                                 String link = SessionSharedPref.getStr(requireContext(), Constants.APP_DOWNLOAD_LINK, "");
@@ -176,6 +177,7 @@ public class DashboardFragment extends Fragment {
                                 }
                             }
                         });
+                        dialog.setCancelable(false);
                     }
                 }
             }
