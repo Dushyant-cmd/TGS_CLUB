@@ -33,7 +33,7 @@ public class CoinTradeWithdrawalFragment extends Fragment {
     private FragmentCoinTradeWithdrawalBinding binding;
     private MainActivity hostAct;
     private FirebaseFirestore firestore;
-    private long type = 0, balance = 0L, userId = 0L;
+    private long type = Constants.TRADE_TYPE, balance = 0L, userId = 0L;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,9 +49,10 @@ public class CoinTradeWithdrawalFragment extends Fragment {
         userId = SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L);
         type = getArguments().getInt("type");
 
-        if (type == 0) {
+        balance = SessionSharedPref.getLong(getContext(), Constants.WIN_GO_BALANCE_KEY, 0);
+        if (type == Constants.TRADE_TYPE) {
             balance = SessionSharedPref.getLong(getContext(), Constants.TRADE_PRO_BALANCE_KEY, 0L);
-        } else if (type == 1) {
+        } else if (type == Constants.COIN_TYPE) {
             balance = SessionSharedPref.getLong(getContext(), Constants.COIN_BALANCE_KEY, 0L);
         }
 
@@ -103,7 +104,12 @@ public class CoinTradeWithdrawalFragment extends Fragment {
 
         Dialog progressDialog1 = Constants.showProgressDialog(requireContext());
         HashMap<String, Object> map = new HashMap<>();
-        map.put("balance", updatedBalance);
+        map.put(Constants.WIN_GO_BALANCE_KEY, updatedBalance);
+        if (type == Constants.TRADE_TYPE) {
+            map.put(Constants.TRADE_PRO_BALANCE_KEY, updatedBalance);
+        } else if (type == Constants.COIN_TYPE)
+            map.put(Constants.COIN_BALANCE_KEY, updatedBalance);
+
         firestore.collection("users").document(String.valueOf(userId)).update(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -133,9 +139,9 @@ public class CoinTradeWithdrawalFragment extends Fragment {
                             public void onSuccess(DocumentReference documentReference) {
                                 progressDialog1.dismiss();
                                 Constants.updateBalance(getActivity(), Long.parseLong(withdrawAmount), false, Constants.TRADE_PRO_BALANCE_KEY, () -> {
-                                    if (type == 0) {
+                                    if (type == Constants.TRADE_TYPE) {
                                         SessionSharedPref.setLong(getContext(), Constants.TRADE_PRO_BALANCE_KEY, updatedBalance);
-                                    } else if (type == 1) {
+                                    } else if (type == Constants.COIN_TYPE) {
                                         SessionSharedPref.setLong(getContext(), Constants.COIN_BALANCE_KEY, updatedBalance);
                                     }
 

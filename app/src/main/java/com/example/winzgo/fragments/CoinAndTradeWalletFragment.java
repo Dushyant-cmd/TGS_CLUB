@@ -33,7 +33,7 @@ public class CoinAndTradeWalletFragment extends Fragment {
     private FragmentCoinAndTradeWalletBinding binding;
     private MainActivity hostActivity;
     private FirebaseFirestore firestore;
-    private int type = 0;// 0 trade, 1 coin, 2 win-go
+    private int type = Constants.TRADE_TYPE;// 0 trade, 1 coin, 2 win-go
     private CoinTradeTransactionsAdapter adapter;
     private List<TransactionsModel> list = new ArrayList<>();
 
@@ -206,9 +206,9 @@ public class CoinAndTradeWalletFragment extends Fragment {
                     .get().addOnCompleteListener(task -> {
                         long balance = task.getResult().getLong(Constants.TRADE_PRO_BALANCE_KEY);
 
-                        if (type == 0) {
+                        if (type == Constants.TRADE_TYPE) {
                             SessionSharedPref.setLong(requireContext(), Constants.TRADE_PRO_BALANCE_KEY, balance);
-                        } else if (type == 1) {
+                        } else if (type == Constants.COIN_TYPE) {
                             balance = task.getResult().getLong(Constants.COIN_BALANCE_KEY);
                             SessionSharedPref.setLong(requireContext(), Constants.COIN_BALANCE_KEY, balance);
                         }

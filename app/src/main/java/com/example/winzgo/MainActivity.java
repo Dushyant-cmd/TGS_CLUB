@@ -26,6 +26,7 @@ import com.example.winzgo.fragments.CoinAndTradeWalletFragment;
 import com.example.winzgo.fragments.DashboardFragment;
 import com.example.winzgo.fragments.settings.SettingsCoinAndTradeXFragment;
 import com.example.winzgo.fragments.settings.SettingsFragment;
+import com.example.winzgo.fragments.tradePro.TradeProFragment;
 import com.example.winzgo.fragments.wingo.HomeFragment;
 import com.example.winzgo.fragments.wingo.MoneyFragment;
 import com.example.winzgo.sharedpref.SessionSharedPref;
@@ -79,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
 
         binding.cardWallet.setOnClickListener(v -> {
             Fragment currFragment = getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getFragments().size() - 1);
-            int type = 0;// 0 trade, 1 coin, 2 win-go
-            if (currFragment.toString().contains("CoinPredictionFragment")) {
-                type = 1;
+            int type = Constants.COIN_TYPE;// 0 trade, 1 coin, 2 win-go
+            if (currFragment instanceof TradeProFragment) {
+                type = Constants.TRADE_TYPE;
             }
             Bundle bundle = new Bundle();
             bundle.putInt("type", type);

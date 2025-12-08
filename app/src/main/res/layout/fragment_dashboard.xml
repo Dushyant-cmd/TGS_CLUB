@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/istok_web_bold"
-            android:text="Live Market Index"
+            android:text="Live Market Index (Crypto Streak)"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />

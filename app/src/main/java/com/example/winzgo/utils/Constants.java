@@ -51,6 +51,8 @@ public class Constants {
     // sp key end
     public static final String RUPEE_ICON = "\u20b9";
     public static final String USD_ICON = "$";
+    public static final int TRADE_TYPE = 0;
+    public static final int COIN_TYPE = 1;
 
 
     // Interface start
