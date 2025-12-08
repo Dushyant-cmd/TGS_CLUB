@@ -189,6 +189,9 @@ public class SettingsCoinAndTradeXFragment extends Fragment {
                             totalBalance = balance + tradeBalance + coinBalance;
                             String balanceTxt = Constants.checkAndReturnInSetCurrency(getContext(), String.valueOf(totalBalance));
 
+                            binding.tvName.setText(SessionSharedPref.getStr(getContext(), Constants.NAME_KEY, "Guest"));
+                            binding.tvId.setText("Id - " + SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 1010));
+                            binding.tvMobileNum.setText("Mobile no - " + SessionSharedPref.getStr(getContext(), Constants.MOBILE_KEY, "933223344"));
                             binding.tvWalletAmt.setText(balanceTxt);
                         });
             }

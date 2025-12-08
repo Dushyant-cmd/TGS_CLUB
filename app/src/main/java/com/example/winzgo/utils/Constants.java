@@ -40,6 +40,7 @@ public class Constants {
     public static final String NOTIFICATION_PERMISSION = "notificationPermission";
     public static final String IS_INR = "isInr";
     public static final String USER_ID_KEY = "userId";
+    public static final String MOBILE_KEY = "mobile";
     public static final String NAME_KEY = "name";
     public static final String DOLLAR_CURRENCY = "dollarCurrency";
     // WalletType 0(win go), 1(coin), 2(trade x)

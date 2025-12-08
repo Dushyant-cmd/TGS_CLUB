@@ -184,10 +184,6 @@ public class MainActivity extends AppCompatActivity {
                 if (documentSnapshot.exists()) {
                     boolean isUpdate = documentSnapshot.getBoolean("isUpdate");
                     long versionCode = documentSnapshot.getLong("version");
-                    if(BuildConfig.DEBUG) {
-                        versionCode = 6;
-                        isUpdate = true;
-                    }
                     if (isUpdate && BuildConfig.VERSION_CODE < versionCode) {
                         Dialog dialog = Constants.showAlerDialog(MainActivity.this, "Please update app", "Update", new UtilsInterfaces.Refresh() {
                             @Override

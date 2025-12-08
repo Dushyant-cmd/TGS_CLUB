@@ -125,7 +125,7 @@ public class CoinTradeDepositFragment extends Fragment {
                 boolean isInr = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
 
                 HashMap<String, Object> map = new HashMap<>();
-                map.put("amount", depositAmt);
+                map.put("amount", String.valueOf(depositAmt));
                 map.put("date", application.getCurrDateAndTime());
                 map.put("info", null);
                 map.put("name", application.sharedPref.getName());
