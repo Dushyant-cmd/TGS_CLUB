@@ -42,6 +42,8 @@ public class Constants {
     public static final String USER_ID_KEY = "userId";
     public static final String MOBILE_KEY = "mobile";
     public static final String NAME_KEY = "name";
+    public static final String COIN_GAME_RULES = "coinGameRules";
+    public static final String TRADE_GAME_RULES = "tradeGameRules";
     public static final String DOLLAR_CURRENCY = "dollarCurrency";
     // WalletType 0(win go), 1(coin), 2(trade x)
     public static final String WIN_GO_BALANCE_KEY = "balance";

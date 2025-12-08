@@ -140,6 +140,21 @@ public class DashboardFragment extends Fragment {
     }
 
     private void setListeners() {
+        binding.winGoGameRulesLy.setOnClickListener(v -> {
+            HomeFragment.AlertDia dialog = new HomeFragment.AlertDia();
+            dialog.show(getChildFragmentManager(), "tag");
+        });
+
+        binding.cryptoGameRulesLy.setOnClickListener(v -> {
+            Constants.showAlerDialog(getContext(), SessionSharedPref.getStr(getContext(), Constants.COIN_GAME_RULES, ""), "okay", () -> {
+            });
+        });
+
+        binding.tradeProGameRulesLy.setOnClickListener(v -> {
+            Constants.showAlerDialog(getContext(), SessionSharedPref.getStr(getContext(), Constants.TRADE_GAME_RULES, ""), "okay", () -> {
+            });
+        });
+
         binding.lyWinGo.setOnClickListener(v -> {
             activity.loadFragment(new HomeFragment(), true, "Win-Go");
         });

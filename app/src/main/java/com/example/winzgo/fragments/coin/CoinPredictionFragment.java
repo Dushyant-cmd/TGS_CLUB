@@ -32,6 +32,7 @@ import com.example.winzgo.fragments.recharge.CoinTradeDepositFragment;
 import com.example.winzgo.models.CoinPredictionHistoryModel;
 import com.example.winzgo.sharedpref.SessionSharedPref;
 import com.example.winzgo.utils.Constants;
+import com.example.winzgo.utils.UtilsInterfaces;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -88,6 +89,11 @@ public class CoinPredictionFragment extends Fragment {
     }
 
     private void setListeners() {
+        binding.gameRulesLy.setOnClickListener(v -> {
+            Constants.showAlerDialog(getContext(), SessionSharedPref.getStr(getContext(), Constants.COIN_GAME_RULES, ""), "okay", () -> {
+            });
+        });
+
         binding.swipeRefLy.setOnRefreshListener(() -> {
             getSecondsAndStartCountDown();
             getCoinGraphDetails(true);

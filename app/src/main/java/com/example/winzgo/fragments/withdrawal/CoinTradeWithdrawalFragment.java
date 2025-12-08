@@ -67,12 +67,13 @@ public class CoinTradeWithdrawalFragment extends Fragment {
 
         binding.btnSubmit.setOnClickListener(v -> {
             String withdrawAmount = binding.etAmount.getText().toString();
+            double lowLimit = Double.parseDouble(Constants.checkAndReturnInSetCurrency(getContext(), "200").substring(1));
             if (withdrawAmount.isEmpty()) {
                 Constants.showEditTextError(binding.etAmount, "Required");
-            } else if (Long.parseLong(withdrawAmount) > balance) {
+            } else if (Double.parseDouble(withdrawAmount) > balance) {
                 Toast.makeText(getActivity(), "Oops! Balance is too low..", Toast.LENGTH_SHORT).show();
-            } else if (Long.parseLong(withdrawAmount) < 200) {
-                Toast.makeText(getActivity(), "Minimum withdrawal amount must be 200", Toast.LENGTH_SHORT).show();
+            } else if (Double.parseDouble(withdrawAmount) < lowLimit) {
+                Toast.makeText(getActivity(), "Minimum withdrawal amount must be " + lowLimit, Toast.LENGTH_SHORT).show();
             } else {
                 Dialog progressDialog1 = Constants.showProgressDialog(getContext());
                 firestore.collection("users").document(String.valueOf(userId))
@@ -98,6 +99,11 @@ public class CoinTradeWithdrawalFragment extends Fragment {
     }
 
     private void withdraw(String withdrawAmount) {
+        boolean isInr = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
+        long dollarValue = SessionSharedPref.getLong(getContext(), Constants.DOLLAR_CURRENCY, 87);
+        if (!isInr) {
+            withdrawAmount = String.valueOf(((long) (Double.parseDouble(withdrawAmount) * dollarValue)));
+        }
         long currentUserBalance = balance;
         long updatedBalance = currentUserBalance - Long.parseLong(withdrawAmount);
         String walletAddress = binding.etWalletAdd.getText().toString();
@@ -110,6 +116,7 @@ public class CoinTradeWithdrawalFragment extends Fragment {
         } else if (type == Constants.COIN_TYPE)
             map.put(Constants.COIN_BALANCE_KEY, updatedBalance);
 
+        String finalWithdrawAmount = withdrawAmount;
         firestore.collection("users").document(String.valueOf(userId)).update(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -124,7 +131,7 @@ public class CoinTradeWithdrawalFragment extends Fragment {
 
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("todayDate", todayDate);
-                        map.put("amount", withdrawAmount);
+                        map.put("amount", finalWithdrawAmount);
                         map.put("date", dateAndTime);
                         map.put("info", null);
                         map.put("name", name);
@@ -138,7 +145,7 @@ public class CoinTradeWithdrawalFragment extends Fragment {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 progressDialog1.dismiss();
-                                Constants.updateBalance(getActivity(), Long.parseLong(withdrawAmount), false, Constants.TRADE_PRO_BALANCE_KEY, () -> {
+                                Constants.updateBalance(getActivity(), Long.parseLong(finalWithdrawAmount), false, Constants.TRADE_PRO_BALANCE_KEY, () -> {
                                     if (type == Constants.TRADE_TYPE) {
                                         SessionSharedPref.setLong(getContext(), Constants.TRADE_PRO_BALANCE_KEY, updatedBalance);
                                     } else if (type == Constants.COIN_TYPE) {
