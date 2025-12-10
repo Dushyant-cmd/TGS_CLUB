@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/istok_web_regular"
         android:padding="8dp"
-        android:textColor="@color/black"
+        android:textColor="@color/actualBlack"
         android:textSize="16sp"
         tools:text="zupeeMall@UPI" />
 
@@ -24,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="8dp"
         android:contentDescription="@null"
-        app:tint="@color/black"
+        app:tint="@color/actualBlack"
         android:scaleType="centerInside"
         android:src="@drawable/copy_tgs_ic" />
 </RelativeLayout>

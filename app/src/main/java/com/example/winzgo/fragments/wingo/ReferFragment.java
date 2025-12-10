@@ -1,5 +1,7 @@
 package com.example.winzgo.fragments.wingo;
 
+import static com.example.winzgo.utils.Constants.isNetworkConnected;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -27,6 +29,7 @@ import com.example.winzgo.R;
 import com.example.winzgo.adapter.ReferListAdapter;
 import com.example.winzgo.models.ReferListModel;
 import com.example.winzgo.sharedpref.SessionSharedPref;
+import com.example.winzgo.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -83,6 +86,7 @@ public class ReferFragment extends Fragment {
         }
         referBtn = view.findViewById(R.id.shareRefer);
 
+        getUserData();
         upBtn.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStackImmediate();
         });
@@ -168,5 +172,22 @@ public class ReferFragment extends Fragment {
                 return true;//touch is handled(consumed)
             }
         });
+    }
+
+    private void getUserData() {
+        if (isNetworkConnected(getActivity())) {
+            long userId = SessionSharedPref.getLong(requireContext(), Constants.USER_ID_KEY, 0L);
+            if (userId != 0L) {
+                firestore.collection("users").document(String.valueOf(userId))
+                        .get().addOnCompleteListener(task -> {
+                            if(task.isSuccessful()) {
+                                String refer = task.getResult().getString("refer");
+                                totalReferEarn.setText("Total Referral Earning: " + refer);
+                            }
+                        });
+            }
+        } else {
+            Toast.makeText(getContext(), "No internet", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -333,6 +333,7 @@ public class SignUpAndSignIn extends AppCompatActivity {
     }
 
     private void isUserExist(String phone) {
+        referCode = binding.etRefer.getText().toString();
         dialog.show();
         mFirestore.collection("users").whereEqualTo("mobile", phone).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -427,26 +428,26 @@ public class SignUpAndSignIn extends AppCompatActivity {
                                                                     map.put("coinBalance", 0);
                                                                     map.put("tradeProBalance", 0);
                                                                     map.put("fcmToken", fcmToken);
+                                                                    map.put("referredBy", referCode);
                                                                     mFirestore.collection("users").document(String.valueOf(id)).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void unused) {
-                                                                            //store or write an document in the promotion collection of firestore which contain HashMap as below
-                                                                            /**
-                                                                             * @param isRecharged false type value for is user recharged
-                                                                             * @param referralId referCode that user entered and we have in Extra value containing variable.
-                                                                             * @param user_id user id of which is sign up
-                                                                             * @param name user name of which is sign up*/
-                                                                            HashMap<String, Object> map = new HashMap<>();
-                                                                            map.put("isRecharged", false);
-                                                                            map.put("referralId", referCode);
-                                                                            map.put("user_id", id);
-                                                                            map.put("name", name);
-                                                                            //firebase query for write operation or add document in collection.
-                                                                            mFirestore.collection("promotion").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                                                @Override
-                                                                                public void onSuccess(DocumentReference documentReference) {
-                                                                                    //update referral code user balance with balance + referBonus and refer with refer + referBonus
-                                                                                    if (!referCode.isEmpty()) {
+                                                                            if (!referCode.isEmpty()) {
+                                                                                /**
+                                                                                 * @param isRecharged false type value for is user recharged
+                                                                                 * @param referralId referCode that user entered and we have in Extra value containing variable.
+                                                                                 * @param user_id user id of which is sign up
+                                                                                 * @param name user name of which is sign up*/
+                                                                                HashMap<String, Object> map = new HashMap<>();
+                                                                                map.put("isRecharged", false);
+                                                                                map.put("referralId", referCode);
+                                                                                map.put("user_id", id);
+                                                                                map.put("name", name);
+                                                                                //firebase query for write operation or add document in collection.
+                                                                                mFirestore.collection("promotion").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                                    @Override
+                                                                                    public void onSuccess(DocumentReference documentReference) {
+                                                                                        //update referral code user balance with balance + referBonus and refer with refer + referBonus
                                                                                         mFirestore.collection("users").whereEqualTo("id", Long.parseLong(referCode)).get()
                                                                                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                                                                     @Override
@@ -467,49 +468,65 @@ public class SignUpAndSignIn extends AppCompatActivity {
                                                                                                                 mFirestore.collection("users").document(referCode).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                                                     @Override
                                                                                                                     public void onSuccess(Void unused) {
+                                                                                                                        dialog.dismiss();
+                                                                                                                        launch();
                                                                                                                         Log.v("OTPActivity.java", "success");
                                                                                                                     }
                                                                                                                 }).addOnFailureListener(new OnFailureListener() {
                                                                                                                     @Override
                                                                                                                     public void onFailure(@NonNull Exception e) {
+                                                                                                                        dialog.dismiss();
+                                                                                                                        launch();
                                                                                                                         Log.v("OTPActivity.java", e + "");
                                                                                                                     }
                                                                                                                 });
                                                                                                             } catch (
                                                                                                                     Exception e) {
-
+                                                                                                                dialog.dismiss();
+                                                                                                                launch();
                                                                                                             }
                                                                                                         } else if (task.isSuccessful()) {
+                                                                                                            dialog.dismiss();
+                                                                                                            launch();
                                                                                                             Toast.makeText(SignUpAndSignIn.this, "Referral code is not valid.", Toast.LENGTH_SHORT).show();
                                                                                                         } else {
+                                                                                                            dialog.dismiss();
+                                                                                                            launch();
                                                                                                             Log.v("OTPActivity.java", task.getException() + "");
                                                                                                         }
                                                                                                     }
                                                                                                 });
                                                                                     }
-                                                                                    dialog.dismiss();
-                                                                                    //login status to true in SP file
-                                                                                    sharedPreferences.setLoginStatus(true);
-                                                                                    //save user document field in SharedPreferences file except bankDetails key value
-                                                                                    sharedPreferences.setBalance(balance);
-                                                                                    sharedPreferences.setId(id);
-                                                                                    sharedPreferences.setMobile(mobile);
-                                                                                    sharedPreferences.setName(name);
-                                                                                    sharedPreferences.setRefer(refer);
-                                                                                    Intent i = new Intent(SignUpAndSignIn.this, MainActivity.class);
-                                                                                    i.putExtra("phone", phone);//with +91 code
-                                                                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                                                    startActivity(i);
-                                                                                    finish();
-                                                                                    Toast.makeText(SignUpAndSignIn.this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                                                                                }
-                                                                            }).addOnFailureListener(new OnFailureListener() {
-                                                                                @Override
-                                                                                public void onFailure(@NonNull Exception e) {
-                                                                                    Log.v("OTPActivity.java", e + "");
-                                                                                    Toast.makeText(SignUpAndSignIn.this, e.getMessage() + "", Toast.LENGTH_SHORT).show();
-                                                                                }
-                                                                            });
+                                                                                }).addOnFailureListener(new OnFailureListener() {
+                                                                                    @Override
+                                                                                    public void onFailure(@NonNull Exception e) {
+                                                                                        dialog.dismiss();
+                                                                                        launch();
+                                                                                        Log.v("OTPActivity.java", e + "");
+                                                                                        Toast.makeText(SignUpAndSignIn.this, e.getMessage() + "", Toast.LENGTH_SHORT).show();
+                                                                                    }
+                                                                                });
+                                                                            } else {
+                                                                                dialog.dismiss();
+                                                                                launch();
+                                                                            }
+                                                                        }
+
+                                                                        private void launch() {
+                                                                            //login status to true in SP file
+                                                                            sharedPreferences.setLoginStatus(true);
+                                                                            //save user document field in SharedPreferences file except bankDetails key value
+                                                                            sharedPreferences.setBalance(balance);
+                                                                            sharedPreferences.setId(id);
+                                                                            sharedPreferences.setMobile(mobile);
+                                                                            sharedPreferences.setName(name);
+                                                                            sharedPreferences.setRefer(refer);
+                                                                            Intent i = new Intent(SignUpAndSignIn.this, MainActivity.class);
+                                                                            i.putExtra("phone", phone);//with +91 code
+                                                                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                                            startActivity(i);
+                                                                            finish();
+                                                                            Toast.makeText(SignUpAndSignIn.this, "Account created successfully", Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     }).addOnFailureListener(new OnFailureListener() {
                                                                         @Override
