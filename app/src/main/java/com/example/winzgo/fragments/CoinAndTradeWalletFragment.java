@@ -179,9 +179,10 @@ public class CoinAndTradeWalletFragment extends Fragment {
     private void getAllTransactions() {
         binding.pbTxnHistory.setVisibility(View.VISIBLE);
         binding.rvTransactions.setVisibility(View.GONE);
+        long userId = SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L);
         firestore.collection("transactions")
                 .whereEqualTo("gameType", type)
-                .whereEqualTo("user_id", SessionSharedPref.getLong(getContext(), Constants.USER_ID_KEY, 0L))
+                .whereEqualTo("user_id", userId)
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

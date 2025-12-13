@@ -3,15 +3,18 @@ package com.example.winzgo.adapter;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.winzgo.R;
 import com.example.winzgo.databinding.UpiAdapterItemBinding;
 import com.example.winzgo.models.UpiAdapterModel;
+import com.example.winzgo.utils.Constants;
 
 import java.util.List;
 
@@ -19,10 +22,12 @@ public class UpiAdapter extends RecyclerView.Adapter<UpiAdapter.ViewHolder> {
     private List<UpiAdapterModel> list;
 
     private Context context;
+    private int gameType = 2;
 
-    public UpiAdapter(Context context, List<UpiAdapterModel> list) {
+    public UpiAdapter(Context context, List<UpiAdapterModel> list, int gameType) {
         this.list = list;
         this.context = context;
+        this.gameType = gameType;
     }
 
     @Override
@@ -51,6 +56,14 @@ public class UpiAdapter extends RecyclerView.Adapter<UpiAdapter.ViewHolder> {
 
         public void bind(UpiAdapterModel data) {
             binding.tvUpi.setText(data.getUpiId());
+
+            if(gameType == Constants.COIN_TYPE || gameType == Constants.TRADE_TYPE) {
+                binding.tvUpi.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.black, context.getTheme()));
+                binding.copyIc.setImageTintList(ColorStateList.valueOf(ResourcesCompat.getColor(context.getResources(), R.color.black, context.getTheme())));
+            } else {
+                binding.tvUpi.setTextColor(ResourcesCompat.getColor(context.getResources(), R.color.actualBlack, context.getTheme()));
+                binding.copyIc.setImageTintList(ColorStateList.valueOf(ResourcesCompat.getColor(context.getResources(), R.color.actualBlack, context.getTheme())));
+            }
 
             if(data.isCopied()) {
                 binding.copyIc.setImageResource(R.drawable.checked);

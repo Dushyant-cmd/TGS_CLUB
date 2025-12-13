@@ -28,6 +28,7 @@ import com.example.winzgo.adapter.UpiAdapter;
 import com.example.winzgo.databinding.ActivityManualRechargeBinding;
 import com.example.winzgo.databinding.ManualInstructionDialogBinding;
 import com.example.winzgo.models.UpiAdapterModel;
+import com.example.winzgo.utils.Constants;
 import com.example.winzgo.utils.UtilsInterfaces;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -92,7 +93,7 @@ public class ManualRechargeActivity extends AppCompatActivity {
                                 list.add(model);
                             }
 
-                            UpiAdapter adapter = new UpiAdapter(ManualRechargeActivity.this, list);
+                            UpiAdapter adapter = new UpiAdapter(ManualRechargeActivity.this, list, Constants.WINGO_TYPE);
                             binding.recyclerView.setLayoutManager(new LinearLayoutManager(ManualRechargeActivity.this));
                             binding.recyclerView.setAdapter(adapter);
                         }

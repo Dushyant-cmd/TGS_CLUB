@@ -55,6 +55,7 @@ public class Constants {
     public static final String USD_ICON = "$";
     public static final int TRADE_TYPE = 0;
     public static final int COIN_TYPE = 1;
+    public static final int WINGO_TYPE = 2;
 
 
     // Interface start

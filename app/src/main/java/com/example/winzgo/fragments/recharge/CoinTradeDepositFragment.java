@@ -56,7 +56,7 @@ public class CoinTradeDepositFragment extends Fragment {
     private FragmentCoinTradeDepositBinding binding;
     private String walletAddress = "";
     private MyApplication application;
-    private long type = Constants.TRADE_TYPE, depositAmt = 50; // 0 trade, 1 coin, 2 win-go
+    private long type = Constants.TRADE_TYPE; // 0 trade, 1 coin, 2 win-go
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,7 +75,7 @@ public class CoinTradeDepositFragment extends Fragment {
         type = getArguments().getInt("type");
         hostAct.setupHeader("Deposit");
 
-        highlightBetAmtLayout(depositAmt);
+        highlightBetAmtLayout(50);
         showTermsAlertDialog();
         getTransactionDetails();
         setListeners();
@@ -125,7 +125,7 @@ public class CoinTradeDepositFragment extends Fragment {
                 boolean isInr = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
 
                 HashMap<String, Object> map = new HashMap<>();
-                map.put("amount", String.valueOf(depositAmt));
+                map.put("amount", amount);
                 map.put("date", application.getCurrDateAndTime());
                 map.put("info", null);
                 map.put("name", application.sharedPref.getName());
@@ -166,7 +166,6 @@ public class CoinTradeDepositFragment extends Fragment {
     }
 
     private void highlightBetAmtLayout(long amountTransformed) {
-        depositAmt = amountTransformed;
         String amount = checkAndReturnInSetCurrency(getContext(), String.valueOf(amountTransformed)).trim();
 
         int count = binding.betAmtLy.getChildCount();
@@ -207,7 +206,7 @@ public class CoinTradeDepositFragment extends Fragment {
                             }
 
                             binding.tvWalletAddress.setText(walletAddress);
-                            UpiAdapter adapter = new UpiAdapter(getContext(), list);
+                            UpiAdapter adapter = new UpiAdapter(getContext(), list, Constants.TRADE_TYPE);
                             binding.upiRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                             binding.upiRecyclerView.setAdapter(adapter);
                         }
