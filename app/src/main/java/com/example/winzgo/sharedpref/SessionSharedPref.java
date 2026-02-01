@@ -6,20 +6,19 @@ import android.content.SharedPreferences;
 public class SessionSharedPref {
     Context context;
     SharedPreferences sharedPreferences;
-    //if want to any operation on shared preferences file then call this constructor with their
-    //context(instance of Activity by which android understand what Activity it is and to add style window
-    //according to specific them).
+
     public SessionSharedPref(Context context1) {
         context = context1;
         sharedPreferences = context1.getSharedPreferences("com.example.winzgo", Context.MODE_PRIVATE);
     }
+
     public void clearFile() {
         //clear SP file.
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.clear();
         edit.apply();
     }
-    //below is factory method which work as virtual constructor and returns SharedPreferences object and to make this class as singleton
+
     public SharedPreferences getSharedPreferences() {
         return sharedPreferences;
     }
@@ -35,14 +34,13 @@ public class SessionSharedPref {
     }
 
     public long getBalance() {
-        return sharedPreferences.getLong("balance", 0);//get long type key(balance) value by pass def value if not exist create new key/value
-        //-pair in SP with default value passed in getter argument
+        return sharedPreferences.getLong("balance", 0);
     }
 
     public void setBalance(long balance) {
         SharedPreferences.Editor setData = sharedPreferences.edit();
         setData.putLong("balance", balance);
-        setData.apply();//to apply changes in SP in background
+        setData.apply();
     }
 
     public long getId() {
@@ -50,9 +48,8 @@ public class SessionSharedPref {
     }
 
     public void setId(long id) {
-        //Editor interface instance in order to update or write data in SP file
         SharedPreferences.Editor setData = sharedPreferences.edit();
-        setData.putLong("userId", id);//save long in sp
+        setData.putLong("userId", id);
         setData.apply();
     }
 
@@ -62,7 +59,7 @@ public class SessionSharedPref {
 
     public void setMobile(String mobile) {
         SharedPreferences.Editor setData = sharedPreferences.edit();
-        setData.putString("mobile", mobile);//save string in sp
+        setData.putString("mobile", mobile);
         setData.apply();
     }
 
@@ -83,7 +80,7 @@ public class SessionSharedPref {
     public void setRefer(String refer) {
         SharedPreferences.Editor setData = sharedPreferences.edit();
         setData.putString("refer", refer);
-        setData.apply();//apply changes(add or remove) to add or store data(key/value) pair in SP
+        setData.apply();
     }
 
     public boolean getLoginStatus() {
@@ -99,7 +96,7 @@ public class SessionSharedPref {
     public void setGameId(String gameId) {
         SharedPreferences.Editor edit = sharedPreferences.edit();
         edit.putString("gameId", gameId);
-        edit.apply();//apply changes in background
+        edit.apply();
     }
 
     public String getGameId() {

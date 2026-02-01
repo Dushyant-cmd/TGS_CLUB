@@ -124,6 +124,7 @@ public class CoinTradeDepositFragment extends Fragment {
                 binding.btnAddRecharge.setEnabled(false);
                 boolean isInr = SessionSharedPref.getBoolean(getContext(), Constants.IS_INR, false);
 
+                amount = String.valueOf((long) Constants.changeBalanceToDiffCurrency(getContext(), amount, isInr));
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("amount", amount);
                 map.put("date", application.getCurrDateAndTime());
