@@ -183,7 +183,7 @@ public class HomeFragment extends Fragment {
                             }
                             secs = (timerSecLeft * 1000);
                             Log.v(tag, "seconds: " + timerSecLeft);
-                            firestore.collection("ids").document("game_id").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            firestore.collection("ids").document("threeMinId").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     currentGameId = task.getResult().getLong("id");
@@ -215,7 +215,7 @@ public class HomeFragment extends Fragment {
                             binding.minTv2.setText("0");
                             long timerSecsInMillis = (timerSecLeft * 1000);
                             Log.v(tag, "seconds: " + timerSecLeft);
-                            firestore.collection("ids").document("oneMinuteGameId").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            firestore.collection("ids").document("oneMinId").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     currentGameId = task.getResult().getLong("oneMinId");
@@ -401,9 +401,9 @@ public class HomeFragment extends Fragment {
         ProgressDialog dialog1 = new ProgressDialog(requireActivity());
         dialog1.setMessage("Please wait...");
         dialog1.show();
-        DocumentReference docRef = firestore.collection("ids").document("game_id");
+        DocumentReference docRef = firestore.collection("ids").document("threeMinId");
         if (!isThreeMin)
-            docRef = firestore.collection("ids").document("oneMinuteGameId");
+            docRef = firestore.collection("ids").document("oneMinId");
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

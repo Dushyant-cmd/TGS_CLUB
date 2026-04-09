@@ -106,11 +106,11 @@ public class MoneyFragment extends Fragment {
 
     public void getDataForGameHistoryList() {
         prevGameId = (Long.parseLong(sharedPreferences.getGameId()));
-        firestore.collection("ids").document("game_id").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        firestore.collection("ids").document("threeMinId").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 long threeMinId = documentSnapshot.getLong("id");
-                firestore.collection("ids").document("oneMinuteGameId").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                firestore.collection("ids").document("oneMinId").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         long oneMinId = documentSnapshot.getLong("oneMinId");
